@@ -8,6 +8,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotor;
 
 public class ViperSlideToSampleGrab implements Action {
@@ -54,6 +55,8 @@ public class ViperSlideToSampleGrab implements Action {
             viperSlide.setPower(1);
             initialized = true;
         }
+
+        if () {}
 
         // checks Slides current position
         double pos = viperSlide.getCurrentPosition();
