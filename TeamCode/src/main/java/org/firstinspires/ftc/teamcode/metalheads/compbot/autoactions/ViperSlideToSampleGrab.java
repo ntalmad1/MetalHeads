@@ -56,8 +56,6 @@ public class ViperSlideToSampleGrab implements Action {
             initialized = true;
         }
 
-        if () {}
-
         // checks Slides current position
         double pos = viperSlide.getCurrentPosition();
         packet.put("viperSlidePos", pos);

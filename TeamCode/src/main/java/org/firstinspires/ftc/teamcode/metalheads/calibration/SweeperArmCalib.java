@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.teamcode.metalheads.calibration;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.library.IsaacBot;
 import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_down_press.Gp1_Dpad_Down_PressEvent;
 import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_down_press.Gp1_Dpad_Down_PressHandler;
+import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_up_press.Gp1_Dpad_Up_PressEvent;
+import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_up_press.Gp1_Dpad_Up_PressHandler;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponent;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponentConfig;
-import org.firstinspires.ftc.teamcode.library.utility.Control;
 
 /**
  */
@@ -16,23 +16,25 @@ import org.firstinspires.ftc.teamcode.library.utility.Control;
 //@Disabled
 public class SweeperArmCalib extends IsaacBot {
 
-    private ServoComponent sweeperBottom;
+    private ServoComponent sweeperBase;
     private ServoComponent sweeperMiddle;
-    private ServoComponent sweeperTop;
+    private ServoComponent sweeperEnd;
     private ServoComponent servo;
 
     private ServoComponentConfig config1;
     private ServoComponentConfig config2;
     private ServoComponentConfig config3;
+    private ServoComponentConfig config;
 
-    private  int toggle = 0;
+    private int toggle = 0;
     private double gamePadIncrement = 0.006;
+    private String currentServo = "Base Servo";
 
     public SweeperArmCalib() {
         super();
 
         config1 = new ServoComponentConfig(this);
-        config1.servoName = "sweeperBottom";
+        config1.servoName = "sweeperBase";
         config1.maxIncrement = 0.006;
         config1.minPosition = 0;
         config1.maxPosition = 1;
@@ -48,7 +50,7 @@ public class SweeperArmCalib extends IsaacBot {
         config2.zeroDegreePosition = 0.5;
 
         config3 = new ServoComponentConfig(this);
-        config3.servoName = "sweeperTop";
+        config3.servoName = "sweeperEnd";
         config3.maxIncrement = 0.006;
         config3.minPosition = 0;
         config3.maxPosition = 1;
@@ -62,31 +64,98 @@ public class SweeperArmCalib extends IsaacBot {
     public void initBot() {
         super.initBot();
 
-        this.sweeperBottom = new ServoComponent(config1);
-        this.sweeperBottom.init();
+        this.sweeperBase = new ServoComponent(config1);
+        this.sweeperBase.init();
 
         this.sweeperMiddle = new ServoComponent(config1);
         this.sweeperMiddle.init();
 
-        this.sweeperTop = new ServoComponent(config1);
-        this.sweeperTop.init();
+        this.sweeperEnd = new ServoComponent(config1);
+        this.sweeperEnd.init();
 
-        servo = sweeperBottom;
+        servo = sweeperBase;
+        config = config1;
 
 
-        this.addGp1_A_PressHandler(event -> {
+        this.addGp1_Y_PressHandler(event -> {
 
             if (toggle == 0) {
                 toggle = 1;
-                servo = sweeperMiddle;
             } else if (toggle == 1) {
                 toggle = 2;
-                servo = sweeperTop;
+                currentServo = "End Servo";
             } else {
                 toggle = 0;
-                servo = sweeperBottom;
+                currentServo = "Base Servo";
             }
         });
+
+        if (toggle == 0) {
+
+
+
+
+
+
+
+
+        } else if (toggle == 1) {
+
+
+
+
+        } else {
+
+
+
+
+        }
+
+        this.addGp1_Dpad_Down_PressHandler(new Gp1_Dpad_Down_PressHandler() {
+            public void onGp1_Dpad_Down_Press(Gp1_Dpad_Down_PressEvent event) {
+
+                
+                double newPos = servo.getPosition() - gamePadIncrement;
+
+                if (newPos < config.minPosition) newPos = config.minPosition;
+                if (newPos > config.maxPosition) newPos = config.maxPosition;
+
+                servo.setPosition(newPos);
+
+
+
+            }
+        });
+
+        this.addGp1_Dpad_Up_PressHandler(new Gp1_Dpad_Up_PressHandler() {
+            public void onGp1_Dpad_Up_Press(Gp1_Dpad_Up_PressEvent event) {
+                double newPos = servo.getPosition() + gamePadIncrement;
+
+                if (newPos < config.minPosition) newPos = config.minPosition;
+                if (newPos > config.maxPosition) newPos = config.maxPosition;
+
+                servo.setPosition(newPos);
+            }
+        });
+
+        this.addGp1_A_PressHandler(event -> {
+
+            if (servo.getPosition() >= 0.5) {
+                servo.setPosition(config.minPosition);
+            }
+            else {
+                servo.setPosition(config.maxPosition);
+            }
+
+        });
+
+        this.addGp1_X_PressHandler(event -> {
+
+            servo.setPosition(config.zeroDegreePosition);
+
+        });
+
+
 
     }
 
@@ -106,8 +175,10 @@ public class SweeperArmCalib extends IsaacBot {
     public void run() {
         super.run();
 
-        String servo = "Sweeper Bottom";
-        telemetry.addData(servo +" Pos: ", "%.3f", sweeperBottom.getPosition());
+        telemetry.addLine("Current Servo: " + currentServo);
+        telemetry.addData("Base Servo Pos: ", sweeperBase.getPosition());
+        telemetry.addData("Middle Servo Pos: ", sweeperMiddle.getPosition());
+        telemetry.addData("End Servo Pos: ", sweeperEnd.getPosition());
         telemetry.update();
     }
 }
