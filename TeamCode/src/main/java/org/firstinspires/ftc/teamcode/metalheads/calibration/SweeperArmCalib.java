@@ -67,10 +67,10 @@ public class SweeperArmCalib extends IsaacBot {
         this.sweeperBase = new ServoComponent(config1);
         this.sweeperBase.init();
 
-        this.sweeperMiddle = new ServoComponent(config1);
+        this.sweeperMiddle = new ServoComponent(config2);
         this.sweeperMiddle.init();
 
-        this.sweeperEnd = new ServoComponent(config1);
+        this.sweeperEnd = new ServoComponent(config3);
         this.sweeperEnd.init();
 
         servo = sweeperBase;
@@ -81,35 +81,21 @@ public class SweeperArmCalib extends IsaacBot {
 
             if (toggle == 0) {
                 toggle = 1;
+                currentServo = "Base Servo";
+                servo = sweeperBase;
+                config = config1;
             } else if (toggle == 1) {
                 toggle = 2;
-                currentServo = "End Servo";
+                currentServo = "Middle Servo";
+                servo = sweeperMiddle;
+                config = config2;
             } else {
                 toggle = 0;
-                currentServo = "Base Servo";
+                currentServo = "End Servo";
+                servo = sweeperEnd;
+                config = config3;
             }
         });
-
-        if (toggle == 0) {
-
-
-
-
-
-
-
-
-        } else if (toggle == 1) {
-
-
-
-
-        } else {
-
-
-
-
-        }
 
         this.addGp1_Dpad_Down_PressHandler(new Gp1_Dpad_Down_PressHandler() {
             public void onGp1_Dpad_Down_Press(Gp1_Dpad_Down_PressEvent event) {
