@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.metalheads.compbot;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
 import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
@@ -48,6 +51,7 @@ public class ControlsConfigurator {
 
         // X button
         this.gp1_X_Button();
+        this.gp1_Y_Button();
     }
 
     /**
@@ -134,6 +138,27 @@ public class ControlsConfigurator {
             }
         });
     }
+
+
+    public void gp1_Y_Button()
+    {
+        Servo baseServo;
+        Servo middleServo;
+        Servo endServo;
+        baseServo = hardwareMap.get(Servo.class, "sweeperBase");
+        middleServo = hardwareMap.get(Servo.class, "sweeperMiddle");
+        endServo = hardwareMap.get(Servo.class, "sweeperEnd");
+
+        this.compBot.addGp1_Y_PressHandler(event -> {
+
+            baseServo.setPosition(0.727);
+            middleServo.setPosition(0.672);
+            endServo.setPosition(0.577);
+
+        });
+
+    }
+
 
     /**
      *
