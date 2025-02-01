@@ -27,6 +27,28 @@ public class ActionFactory {
     /**
      * @return
      */
+    public AbstractAction sweeperOpen() {
+        return new InstantActionImpl(() -> {
+            this.compBot.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_OPEN_POS);
+            this.compBot.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS);
+            this.compBot.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_OPEN_POS);
+        });
+    }
+
+    /**
+     * @return
+     */
+    public AbstractAction sweeperClose() {
+        return new InstantActionImpl(() -> {
+            this.compBot.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
+            this.compBot.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
+            this.compBot.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
+        });
+    }
+
+    /**
+     * @return
+     */
     public AbstractAction hangReady() {
         return new SequentialActionImpl(
                 new InstantActionImpl(() -> this.compBot.setArmPos(CompBot.ArmPos.HANG_READY)),

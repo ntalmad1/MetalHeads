@@ -140,14 +140,15 @@ public class ControlsConfigurator {
     public void gp1_Left_Bumper_Button()
     {
         this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
-            this.compBot.sweeperArm.openSweeperAction();
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperOpen());
         });
+
     }
 
     public void gp1_Right_Bumper_Button()
     {
         this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
-            this.compBot.sweeperArm.closeSweeperAction();
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
         });
     }
 

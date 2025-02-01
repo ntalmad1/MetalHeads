@@ -175,6 +175,30 @@ public class CompBotConfig {
         this.littleArmConfig.clawPincherConfig.minPosition = Constants.CLAW_PINCHER_OPEN_POS;
         this.littleArmConfig.clawPincherConfig.maxPosition = Constants.CLAW_PINCHER_CLOSE_POS;
         this.littleArmConfig.clawPincherConfig.lazyInit = false;
+
+        // sweeper base
+        this.littleArmConfig.sweeperBaseConfig = new ServoComponentConfig(robot);
+        this.littleArmConfig.sweeperBaseConfig.servoName = "sweeperBase";
+        this.littleArmConfig.sweeperBaseConfig.homePosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
+        this.littleArmConfig.sweeperBaseConfig.zeroDegreePosition = 0.5;
+        this.littleArmConfig.sweeperBaseConfig.minPosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
+        this.littleArmConfig.sweeperBaseConfig.maxPosition =  Constants.SWEEPER_BASE_SERVO_OPEN_POS;
+
+        // sweeper middle
+        this.littleArmConfig.sweeperMiddleConfig = new ServoComponentConfig(robot);
+        this.littleArmConfig.sweeperMiddleConfig.servoName = "sweeperMiddle";
+        this.littleArmConfig.sweeperMiddleConfig.homePosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
+        this.littleArmConfig.sweeperMiddleConfig.zeroDegreePosition = 0.5;
+        this.littleArmConfig.sweeperMiddleConfig.minPosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
+        this.littleArmConfig.sweeperMiddleConfig.maxPosition =  Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS;
+
+        // sweeper end
+        this.littleArmConfig.sweeperEndConfig = new ServoComponentConfig(robot);
+        this.littleArmConfig.sweeperEndConfig.servoName = "sweeperEnd";
+        this.littleArmConfig.sweeperEndConfig.homePosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
+        this.littleArmConfig.sweeperEndConfig.zeroDegreePosition = 0.5;
+        this.littleArmConfig.sweeperEndConfig.minPosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
+        this.littleArmConfig.sweeperEndConfig.maxPosition =  Constants.SWEEPER_END_SERVO_OPEN_POS;
     }
 
 
@@ -197,7 +221,6 @@ public class CompBotConfig {
         this.sweeperArmConfig.middleServoConfig.zeroDegreePosition = 0.5;
         this.sweeperArmConfig.middleServoConfig.minPosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
         this.sweeperArmConfig.middleServoConfig.maxPosition = Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS;
-        this.sweeperArmConfig.middleServoConfig.maxIncrement = 1;
 
         // End Servo
         this.sweeperArmConfig.endServoConfig = new ServoComponentConfig(robot);
