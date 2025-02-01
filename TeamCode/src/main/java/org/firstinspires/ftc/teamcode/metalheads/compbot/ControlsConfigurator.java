@@ -118,6 +118,8 @@ public class ControlsConfigurator {
         this.gp2_B_Button();
         this.gp2_X_Button();
         this.gp2_Y_Button();
+        this.gp1_Left_Bumper_Button();
+        this.gp1_Right_Bumper_Button();
     }
 
     /**

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrainCon
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
 import org.firstinspires.ftc.teamcode.library.potentiometermotor.PotentiometerMotorConfig;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponentConfig;
+import org.firstinspires.ftc.teamcode.library.utility.Control;
 import org.firstinspires.ftc.teamcode.metalheads.components.BigArmConfig;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArmConfig;
 import org.firstinspires.ftc.teamcode.metalheads.components.SweeperArmConfig;
