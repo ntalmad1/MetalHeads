@@ -17,12 +17,6 @@ import org.firstinspires.ftc.teamcode.library.action.WaitAction;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToSpecimenHighReady;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToSpecimenPickReady;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToZero;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToSpecimenHighReady;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToZero;
-
 /**
  *
  */
@@ -110,7 +104,8 @@ public class RightObsBot_OG extends AutoBot {
                             this.telemetry.update();
                         }),
 
-                        new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide),
+                        //TODO:
+                        //new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide),
 
                         new InstantAction(() -> {
                             this.telemetry.log().add("1.2 Left MainBoom: " + this.bigArm.mainBoom.getSecondaryMotor().getCurrentPosition());
@@ -146,9 +141,9 @@ public class RightObsBot_OG extends AutoBot {
                 })
                 //Viper Slide -> 0
                 .afterTime(0.4, new SequentialAction(
-                        new ViperSlideToZero(this.bigArm.viperSlide),
+                        //TODO: new ViperSlideToZero(this.bigArm.viperSlide),
                         new ParallelAction(
-                                new MainBoomToZero(this.bigArm.mainBoom),
+                                //TODO: new MainBoomToZero(this.bigArm.mainBoom),
                                 new InstantAction(() -> {
                                     this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
                                     this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
@@ -265,7 +260,7 @@ public class RightObsBot_OG extends AutoBot {
 
 
 
-                .afterTime(0, new MainBoomToSpecimenPickReady(this.bigArm.mainBoom))
+                //TODO: .afterTime(0, new MainBoomToSpecimenPickReady(this.bigArm.mainBoom))
 
                 //Arc To Specimen
                 .splineToConstantHeading(new Vector2d(52, -48), Math.toRadians(180))
@@ -299,7 +294,7 @@ public class RightObsBot_OG extends AutoBot {
                 //Raise Up Boom, Then Extend ViperSLide
                 .afterTime(0, new SequentialAction(
 
-                        new MainBoomToSpecimenHighReady(this.bigArm.mainBoom),
+                        //TODO: new MainBoomToSpecimenHighReady(this.bigArm.mainBoom),
                         new WaitAction(0.3),
 
                         new ParallelAction(
@@ -310,7 +305,7 @@ public class RightObsBot_OG extends AutoBot {
                                     this.telemetry.update();
                                 }),
 
-                                new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide, specimenCycleExtraTicks),
+                                //TODO: new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide, specimenCycleExtraTicks),
 
                                 new InstantAction(() -> {
 
@@ -348,10 +343,10 @@ public class RightObsBot_OG extends AutoBot {
 
                 .afterTime(0.5, new SequentialAction(
 
-                        new ViperSlideToZero(this.bigArm.viperSlide),
+                        //TODO: new ViperSlideToZero(this.bigArm.viperSlide),
 
                         new ParallelAction(
-                                new MainBoomToSpecimenPickReady(this.bigArm.mainBoom),
+                                //TODO: new MainBoomToSpecimenPickReady(this.bigArm.mainBoom),
 
                                 new InstantAction(() -> {
 
@@ -401,7 +396,7 @@ public class RightObsBot_OG extends AutoBot {
                 //Raise Up Boom, Then Extend ViperSLide
                 .afterTime(0, new SequentialAction(
 
-                        new MainBoomToSpecimenHighReady(this.bigArm.mainBoom),
+                        //TODO: new MainBoomToSpecimenHighReady(this.bigArm.mainBoom),
                         new WaitAction(0.3),
 
                         new ParallelAction(
@@ -412,7 +407,7 @@ public class RightObsBot_OG extends AutoBot {
                                     this.telemetry.update();
                                 }),
 
-                                new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide, specimenCycleExtraTicks),
+                                //TODO: new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide, specimenCycleExtraTicks),
 
                                 new InstantAction(() -> {
 
@@ -452,10 +447,10 @@ public class RightObsBot_OG extends AutoBot {
 
                 .afterTime(0.5, new SequentialAction(
 
-                        new ViperSlideToZero(this.bigArm.viperSlide),
+                        //TODO: new ViperSlideToZero(this.bigArm.viperSlide),
 
                         new ParallelAction(
-                                new MainBoomToZero(this.bigArm.mainBoom),
+                                //TODO: new MainBoomToZero(this.bigArm.mainBoom),
 
                                 new InstantAction(() -> {
 

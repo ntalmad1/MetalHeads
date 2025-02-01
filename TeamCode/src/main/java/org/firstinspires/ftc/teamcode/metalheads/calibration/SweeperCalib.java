@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.library.utility.Control;
  */
 @TeleOp(name="SweeperBaseCalib", group="Calibration")
 //@Disabled
-public class SweeperBaseCalib extends IsaacBot {
+public class SweeperCalib extends IsaacBot {
 
     private ServoComponent servo;
 
@@ -20,7 +20,7 @@ public class SweeperBaseCalib extends IsaacBot {
     private double gamePadIncrement = 0.006;
 
 
-    public SweeperBaseCalib() {
+    public SweeperCalib() {
         super();
 
         config = new ServoComponentConfig(this);

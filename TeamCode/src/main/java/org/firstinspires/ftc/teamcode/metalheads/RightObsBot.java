@@ -16,9 +16,8 @@ import org.firstinspires.ftc.teamcode.library.action.WaitAction;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToZero;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToSpecimenHighReady;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToZero;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToPosition;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToPosition;
 
 /**
  *
@@ -87,33 +86,12 @@ public class RightObsBot extends AutoBot {
                 //SPECIMEN PLACE HIGH READY (Main Boom + Viper Slide)
                 // BEGINING
                 //
-                .afterTime(0, new InstantAction(()->{
-                    int targetPosition = Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos();
+//                .afterTime(0, new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos()))
+//                .afterTime(0.3, new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos()))
 
-                    this.bigArm.mainBoom.getMotor().setTargetPosition(targetPosition);
-                    this.bigArm.mainBoom.getSecondaryMotor().setTargetPosition(targetPosition);
-
-                    this.bigArm.mainBoom.getMotor().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    this.bigArm.mainBoom.getSecondaryMotor().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                    this.bigArm.mainBoom.getMotor().setPower(1);
-                    this.bigArm.mainBoom.getSecondaryMotor().setPower(1);
-
-                }))
-                .afterTime(0.3, new SequentialAction(
-                        new InstantAction(() -> {
-                            this.telemetry.log().add("1.1 Left MainBoom: " + this.bigArm.mainBoom.getSecondaryMotor().getCurrentPosition());
-                            this.telemetry.log().add("1.1 Right MainBoom: " + this.bigArm.mainBoom.getMotor().getCurrentPosition());
-                            this.telemetry.update();
-                        }),
-
-                        new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide),
-
-                        new InstantAction(() -> {
-                            this.telemetry.log().add("1.2 Left MainBoom: " + this.bigArm.mainBoom.getSecondaryMotor().getCurrentPosition());
-                            this.telemetry.log().add("1.2 Right MainBoom: " + this.bigArm.mainBoom.getMotor().getCurrentPosition());
-                            this.telemetry.update();
-                        })
+                .afterTime(0, new SequentialAction(
+                        new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false),
+                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos())
                 ))
 
                 //SPECIMEN PLACE HIGH READY (Servos)
@@ -143,9 +121,9 @@ public class RightObsBot extends AutoBot {
                 })
                 //Arm -> init Position
                 .afterTime(0.4, new SequentialAction(
-                        new ViperSlideToZero(this.bigArm.viperSlide),
+                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, true, 200),
                         new ParallelAction(
-                                new MainBoomToZero(this.bigArm.mainBoom),
+                                new MainBoomToPosition(this.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS),
                                 new InstantAction(() -> {
                                     this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
                                     this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
@@ -183,16 +161,29 @@ public class RightObsBot extends AutoBot {
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(new Pose2d(40, -28.7, Math.toRadians(-148)), Math.toRadians(-32))
 
-                .afterTime(0, new InstantAction(() -> {
-                   this.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
-                   this.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
-                   this.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
-                }))
-
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(new Pose2d(40, -37.5, Math.toRadians(146)), Math.toRadians(-90))
+
+                //close sweeper
+                .afterTime(0.15, new InstantAction(() -> {
+                    this.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
+                    this.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
+                    this.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
+                }))
+                // goto specimen pick ready
+                .afterTime(0, new SequentialAction(
+                        new InstantAction(() -> {
+                            this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
+                            this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
+                            this.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PICK_READY.clawPincherPos.getPos());
+                            this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                        }),
+                        new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos()),
+                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PICK_READY.vSlidePos.getPos())
+                ))
+
                 .splineToLinearHeading(new Pose2d(48.8, -45, Math.toRadians(90)), Math.toRadians(-90))
-                .lineToY(-57)
+                .lineToY(-60)
 
 
 //                //Hang Specimen

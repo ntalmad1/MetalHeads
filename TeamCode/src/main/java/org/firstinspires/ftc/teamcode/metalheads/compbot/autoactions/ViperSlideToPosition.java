@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotor;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 
 public class ViperSlideToPosition implements Action {
 
@@ -39,12 +40,25 @@ public class ViperSlideToPosition implements Action {
     private Integer timeout;
 
     /**
+     */
+    private boolean powerOff;
+
+    /**
      * Constructor
      * @param viperSlide
      */
-    public ViperSlideToPosition(EncodedMotor viperSlide, int targetPosition, Integer timeout) {
+    public ViperSlideToPosition(EncodedMotor viperSlide, int targetPosition) {
+        this(viperSlide, targetPosition, false);
+    }
+
+    public ViperSlideToPosition(EncodedMotor viperSlide, int targetPosition, boolean powerOff) {
+        this(viperSlide, targetPosition, powerOff, Constants.VIPER_SLIDES_TIMEOUT_DEFAULT);
+    }
+
+    public ViperSlideToPosition(EncodedMotor viperSlide, int targetPosition, boolean powerOff, Integer timeout) {
         this.viperSlide = viperSlide;
         this.targetPosition = targetPosition;
+        this.powerOff = powerOff;
         this.timeout = timeout;
     }
 
@@ -72,9 +86,11 @@ public class ViperSlideToPosition implements Action {
         if (flag) {
             if (timeout != null) {
                 if (runtime.milliseconds() >= timeout) {
+                    if (powerOff) this.viperSlide.setPower(0);
                     return STOP;
                 }
             } else {
+                if (powerOff) this.viperSlide.setPower(0);
                 return STOP;
             }
         }

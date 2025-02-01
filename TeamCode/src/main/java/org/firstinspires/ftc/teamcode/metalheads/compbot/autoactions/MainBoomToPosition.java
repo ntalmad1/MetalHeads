@@ -48,16 +48,22 @@ public class MainBoomToPosition implements Action {
      * Constructor
      * @param mainBoom
      */
-    public MainBoomToPosition(EncodedMotor mainBoom, int targetPosition, Integer timeout) {
-        new MainBoomToPosition(mainBoom, targetPosition, timeout, true);
+    public MainBoomToPosition(EncodedMotor mainBoom, int targetPosition) {
+        this(mainBoom, targetPosition, true);
     }
 
-    public MainBoomToPosition(EncodedMotor mainBoom, int targetPosition, Integer timeout, boolean powerOff) {
+    public MainBoomToPosition(EncodedMotor mainBoom, int targetPosition, boolean powerOff) {
+        this(mainBoom, targetPosition, powerOff, Constants.MAIN_BOOM_TIMEOUT_DEFAULT);
+    }
+
+    public MainBoomToPosition(EncodedMotor mainBoom, int targetPosition, boolean powerOff, Integer timeout) {
         this.mainBoom = mainBoom;
         this.targetPosition = targetPosition;
-        this.timeout = timeout;
         this.powerOff = powerOff;
+        this.timeout = timeout;
     }
+
+
 
     // actions are formatted via telemetry packets as below
     @Override
@@ -88,12 +94,12 @@ public class MainBoomToPosition implements Action {
             if (timeout != null) {
                 if (runtime.milliseconds() >= timeout)
                 {
-                    mainBoom.setPower(0);
+                    if (powerOff) mainBoom.setPower(0);
                     return STOP;
                 }
             }
             else {
-                mainBoom.setPower(0);
+                if (powerOff) mainBoom.setPower(0);
                 return STOP;
             }
         }
