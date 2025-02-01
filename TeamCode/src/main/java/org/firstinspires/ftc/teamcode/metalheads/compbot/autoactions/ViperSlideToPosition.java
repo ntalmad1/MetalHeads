@@ -4,31 +4,53 @@ import static org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.Acti
 import static org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ActionsUtil.STOP;
 
 import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotor;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 
-public class ViperSlideToZero implements Action {
-    // checks if the lift motor has been powered on
+public class ViperSlideToPosition implements Action {
+
+    /**
+     */
     private boolean initialized = false;
+
+    /**
+     */
+    private int targetPosition;
+
+    /**
+     */
     private EncodedMotor viperSlide;
+
+    /**
+     */
+    private ElapsedTime runtime = new ElapsedTime();
+
+    /**
+     */
+    private boolean flag = false;
+
+    /**
+     */
+    private Integer timeout;
 
     /**
      * Constructor
      * @param viperSlide
      */
-    public ViperSlideToZero(EncodedMotor viperSlide) {
+    public ViperSlideToPosition(EncodedMotor viperSlide, int targetPosition, Integer timeout) {
         this.viperSlide = viperSlide;
+        this.targetPosition = targetPosition;
+        this.timeout = timeout;
     }
 
     // actions are formatted via telemetry packets as below
     @Override
     public boolean run(@NonNull TelemetryPacket packet) {
-
-        int targetPosition = Constants.VIPER_SLIDES_MIN_TICS;
 
         // powers on motor, if it is not on
         if (!initialized) {
@@ -38,17 +60,26 @@ public class ViperSlideToZero implements Action {
             initialized = true;
         }
 
-        // checks lift's current position
         double pos = viperSlide.getCurrentPosition();
-        packet.put("viperSlidePos", pos);
-        if ((pos > targetPosition - 20) && (pos < targetPosition + 20)) {
 
-            return STOP;
-        } else {
-
-            return CONTINUE;
+        if (!flag) {
+            if ((pos > targetPosition -20) && (pos < targetPosition + 20)) {
+                flag = true;
+                runtime.reset();
+            }
         }
-        // overall, the action powers the lift until it surpasses
-        // 3000 encoder ticks, then powers it off
+
+        if (flag) {
+            if (timeout != null) {
+                if (runtime.milliseconds() >= timeout) {
+                    return STOP;
+                }
+            } else {
+                return STOP;
+            }
+        }
+
+        return CONTINUE;
+
     }
 }
