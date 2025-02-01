@@ -135,6 +135,20 @@ public class ControlsConfigurator {
         });
     }
 
+    public void gp1_Left_Bumper_Button()
+    {
+        this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
+            this.compBot.sweeperArm.openSweeperAction();
+        });
+    }
+
+    public void gp1_Right_Bumper_Button()
+    {
+        this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
+            this.compBot.sweeperArm.closeSweeperAction();
+        });
+    }
+
     /**
      *
      */

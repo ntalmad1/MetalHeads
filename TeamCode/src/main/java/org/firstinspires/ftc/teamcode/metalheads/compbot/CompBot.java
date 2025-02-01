@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.metalheads.compbot;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.library.IsaacBot;
 import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrain;
 import org.firstinspires.ftc.teamcode.metalheads.components.BigArm;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArm;
+import org.firstinspires.ftc.teamcode.metalheads.components.SweeperArm;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 
 /**
@@ -43,6 +43,10 @@ public abstract class CompBot extends IsaacBot {
     /**
      */
     protected LittleArm littleArm;
+
+    /**
+     */
+    protected SweeperArm sweeperArm;
 
     /**
      */
@@ -96,6 +100,7 @@ public abstract class CompBot extends IsaacBot {
         this.config.debugDriveTrain = true;
         this.config.debugBigArm = true;
         this.config.debugLittleArm = true;
+        this.config.debugSweeperArm = false;
         this.config.debugAll = false;
 
         if (this.config.useDriveTrain) {
@@ -108,6 +113,10 @@ public abstract class CompBot extends IsaacBot {
 
         if (this.config.useLittleArm) {
             this.littleArm = new LittleArm(this.config.littleArmConfig);
+        }
+
+        if (this.config.useSweeperArm) {
+            this.sweeperArm = new SweeperArm(this.config.sweeperArmConfig);
         }
 
         this.actionFactory = new ActionFactory(this);
@@ -129,6 +138,10 @@ public abstract class CompBot extends IsaacBot {
         }
 
         if (this.config.useLittleArm) {
+            this.littleArm.init();
+        }
+
+        if (this.config.useSweeperArm) {
             this.littleArm.init();
         }
 
@@ -164,9 +177,14 @@ public abstract class CompBot extends IsaacBot {
             this.littleArm.run(this.config.debugLittleArm || this.config.debugAll);
         }
 
+        if (this.config.useSweeperArm) {
+            this.sweeperArm.run(this.config.debugSweeperArm || this.config.debugAll);
+        }
+
         if (this.config.debugAll
             || this.config.debugDriveTrain
             || this.config.debugLittleArm
+            || this.config.debugSweeperArm
             || this.config.debugBigArm) {
             telemetry.update();
         }

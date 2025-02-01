@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.library.IsaacBot;
 import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrainConfig;
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
-import org.firstinspires.ftc.teamcode.library.potentiometer.PotentiometerConfig;
 import org.firstinspires.ftc.teamcode.library.potentiometermotor.PotentiometerMotorConfig;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponentConfig;
 import org.firstinspires.ftc.teamcode.metalheads.components.BigArmConfig;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArmConfig;
+import org.firstinspires.ftc.teamcode.metalheads.components.SweeperArmConfig;
 
 /**
  *
@@ -31,6 +31,10 @@ public class CompBotConfig {
 
     /**
      */
+    public SweeperArmConfig sweeperArmConfig;
+
+    /**
+     */
     public RoadrunnerDriveTrainConfig driveTrainConfig;
 
     /**
@@ -44,6 +48,10 @@ public class CompBotConfig {
     /**
      */
     public boolean useLittleArm = true;
+
+    /**
+     */
+    public boolean useSweeperArm = true;
 
     /**
      */
@@ -61,6 +69,8 @@ public class CompBotConfig {
      */
     public boolean debugLittleArm = false;
 
+    public boolean debugSweeperArm = false;
+
     /**
      * Constructor
      *
@@ -77,6 +87,9 @@ public class CompBotConfig {
 
         // little arm
         this.configureLittleArm(robot);
+
+        // sweeper arm
+        this.configureSweeperArm(robot);
     }
 
     /**
@@ -161,6 +174,38 @@ public class CompBotConfig {
         this.littleArmConfig.clawPincherConfig.minPosition = Constants.CLAW_PINCHER_OPEN_POS;
         this.littleArmConfig.clawPincherConfig.maxPosition = Constants.CLAW_PINCHER_CLOSE_POS;
         this.littleArmConfig.clawPincherConfig.lazyInit = false;
+    }
+
+
+    private void configureSweeperArm(IsaacBot robot) {
+        this.sweeperArmConfig = new SweeperArmConfig(robot);
+
+        // Base servo
+        this.sweeperArmConfig.baseServoConfig = new ServoComponentConfig(robot);
+        this.sweeperArmConfig.baseServoConfig.servoName = "sweeperBase";
+        this.sweeperArmConfig.baseServoConfig.maxIncrement = 1;
+        this.sweeperArmConfig.baseServoConfig.minPosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
+        this.sweeperArmConfig.baseServoConfig.maxPosition = Constants.SWEEPER_BASE_SERVO_OPEN_POS;
+        this.sweeperArmConfig.baseServoConfig.homePosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
+        this.sweeperArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
+
+        // Middle Servo
+        this.sweeperArmConfig.middleServoConfig = new ServoComponentConfig(robot);
+        this.sweeperArmConfig.middleServoConfig.servoName = "sweeperMiddle";
+        this.sweeperArmConfig.middleServoConfig.homePosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
+        this.sweeperArmConfig.middleServoConfig.zeroDegreePosition = 0.5;
+        this.sweeperArmConfig.middleServoConfig.minPosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
+        this.sweeperArmConfig.middleServoConfig.maxPosition = Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS;
+        this.sweeperArmConfig.middleServoConfig.maxIncrement = 1;
+
+        // End Servo
+        this.sweeperArmConfig.endServoConfig = new ServoComponentConfig(robot);
+        this.sweeperArmConfig.endServoConfig.servoName = "sweeperEnd";
+        this.sweeperArmConfig.endServoConfig.homePosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
+        this.sweeperArmConfig.endServoConfig.zeroDegreePosition = 0.5;
+        this.sweeperArmConfig.endServoConfig.minPosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
+        this.sweeperArmConfig.endServoConfig.maxPosition = Constants.SWEEPER_END_SERVO_OPEN_POS;
+        this.sweeperArmConfig.endServoConfig.maxIncrement = 1;
     }
 
     /**
