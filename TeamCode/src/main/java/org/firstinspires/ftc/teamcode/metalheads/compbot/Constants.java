@@ -64,9 +64,9 @@ public class Constants {
     public static final double SWEEPER_END_SERVO_CLOSED_POS = 0;
 
 
-    public static final double SWEEPER_BASE_SERVO_OPEN_POS = 0.727;
-    public static final double SWEEPER_MIDDLE_SERVO_OPEN_POS = 0.672;
-    public static final double SWEEPER_END_SERVO_OPEN_POS = 0.577;
+    public static final double SWEEPER_BASE_SERVO_OPEN_POS = 0.739;
+    public static final double SWEEPER_MIDDLE_SERVO_OPEN_POS = 0.683;
+    public static final double SWEEPER_END_SERVO_OPEN_POS = 0.582;
 
     //----------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------

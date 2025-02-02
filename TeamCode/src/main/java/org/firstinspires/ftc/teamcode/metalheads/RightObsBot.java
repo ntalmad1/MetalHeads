@@ -83,16 +83,13 @@ public class RightObsBot extends AutoBot {
 //              Arm -> Specimen High Ready
 //              ----------------------------------------------------------------------------------------------
 
-                //SPECIMEN PLACE HIGH READY (Main Boom + Viper Slide)
-                // BEGINING
-                //
-//                .afterTime(0, new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos()))
-//                .afterTime(0.3, new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos()))
+                .afterTime(0, new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos()))
+                .afterTime(0.3, new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos()))
 
-                .afterTime(0, new SequentialAction(
-                        new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false),
-                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos())
-                ))
+//                .afterTime(0, new SequentialAction(
+//                        new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false),
+//                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos())
+//                ))
 
                 //SPECIMEN PLACE HIGH READY (Servos)
                 .afterTime(0.2, () -> {
@@ -136,17 +133,22 @@ public class RightObsBot extends AutoBot {
 
 
 
-                //Retreat from Bar
-                .setTangent(Math.toRadians(-90))
-                .splineToLinearHeading(new Pose2d(24.6, -41.7, Math.toRadians(-120)), Math.toRadians(60))
+
 
                 //extend sweeper
-                .afterTime(0, new InstantAction(() -> {
+                .afterTime(0.8, new InstantAction(() -> {
                     this.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_OPEN_POS);
                     this.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS);
                     this.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_OPEN_POS);
                 }))
-                .waitSeconds(0.6)
+
+
+                //Retreat from Bar
+                .setTangent(Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(24.6, -41.7, Math.toRadians(-120)), Math.toRadians(60))
+
+
+                .waitSeconds(0.2)
 
 
                 .turnTo(Math.toRadians(151))
@@ -161,29 +163,57 @@ public class RightObsBot extends AutoBot {
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(new Pose2d(40, -28.7, Math.toRadians(-148)), Math.toRadians(-32))
 
-                .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(new Pose2d(40, -37.5, Math.toRadians(146)), Math.toRadians(-90))
 
                 //close sweeper
-                .afterTime(0.15, new InstantAction(() -> {
+                .afterTime(0.7, new InstantAction(() -> {
                     this.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
                     this.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
                     this.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
                 }))
-                // goto specimen pick ready
-                .afterTime(0, new SequentialAction(
-                        new InstantAction(() -> {
-                            this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
-                            this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
-                            this.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PICK_READY.clawPincherPos.getPos());
-                            this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
-                        }),
-                        new MainBoomToPosition(this.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos()),
-                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.SPECIMEN_PICK_READY.vSlidePos.getPos())
-                ))
 
+
+                //Push Final Specimen
+                .turnTo(Math.toRadians(146))
+
+
+                // goto specimen pick ready
+                .afterTime(0, autoActionFactory.specimenPickReady())
+
+                .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(new Pose2d(48.8, -45, Math.toRadians(90)), Math.toRadians(-90))
-                .lineToY(-60)
+                .lineToY(-59.8)
+                .afterTime(0.0, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
+                .afterTime(0.15, autoActionFactory.specimenPlaceHighReady())
+
+
+
+
+                //SPECIMEN #2
+                .setTangent(Math.toRadians(90))
+                .splineTo(new Vector2d(32, -48), Math.toRadians(180))
+                .splineTo(new Vector2d(15, -39.5), Math.toRadians(115))
+                .afterTime(0.05, autoActionFactory.specimenPickReady())
+
+                .setTangent(Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(22, -46, Math.toRadians(90)), Math.toRadians(0))
+                .strafeTo(new Vector2d(40, -46))
+                .splineToConstantHeading(new Vector2d(48.8, -57), Math.toRadians(-90))
+                .afterTime(0, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
+                .waitSeconds(0.08)
+                .afterTime(0, autoActionFactory.specimenPlaceHighReady())
+
+
+                //SPECIMEN #3
+                .setTangent(Math.toRadians(90))
+                .splineTo(new Vector2d(32, -48), Math.toRadians(180))
+                .splineTo(new Vector2d(15, -39.5), Math.toRadians(115))
+                .afterTime(0.05, autoActionFactory.specimenPickReady())
+
+                .setTangent(Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(22, -46, Math.toRadians(90)), Math.toRadians(0))
+                .strafeTo(new Vector2d(40, -46))
+                .splineToConstantHeading(new Vector2d(48.8, -57), Math.toRadians(-90))
+
 
 
 //                //Hang Specimen
