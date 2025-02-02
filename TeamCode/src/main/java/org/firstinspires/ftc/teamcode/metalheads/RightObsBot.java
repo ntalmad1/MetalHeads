@@ -3,7 +3,10 @@ package org.firstinspires.ftc.teamcode.metalheads;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PositionPath;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
+import com.acmerobotics.roadrunner.QuinticSpline1d;
+import com.acmerobotics.roadrunner.QuinticSpline2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
@@ -74,6 +77,10 @@ public class RightObsBot extends AutoBot {
     public void go() {
         super.go();
 
+        QuinticSpline2d spline = new QuinticSpline2d(
+                new QuinticSpline2d.waypoint(0, 0, 20, 20),
+                new QuinticSpline2d.Waypoint(30, 15, -30, 10)
+        );
         int initialHangExtraTicks = 8;
         int specimenCycleExtraTicks = 38;
 
@@ -152,16 +159,14 @@ public class RightObsBot extends AutoBot {
 
 
                 .turnTo(Math.toRadians(151))
-                .turnTo(Math.toRadians(-125))
 
-                .setTangent(Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(new Pose2d(32, -37.9, Math.toRadians(-125)), Math.toRadians(55))
 
                 .turnTo(Math.toRadians(145))
-                .turnTo(Math.toRadians(-148))
 
-                .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(new Pose2d(40, -28.7, Math.toRadians(-148)), Math.toRadians(-32))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(40, -28.7, Math.toRadians(-160)), Math.toRadians(-32))
 
 
                 //close sweeper
@@ -180,7 +185,7 @@ public class RightObsBot extends AutoBot {
                 .afterTime(0, autoActionFactory.specimenPickReady())
 
                 .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(new Pose2d(48.8, -45, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(48, -45, Math.toRadians(90)), Math.toRadians(-90))
                 .lineToY(-59.8)
                 .afterTime(0.0, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
                 .afterTime(0.15, autoActionFactory.specimenPlaceHighReady())
@@ -189,30 +194,38 @@ public class RightObsBot extends AutoBot {
 
 
                 //SPECIMEN #2
-                .setTangent(Math.toRadians(90))
-                .splineTo(new Vector2d(32, -48), Math.toRadians(180))
-                .splineTo(new Vector2d(15, -39.5), Math.toRadians(115))
+                .setTangent(Math.toRadians(180))
+                .lineToX(32,
+                        new TranslationalVelConstraint(45),
+                        new ProfileAccelConstraint(-60, 20))
+                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(115)), Math.toRadians(115),
+                        new TranslationalVelConstraint(45),
+                        new ProfileAccelConstraint(-60, 20))
                 .afterTime(0.05, autoActionFactory.specimenPickReady())
 
-                .setTangent(Math.toRadians(-90))
-                .splineToLinearHeading(new Pose2d(22, -46, Math.toRadians(90)), Math.toRadians(0))
-                .strafeTo(new Vector2d(40, -46))
-                .splineToConstantHeading(new Vector2d(48.8, -57), Math.toRadians(-90))
+
+                .setTangent(Math.toRadians(295))
+                .splineToLinearHeading(new Pose2d(37, -53, Math.toRadians(90)), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(49, -60.2), Math.toRadians(-90))
                 .afterTime(0, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
                 .waitSeconds(0.08)
                 .afterTime(0, autoActionFactory.specimenPlaceHighReady())
 
 
-                //SPECIMEN #3
-                .setTangent(Math.toRadians(90))
-                .splineTo(new Vector2d(32, -48), Math.toRadians(180))
-                .splineTo(new Vector2d(15, -39.5), Math.toRadians(115))
-                .afterTime(0.05, autoActionFactory.specimenPickReady())
-
-                .setTangent(Math.toRadians(-90))
-                .splineToLinearHeading(new Pose2d(22, -46, Math.toRadians(90)), Math.toRadians(0))
-                .strafeTo(new Vector2d(40, -46))
-                .splineToConstantHeading(new Vector2d(48.8, -57), Math.toRadians(-90))
+//                //SPECIMEN #3
+//                .setTangent(Math.toRadians(90))
+//                .splineTo(new Vector2d(32, -48), Math.toRadians(180),
+//                        new TranslationalVelConstraint(45),
+//                        new ProfileAccelConstraint(-60, 20))
+//                .splineTo(new Vector2d(15, -39.5), Math.toRadians(120),
+//                        new TranslationalVelConstraint(45),
+//                        new ProfileAccelConstraint(-60, 20))
+//                .afterTime(0.05, autoActionFactory.specimenPickReady())
+//
+//                .setTangent(Math.toRadians(-90))
+//                .splineToLinearHeading(new Pose2d(22, -46, Math.toRadians(90)), Math.toRadians(0))
+//                .strafeTo(new Vector2d(40, -46))
+//                .splineToConstantHeading(new Vector2d(49, -60.2), Math.toRadians(-90))
 
 
 
