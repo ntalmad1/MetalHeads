@@ -118,6 +118,8 @@ public class ControlsConfigurator {
         this.gp2_B_Button();
         this.gp2_X_Button();
         this.gp2_Y_Button();
+        this.gp1_Left_Bumper_Button();
+        this.gp1_Right_Bumper_Button();
     }
 
     /**
@@ -132,6 +134,21 @@ public class ControlsConfigurator {
             else if (CompBot.ArmPos.HANG_READY.equals(this.compBot.getArmPos())) {
                 this.compBot.runAction(this.compBot.getActionFactory().doHang());
             }
+        });
+    }
+
+    public void gp1_Left_Bumper_Button()
+    {
+        this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperOpen());
+        });
+
+    }
+
+    public void gp1_Right_Bumper_Button()
+    {
+        this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
         });
     }
 

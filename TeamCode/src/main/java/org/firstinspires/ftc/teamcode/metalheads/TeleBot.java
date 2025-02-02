@@ -1,14 +1,9 @@
 package org.firstinspires.ftc.teamcode.metalheads;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
-import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
-import org.firstinspires.ftc.teamcode.library.action.SequentialActionImpl;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.CompBot;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.DriveTrainPositionStruct;
 
 @TeleOp(name = "TeleBot", group = "Comp")

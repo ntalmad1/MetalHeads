@@ -17,5 +17,6 @@ public class AutoBotConfig extends CompBotConfig {
 
         this.useBigArm = true;
         this.useLittleArm = true;
+        this.useSweeperArm = true;
     }
 }
