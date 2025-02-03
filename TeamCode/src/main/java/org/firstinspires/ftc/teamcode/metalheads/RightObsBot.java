@@ -77,10 +77,6 @@ public class RightObsBot extends AutoBot {
     public void go() {
         super.go();
 
-        QuinticSpline2d spline = new QuinticSpline2d(
-                new QuinticSpline2d.waypoint(0, 0, 20, 20),
-                new QuinticSpline2d.Waypoint(30, 15, -30, 10)
-        );
         int initialHangExtraTicks = 8;
         int specimenCycleExtraTicks = 38;
 
