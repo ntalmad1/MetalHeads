@@ -2,8 +2,11 @@ package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
+import com.acmerobotics.roadrunner.PathBuilder;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
+import com.acmerobotics.roadrunner.QuinticSpline1d;
+import com.acmerobotics.roadrunner.QuinticSpline2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
@@ -12,11 +15,14 @@ import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
+import java.nio.file.Path;
+
+
 public class RightObsBot {
 
     /**
      */
-    private static final Pose2d initialPose = new Pose2d(69.82, -67.34, Math.toRadians(90.00));
+    private static final Pose2d initialPose = new Pose2d(48, -59.8, Math.toRadians(90));
 
     /**
      *
@@ -26,6 +32,9 @@ public class RightObsBot {
 
         System.setProperty("sun.java2d.opengl", "true");
 
+        QuinticSpline1d test = new QuinticSpline1d( new );
+
+
         MeepMeep meepMeep = new MeepMeep(800);
 
         RoadRunnerBotEntity isaacBot = new DefaultBotBuilder(meepMeep)
@@ -33,8 +42,19 @@ public class RightObsBot {
                 .build();
 
         isaacBot.runAction(isaacBot.getDrive().actionBuilder(initialPose)
-                        .splineToConstantHeading(new Vector2d(27.30, -56.13), Math.toRadians(180.00))
-                        .splineToConstantHeading(new Vector2d(6.77, -37.06), Math.toRadians(90.00))
+
+
+
+
+//                .setTangent(Math.toRadians(180))
+//                .lineToX(32,
+//                        new TranslationalVelConstraint(45),
+//                        new ProfileAccelConstraint(-120, 20))
+//                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(115)), Math.toRadians(115),
+//                        new TranslationalVelConstraint(45),
+//                        new ProfileAccelConstraint(-60, 120))
+
+
 
 
 
