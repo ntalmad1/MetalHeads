@@ -142,7 +142,7 @@ public abstract class CompBot extends IsaacBot {
         }
 
         if (this.config.useSweeperArm) {
-            this.littleArm.init();
+            this.sweeperArm.init();
         }
 
         ControlsConfigurator controlsConfigurator = new ControlsConfigurator(this);
