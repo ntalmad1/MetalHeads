@@ -1,15 +1,7 @@
 package com.example.meepmeeptesting;
 
-import com.acmerobotics.roadrunner.InstantAction;
-import com.acmerobotics.roadrunner.ParallelAction;
-import com.acmerobotics.roadrunner.PathBuilder;
+
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.ProfileAccelConstraint;
-import com.acmerobotics.roadrunner.QuinticSpline1d;
-import com.acmerobotics.roadrunner.QuinticSpline2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Trajectory;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
@@ -22,7 +14,8 @@ public class RightObsBot {
 
     /**
      */
-    private static final Pose2d initialPose = new Pose2d(48, -59.8, Math.toRadians(90));
+    private static final Pose2d initialPose = new Pose2d(8, -61, Math.toRadians(90));
+    private static final Pose2d specimenPose = new Pose2d(48, -59.8, Math.toRadians(90));
 
     /**
      *
@@ -32,8 +25,6 @@ public class RightObsBot {
 
         System.setProperty("sun.java2d.opengl", "true");
 
-        QuinticSpline1d test = new QuinticSpline1d( new );
-
 
         MeepMeep meepMeep = new MeepMeep(800);
 
@@ -41,18 +32,18 @@ public class RightObsBot {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        isaacBot.runAction(isaacBot.getDrive().actionBuilder(initialPose)
+        isaacBot.runAction(isaacBot.getDrive().actionBuilder(specimenPose)
 
 
 
 
-//                .setTangent(Math.toRadians(180))
-//                .lineToX(32,
-//                        new TranslationalVelConstraint(45),
-//                        new ProfileAccelConstraint(-120, 20))
-//                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(115)), Math.toRadians(115),
-//                        new TranslationalVelConstraint(45),
-//                        new ProfileAccelConstraint(-60, 120))
+                .setTangent(Math.toRadians(170))
+                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(100)), Math.toRadians(100))
+
+                .setTangent(Math.toRadians(-10))
+                .splineToLinearHeading(new Pose2d(48, -59.8, Math.toRadians(90)), Math.toRadians(-90))
+
+
 
 
 

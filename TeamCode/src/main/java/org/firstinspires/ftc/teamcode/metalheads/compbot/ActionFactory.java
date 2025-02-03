@@ -29,9 +29,9 @@ public class ActionFactory {
      */
     public AbstractAction sweeperOpen() {
         return new InstantActionImpl(() -> {
-            this.compBot.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_OPEN_POS);
-            this.compBot.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS);
-            this.compBot.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_OPEN_POS);
+            this.compBot.sweeperArm.baseServo.setPosition(Constants.SWEEPER_BASE_SERVO_OPEN_POS);
+            this.compBot.sweeperArm.middleServo.setPosition(Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS);
+            this.compBot.sweeperArm.endServo.setPosition(Constants.SWEEPER_END_SERVO_OPEN_POS);
         });
     }
 
@@ -40,9 +40,9 @@ public class ActionFactory {
      */
     public AbstractAction sweeperClose() {
         return new InstantActionImpl(() -> {
-            this.compBot.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
-            this.compBot.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
-            this.compBot.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
+            this.compBot.sweeperArm.baseServo.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
+            this.compBot.sweeperArm.middleServo.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
+            this.compBot.sweeperArm.endServo.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
         });
     }
 

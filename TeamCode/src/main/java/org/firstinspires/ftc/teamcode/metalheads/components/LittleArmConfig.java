@@ -28,21 +28,6 @@ public class LittleArmConfig {
     public ServoComponentConfig clawPincherConfig;
 
 
-
-    // sweeper
-
-    /**
-     */
-    public ServoComponentConfig sweeperBaseConfig;
-
-    /**
-     */
-    public ServoComponentConfig sweeperMiddleConfig;
-
-    /**
-     */
-    public ServoComponentConfig sweeperEndConfig;
-
     /**
      * Constructor
      *
@@ -55,10 +40,5 @@ public class LittleArmConfig {
         this.middleServoConfig = new ServoComponentConfig(robot);
         this.clawRotatorConfig = new ServoComponentConfig(robot);
         this.clawPincherConfig = new ServoComponentConfig(robot);
-
-        // sweeper
-        this.sweeperBaseConfig = new ServoComponentConfig(robot);
-        this.sweeperMiddleConfig = new ServoComponentConfig(robot);
-        this.sweeperEndConfig = new ServoComponentConfig(robot);
     }
 }

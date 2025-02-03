@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.metalheads;
 
+import com.acmerobotics.roadrunner.HeadingPath;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -139,11 +140,7 @@ public class RightObsBot extends AutoBot {
 
 
                 //extend sweeper
-                .afterTime(0.8, new InstantAction(() -> {
-                    this.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_OPEN_POS);
-                    this.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS);
-                    this.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_OPEN_POS);
-                }))
+                .afterTime(0.8, autoActionFactory.sweeperOpen())
 
 
                 //Retreat from Bar
@@ -166,11 +163,7 @@ public class RightObsBot extends AutoBot {
 
 
                 //close sweeper
-                .afterTime(0.7, new InstantAction(() -> {
-                    this.littleArm.sweeperBase.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
-                    this.littleArm.sweeperMiddle.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
-                    this.littleArm.sweeperEnd.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
-                }))
+                .afterTime(0.7, autoActionFactory.sweeperClose())
 
 
                 //Push Final Specimen
@@ -190,14 +183,12 @@ public class RightObsBot extends AutoBot {
 
 
                 //SPECIMEN #2
-                .setTangent(Math.toRadians(180))
-                .lineToX(32,
-                        new TranslationalVelConstraint(45),
-                        new ProfileAccelConstraint(-60, 20))
-                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(115)), Math.toRadians(115),
-                        new TranslationalVelConstraint(45),
-                        new ProfileAccelConstraint(-60, 20))
-                .afterTime(0.05, autoActionFactory.specimenPickReady())
+                .setTangent(Math.toRadians(170))
+                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(100)), Math.toRadians(100),
+                        new TranslationalVelConstraint(40),
+                        new ProfileAccelConstraint(-50, 45))
+                .afterTime(0.0, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS)))
+                .afterTime(0.1, autoActionFactory.specimenPickReady())
 
 
                 .setTangent(Math.toRadians(295))

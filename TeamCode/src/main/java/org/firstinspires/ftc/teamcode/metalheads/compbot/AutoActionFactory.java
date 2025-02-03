@@ -5,6 +5,8 @@ import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 
+import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
+import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
 import org.firstinspires.ftc.teamcode.library.action.WaitAction;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToPosition;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToPosition;
@@ -30,7 +32,8 @@ public class AutoActionFactory {
      */
     public Action initPos() {
         return new SequentialAction(
-            AutoActionFactory.this.compBot.bigArm.viperSlide.viperSlidesGotoPositionAction(Constants.VIPER_SLIDES_MIN_TICS),
+            new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
+
             new ParallelAction(
                 AutoActionFactory.this.compBot.littleArm.doubleServos.gotoPositionAction(
                         AutoActionFactory.this.compBot.getConfig().littleArmConfig.doubleServosConfig.homePosition, 1),
@@ -41,8 +44,7 @@ public class AutoActionFactory {
                 AutoActionFactory.this.compBot.littleArm.clawPincher.gotoPositionAction(
                         AutoActionFactory.this.compBot.getConfig().littleArmConfig.clawPincherConfig.homePosition, 1)
             ),
-            new WaitAction(1000),
-            AutoActionFactory.this.compBot.bigArm.mainBoom.gotoPositionAction(0, 1, 300),
+            new MainBoomToPosition(this.compBot.bigArm.mainBoom, 0),
             new InstantAction(() -> { AutoActionFactory.this.compBot.setArmPos(CompBot.ArmPos.INIT_READY); })
         );
     }
@@ -165,5 +167,27 @@ public class AutoActionFactory {
                 new MainBoomToPosition(compBot.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false, 50),
                 new ViperSlideToPosition(compBot.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos())
         );
+    }
+
+    /**
+     * @return
+     */
+    public Action sweeperOpen() {
+        return new InstantAction(() -> {
+            this.compBot.sweeperArm.baseServo.setPosition(Constants.SWEEPER_BASE_SERVO_OPEN_POS);
+            this.compBot.sweeperArm.middleServo.setPosition(Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS);
+            this.compBot.sweeperArm.endServo.setPosition(Constants.SWEEPER_END_SERVO_OPEN_POS);
+        });
+    }
+
+    /**
+     * @return
+     */
+    public Action sweeperClose() {
+        return new InstantAction(() -> {
+            this.compBot.sweeperArm.baseServo.setPosition(Constants.SWEEPER_BASE_SERVO_CLOSED_POS);
+            this.compBot.sweeperArm.middleServo.setPosition(Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS);
+            this.compBot.sweeperArm.endServo.setPosition(Constants.SWEEPER_END_SERVO_CLOSED_POS);
+        });
     }
 }
