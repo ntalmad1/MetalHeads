@@ -4,6 +4,7 @@ package com.example.meepmeeptesting;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.TurnConstraints;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
@@ -23,7 +24,7 @@ public class MeepMeepTesting {
 
         System.setProperty("sun.java2d.opengl", "true");
 
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(1000);
 
         RoadRunnerBotEntity isaacBot = new DefaultBotBuilder(meepMeep)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
@@ -47,42 +48,29 @@ public class MeepMeepTesting {
                 .waitSeconds(0.2)
 
 
+                //sample 1
                 .turnTo(Math.toRadians(151))
 
+                //sample 2
                 .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(24.6, -37.9, Math.toRadians(-125)), Math.toRadians(55))
+                .splineToLinearHeading(new Pose2d(24.6, -37.9, Math.toRadians(-125)), Math.toRadians(0),
+                        null,
+                        new ProfileAccelConstraint(-60, 55))
                 .splineToConstantHeading(new Vector2d(32, -37.9), Math.toRadians(55))
 
-                .turnTo(Math.toRadians(145))
 
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(40, -28.7, Math.toRadians(-160)), Math.toRadians(-32))
+                //into obs zone
+                .splineToLinearHeading(new Pose2d(32, -34, Math.toRadians(145)), Math.toRadians(0))
+
+                //sample 3
+                .splineToLinearHeading(new Pose2d(38, -30, Math.toRadians(-160)), Math.toRadians(-32),
+                        null,
+                        new ProfileAccelConstraint(-60, 10))
 
 
 
                 //Push Final Specimen
-                .turnTo(Math.toRadians(146))
-
-
-                .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(new Pose2d(48, -45, Math.toRadians(90)), Math.toRadians(-90))
-                .lineToY(-59.8)
-
-
-                //SPECIMEN #2
-                .setTangent(Math.toRadians(180))
-                .lineToX(32,
-                        new TranslationalVelConstraint(45),
-                        new ProfileAccelConstraint(-120, 20))
-                .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(115)), Math.toRadians(115),
-                        new TranslationalVelConstraint(45),
-                        new ProfileAccelConstraint(-60, 120))
-
-
-                .setTangent(Math.toRadians(295))
-                .splineToLinearHeading(new Pose2d(37, -53, Math.toRadians(90)), Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(49, -60.2), Math.toRadians(-90))
-                .waitSeconds(0.08)
+                        //.turnTo(Math.toRadians(146))
 
 
 
