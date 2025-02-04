@@ -138,6 +138,21 @@ public class AutoActionFactory {
      * @return
      */
     public Action specimenPickReady() {
+        if (this.compBot.getArmPos().equals(CompBot.ArmPos.SPECIMEN_PLACE_HIGH_READY)) {
+            return new SequentialAction(
+                    new InstantAction(() -> {
+                        this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
+                        this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
+                        this.compBot.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PICK_READY.clawPincherPos.getPos());
+                        this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                    }),
+                    new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.SPECIMEN_PICK_READY.vSlidePos.getPos(), false, 20),
+                    new MainBoomToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos())
+
+            );
+
+
+        } else {
         return new SequentialAction(
                 new InstantAction(() -> {
                     this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
@@ -149,6 +164,7 @@ public class AutoActionFactory {
                 new MainBoomToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos())
 
         );
+            }
     }
 
 
@@ -159,6 +175,7 @@ public class AutoActionFactory {
     public Action specimenPlaceHighReady() {
         return new SequentialAction(
                 new InstantAction(() -> {
+                    AutoActionFactory.this.compBot.setArmPos(CompBot.ArmPos.SPECIMEN_PLACE_HIGH_READY);
                     this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.doubleServosPos.getPos());
                     this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.middleServoPos.getPos());
                     this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.clawRotatorPos.getPos());

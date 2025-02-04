@@ -2,15 +2,12 @@ package com.example.meepmeeptesting;
 
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-import java.nio.file.Path;
 
-
-public class RightObsBot {
+public class AutoMain {
 
     /**
      */
@@ -40,7 +37,7 @@ public class RightObsBot {
                 .setTangent(Math.toRadians(170))
                 .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(100)), Math.toRadians(100))
 
-                .setTangent(Math.toRadians(-10))
+                .setTangent(Math.toRadians(250))
                 .splineToLinearHeading(new Pose2d(48, -59.8, Math.toRadians(90)), Math.toRadians(-90))
 
 
