@@ -18,15 +18,15 @@ public class Constants {
 
     /**
      */
-    public static final double VIPER_SLIDES_VOLTS_INIT = 0.43;
-    public static final int VIPER_SLIDES_MIN_TICS = 20;
-    public static final int VIPER_SLIDES_MAX_TICS = 3020;
-    //public static final double VIPER_SLIDES_VOLTS_MIN = 0.43;
-    //public static final double VIPER_SLIDES_VOLTS_MAX = 1.184;
-    //public static final double VIPER_SLIDES_VOLTS_MAX = 1.209;
-    public static final int VIPER_SLIDES_SPECIMEN_TEST = 680;
-    public static final int VIPER_SLIDES_SCALE = 200;
-    public static final int VIPER_SLIDES_TIMEOUT_DEFAULT = 20;
+    public static final double VIPER_SLIDES_VOLTS_INIT = 0.30745;
+    public static final int VIPER_SLIDES_MIN_TICS = 14;
+    public static final int VIPER_SLIDES_MAX_TICS = 2159;
+    //public static final double VIPER_SLIDES_VOLTS_MIN = 0.21982675;
+    //public static final double VIPER_SLIDES_VOLTS_MAX = 0.84656;
+    //public static final double VIPER_SLIDES_VOLTS_MAX = 0.864435;
+    public static final int VIPER_SLIDES_SPECIMEN_TEST = 486;
+    public static final int VIPER_SLIDES_SCALE = 143;
+    public static final int VIPER_SLIDES_TIMEOUT_DEFAULT = 15;
     /**
      */
     public static final double DOUBLE_SERVOS_MIN_POS = 0;
@@ -80,7 +80,7 @@ public class Constants {
         @Override
         public void setValues() {
             mainBoomPos = new MotorPos(Constants.MAIN_BOOM_MIN_TICS);
-            vSlidePos = new MotorPos(230);
+            vSlidePos = new MotorPos(165);
             doubleServosPos = new ServoPos(0.637);
             middleServoPos = new ServoPos(0.783);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_180_DEG);
@@ -133,7 +133,7 @@ public class Constants {
         @Override
         public void setValues() {
             mainBoomPos = new MotorPos(Constants.MAIN_BOOM_MAX_TICS);
-            vSlidePos = new MotorPos(0);
+            vSlidePos = new MotorPos(Constants.VIPER_SLIDES_MIN_TICS);
             doubleServosPos = new ServoPos(0.963);
             middleServoPos = new ServoPos(0.408);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_180_DEG);
@@ -148,7 +148,7 @@ public class Constants {
         public void setValues() {
             // was 526
             mainBoomPos = new MotorPos(536);
-            vSlidePos = new MotorPos(1500);
+            vSlidePos = new MotorPos(1072);
             doubleServosPos = new ServoPos(0.260);
             middleServoPos = new ServoPos(0.0);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_0_DEG);
@@ -164,7 +164,7 @@ public class Constants {
         public void setValues() {
             // was 526
             mainBoomPos = new MotorPos(536);
-            vSlidePos = new MotorPos(1512);
+            vSlidePos = new MotorPos(1081);
             doubleServosPos = new ServoPos(0.260);
             middleServoPos = new ServoPos(0.0);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_0_DEG);
@@ -179,7 +179,7 @@ public class Constants {
         @Override
         public void setValues() {
             mainBoomPos = new MotorPos(669);
-            vSlidePos = new MotorPos(1920);
+            vSlidePos = new MotorPos(1373);
             doubleServosPos = new ServoPos(0.9);
             middleServoPos = new ServoPos(0.783);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_0_DEG);
@@ -193,7 +193,7 @@ public class Constants {
         @Override
         public void setValues() {
             mainBoomPos = new MotorPos(863);
-            vSlidePos = new MotorPos(30);
+            vSlidePos = new MotorPos(40);
         }
     };
 
