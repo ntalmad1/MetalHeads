@@ -189,23 +189,41 @@ public class ActionFactory {
         );
     }
 
+//    /**
+//     * @return
+//     */
+//    public AbstractAction sampleExtendReady() {
+//        return new SequentialActionImpl(
+//            new InstantActionImpl(() -> { this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_EXTEND_READY); }),
+//            new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, Constants.VIPER_SLIDES_TIMEOUT_DEFAULT),
+//            new ParallelActionImpl(
+//                new MainBoomToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS, Constants.MAIN_BOOM_TIMEOUT_DEFAULT),
+//                new SequentialActionImpl(
+//                    new WaitAction(500),
+//                    new InstantActionImpl(() -> this.compBot.littleArm.doubleServos.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.doubleServosPos.getPos())),
+//                    new WaitAction(250),
+//                    new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.middleServoPos.getPos())),
+//                    new InstantActionImpl(() -> this.compBot.littleArm.clawRotator.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.clawRotatorPos.getPos()))
+//                )
+//            )
+//        );
+//    }
+
     /**
      * @return
      */
     public AbstractAction sampleExtendReady() {
         return new SequentialActionImpl(
-            new InstantActionImpl(() -> { this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_EXTEND_READY); }),
-            new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, Constants.VIPER_SLIDES_TIMEOUT_DEFAULT),
-            new ParallelActionImpl(
+                new InstantActionImpl(() -> { this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_EXTEND_READY); }),
+                new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, Constants.VIPER_SLIDES_TIMEOUT_DEFAULT),
                 new MainBoomToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS, Constants.MAIN_BOOM_TIMEOUT_DEFAULT),
                 new SequentialActionImpl(
-                    new WaitAction(500),
-                    new InstantActionImpl(() -> this.compBot.littleArm.doubleServos.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.doubleServosPos.getPos())),
-                    new WaitAction(250),
-                    new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.middleServoPos.getPos())),
-                    new InstantActionImpl(() -> this.compBot.littleArm.clawRotator.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.clawRotatorPos.getPos()))
+                        new WaitAction(500),
+                        new InstantActionImpl(() -> this.compBot.littleArm.doubleServos.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.doubleServosPos.getPos())),
+                        new WaitAction(250),
+                        new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.middleServoPos.getPos())),
+                        new InstantActionImpl(() -> this.compBot.littleArm.clawRotator.setPosition(Constants.SAMPLE_PLACE_HIGH_READY.clawRotatorPos.getPos()))
                 )
-            )
         );
     }
 
