@@ -26,7 +26,6 @@ public abstract class CompBot extends IsaacBot {
         SAMPLE_RETRACTED,
         SAMPLE_EXTEND_READY,
         SAMPLE_DROP_HIGH_READY,
-        SAMPLE_DROPPING_HIGH,
         SAMPLE_DROPPED_HIGH,
         SPECIMEN_PICK_READY,
         SPECIMEN_PICK,

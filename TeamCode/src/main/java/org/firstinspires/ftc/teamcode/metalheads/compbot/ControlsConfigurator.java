@@ -268,15 +268,9 @@ public class ControlsConfigurator {
                 this.compBot.runAction(this.compBot.getActionFactory().extendToSampleDropHigh());
             }
             else if (this.compBot.getArmPos().equals(CompBot.ArmPos.SAMPLE_DROP_HIGH_READY)) {
-                AbstractAction action = new SequentialActionImpl(
-                        this.compBot.littleArm.clawPincher.gotoPositionAction(Constants.CLAW_PINCHER_OPEN_POS, 1),
-                        new InstantActionImpl(() -> { this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_DROPPING_HIGH); })
-                );
 
-                this.compBot.runAction(action);
-            }
-            else if (this.compBot.getArmPos().equals(CompBot.ArmPos.SAMPLE_DROPPING_HIGH)) {
                 this.compBot.runAction(this.compBot.getActionFactory().sampleDropHigh());
+
             }
         });
     }

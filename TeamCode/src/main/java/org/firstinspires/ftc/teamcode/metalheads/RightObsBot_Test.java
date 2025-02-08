@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory;
@@ -22,7 +23,7 @@ import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideT
  *
  */
 @Autonomous(name = "RightObsBot_Test", group = "Auto")
-//@Disabled
+@Disabled
 public class RightObsBot_Test extends AutoBot {
 
     private AutoActionFactory autoActionFactory;
