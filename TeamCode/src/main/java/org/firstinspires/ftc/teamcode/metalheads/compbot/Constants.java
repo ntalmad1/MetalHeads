@@ -11,7 +11,7 @@ public class Constants {
     /**
      */
     public static final int MAIN_BOOM_MIN_TICS = 0;
-    public static final int MAIN_BOOM_MAX_TICS = 1155;
+    public static final int MAIN_BOOM_MAX_TICS = 1148;
     public static final int MAIN_BOOM_INIT_TICS = 525;
     public static final int MAIN_BOOM_SCALE = 200;
     public static final int MAIN_BOOM_TIMEOUT_DEFAULT = 300;
@@ -20,7 +20,7 @@ public class Constants {
      */
     public static final double VIPER_SLIDES_VOLTS_INIT = 0.30745;
     public static final int VIPER_SLIDES_MIN_TICS = 14;
-    public static final int VIPER_SLIDES_MAX_TICS = 2159;
+    public static final int VIPER_SLIDES_MAX_TICS = 2150;
     //public static final double VIPER_SLIDES_VOLTS_MIN = 0.21982675;
     //public static final double VIPER_SLIDES_VOLTS_MAX = 0.84656;
     //public static final double VIPER_SLIDES_VOLTS_MAX = 0.864435;
@@ -67,7 +67,7 @@ public class Constants {
     public static final double SWEEPER_END_SERVO_CLOSED_POS = 0;
 
 
-    public static final double SWEEPER_BASE_SERVO_OPEN_POS = 0.739;
+    public static final double SWEEPER_BASE_SERVO_OPEN_POS = 0.750;
     public static final double SWEEPER_MIDDLE_SERVO_OPEN_POS = 0.683;
     public static final double SWEEPER_END_SERVO_OPEN_POS = 0.582;
 
@@ -148,7 +148,7 @@ public class Constants {
         public void setValues() {
             // was 526
             mainBoomPos = new MotorPos(536);
-            vSlidePos = new MotorPos(1072);
+            vSlidePos = new MotorPos(1080);
             doubleServosPos = new ServoPos(0.260);
             middleServoPos = new ServoPos(0.0);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_0_DEG);

@@ -11,6 +11,7 @@ import com.acmerobotics.roadrunner.QuinticSpline2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.TurnConstraints;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToPosition;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToPosition;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.WaitMilliseconds;
 
 /**
  *
@@ -140,26 +142,36 @@ public class RightObsBot extends AutoBot {
 
 
                 //extend sweeper
-                .afterTime(0.8, autoActionFactory.sweeperOpen())
+                .afterTime(0.78, autoActionFactory.sweeperOpen())
 
 
-                //Retreat from Bar
+                //Retreat From Bar
                 .setTangent(Math.toRadians(-90))
                 .splineToLinearHeading(new Pose2d(24.6, -41.7, Math.toRadians(-120)), Math.toRadians(60))
 
 
-                .waitSeconds(0.2)
+                .waitSeconds(0.25)
 
 
-                .turnTo(Math.toRadians(151))
+                .turnTo(Math.toRadians(158),
+                        new TurnConstraints(9,-4, 8))
+                .turnTo(Math.toRadians(-125),
+                        new TurnConstraints(9,-8, 8))
 
-                .setTangent(Math.toRadians(180))
+
+                .setTangent(Math.toRadians(10))
                 .splineToLinearHeading(new Pose2d(32, -37.9, Math.toRadians(-125)), Math.toRadians(55))
 
-                .turnTo(Math.toRadians(145))
 
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(40, -28.7, Math.toRadians(-160)), Math.toRadians(-32))
+                .turnTo(Math.toRadians(155),
+                        new TurnConstraints(9,-4, 8))
+                .turnTo(Math.toRadians(-133),
+                        new TurnConstraints(9,-8, 8))
+
+
+                .setTangent(Math.toRadians(120))
+                //.splineToLinearHeading(new Pose2d(42, -36.5, Math.toRadians(-160)), Math.toRadians(-32))
+                .splineToLinearHeading(new Pose2d(40.2, -35.5, Math.toRadians(-133)), Math.toRadians(-32))
 
 
                 //close sweeper
@@ -167,15 +179,17 @@ public class RightObsBot extends AutoBot {
 
 
                 //Push Final Specimen
-                .turnTo(Math.toRadians(146))
+                .turnTo(Math.toRadians(165),
+                        new TurnConstraints(9,-4, 8))
 
 
                 // goto specimen pick ready
                 .afterTime(0, autoActionFactory.specimenPickReady())
 
                 .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(new Pose2d(48.2, -45, Math.toRadians(90)), Math.toRadians(-90))
-                .lineToY(-60)
+                .splineToLinearHeading(new Pose2d(48.5, -60, Math.toRadians(86)), Math.toRadians(-90),
+                        null,
+                        new ProfileAccelConstraint(-25, 60))
                 .afterTime(0.05, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
                 .waitSeconds(0.12)
                 .afterTime(0.05, autoActionFactory.specimenPlaceHighReady())
@@ -188,17 +202,33 @@ public class RightObsBot extends AutoBot {
                 .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(100)), Math.toRadians(100),
                         new TranslationalVelConstraint(40),
                         new ProfileAccelConstraint(-50, 30))
-                .afterTime(0.1, autoActionFactory.specimenPickReady())
-                .waitSeconds(0.1)
+                .afterTime(0.08, new SequentialAction(
+                        new InstantAction(() -> {
+                            this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS);
+                            this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED);
+                        }),
+                        new WaitMilliseconds(400),
+                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
+                        new ParallelAction(
+                                new MainBoomToPosition(this.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS),
+                                new InstantAction(() -> {
+                                        this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                                        this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
+                                        this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
+                                })
+                        )
+                ))
+                .waitSeconds(0.450)
 
 
                 .setTangent(Math.toRadians(250))
-                .splineToLinearHeading(new Pose2d(48.6, -60, Math.toRadians(90)), Math.toRadians(-90),
+                .splineToLinearHeading(new Pose2d(49.7, -59.6, Math.toRadians(90)), Math.toRadians(-90),
                         null,
-                        new ProfileAccelConstraint(-35,60))
+                        new ProfileAccelConstraint(-20,60))
                 .afterTime(0.05, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
                 .waitSeconds(0.12)
                 .afterTime(0.05, autoActionFactory.specimenPlaceHighReady())
+
 
 
 
@@ -208,17 +238,33 @@ public class RightObsBot extends AutoBot {
                 .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(100)), Math.toRadians(100),
                         new TranslationalVelConstraint(40),
                         new ProfileAccelConstraint(-50, 30))
-                .afterTime(0.1, autoActionFactory.specimenPickReady())
-                .waitSeconds(0.1)
+                .afterTime(0.08, new SequentialAction(
+                        new InstantAction(() -> {
+                            this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS);
+                            this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED);
+                        }),
+                        new WaitMilliseconds(400),
+                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
+                        new ParallelAction(
+                                new MainBoomToPosition(this.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS),
+                                new InstantAction(() -> {
+                                    this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                                    this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
+                                    this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
+                                })
+                        )
+                ))
+                .waitSeconds(0.450)
 
 
                 .setTangent(Math.toRadians(250))
-                .splineToLinearHeading(new Pose2d(48.6, -60, Math.toRadians(90)), Math.toRadians(-90),
+                .splineToLinearHeading(new Pose2d(49.8, -59.6, Math.toRadians(90)), Math.toRadians(-90),
                         null,
-                        new ProfileAccelConstraint(-35,60))
+                        new ProfileAccelConstraint(-20,60))
                 .afterTime(0.05, new InstantAction(() -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)))
                 .waitSeconds(0.12)
                 .afterTime(0.05, autoActionFactory.specimenPlaceHighReady())
+
 
 
 
@@ -228,209 +274,30 @@ public class RightObsBot extends AutoBot {
                 .splineToLinearHeading(new Pose2d(10, -39.5, Math.toRadians(100)), Math.toRadians(100),
                         new TranslationalVelConstraint(40),
                         new ProfileAccelConstraint(-50, 30))
-                .afterTime(0.1, autoActionFactory.specimenPickReady())
-                .waitSeconds(0.1)
+                .afterTime(0.08, new SequentialAction(
+                        new InstantAction(() ->
+                        {
+                            this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS);
+                            this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED);
+                        }),
+                        new WaitMilliseconds(400),
+                        new ViperSlideToPosition(this.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
+                        new ParallelAction(
+                                new MainBoomToPosition(this.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS),
+                                new InstantAction(() -> {
+                                    this.littleArm.clawRotator.setPosition(Constants.CLAW_ROTATOR_INIT_POS);
+                                    this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_INIT_POS);
+                                    this.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_INIT_POS);
+                                })
+                        )
+                ))
+                .waitSeconds(0.450)
+
 
                 .setTangent(Math.toRadians(250))
-                .splineToLinearHeading(new Pose2d(48.4, -55, Math.toRadians(90)), Math.toRadians(-90),
+                .splineToLinearHeading(new Pose2d(49.4, -55, Math.toRadians(90)), Math.toRadians(-90),
                         null,
-                        new ProfileAccelConstraint(-45,60))
-                .afterTime(0.08, autoActionFactory.initPos())
-
-
-
-
-//                //Hang Specimen
-//                .setTangent(Math.toRadians(140))
-//                .splineToConstantHeading(new Vector2d(3,-60), Math.toRadians(180),
-//                        new TranslationalVelConstraint(20))
-//                .splineToConstantHeading(new Vector2d(3,-38), Math.toRadians(90),
-//                        new TranslationalVelConstraint(17))
-//
-//
-//
-//
-//                .afterTime(0, () -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS))
-//
-//                .afterTime(0.18, () -> this.littleArm.middleServo.setPosition((Constants.MIDDLE_SERVO_SPECIMEN_PLACED)))
-//
-//
-//
-//                .afterTime(0.5, new SequentialAction(
-//
-//                        new ViperSlideToZero(this.bigArm.viperSlide),
-//
-//                        new ParallelAction(
-//                                new MainBoomToSpecimenPickReady(this.bigArm.mainBoom),
-//
-//                                new InstantAction(() -> {
-//
-//                                    this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
-//                                    this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
-//                                    this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
-//
-//                                })
-//                        )
-//                ))
-//
-//
-//
-//                //TODO:See if this changes anything
-//                .waitSeconds(0.2)
-//
-//
-//
-//                //Retreat back to next Specimen
-//                .setTangent(Math.toRadians(270))
-//                .splineToConstantHeading(new Vector2d(24, -51), Math.toRadians(0))
-//                .splineToConstantHeading(new Vector2d(42, -57.5), Math.toRadians(270),
-//                        new TranslationalVelConstraint(18),
-//                        new ProfileAccelConstraint(-60, 45)
-//                )
-//
-//
-//
-//
-//
-////              Cycle Specimen (3rd total)
-////              -----------------------------------------------------------------------------------------
-//
-//
-//
-//
-//
-//                .waitSeconds(0.25)
-//
-//                .afterTime(0.0, () -> {
-//                    this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS);
-//                })
-//
-//                .waitSeconds(0.15)
-//
-//
-//                //Raise Up Boom, Then Extend ViperSLide
-//                .afterTime(0, new SequentialAction(
-//
-//                        new MainBoomToSpecimenHighReady(this.bigArm.mainBoom),
-//                        new WaitAction(0.3),
-//
-//                        new ParallelAction(
-//
-//                                new InstantAction(() -> {
-//                                    this.telemetry.log().add("3.1 Left MainBoom: " + this.bigArm.mainBoom.getSecondaryMotor().getCurrentPosition());
-//                                    this.telemetry.log().add("3.1 Right MainBoom: " + this.bigArm.mainBoom.getMotor().getCurrentPosition());
-//                                    this.telemetry.update();
-//                                }),
-//
-//                                new ViperSlideToSpecimenHighReady(this.bigArm.viperSlide, specimenCycleExtraTicks),
-//
-//                                new InstantAction(() -> {
-//
-//                                    this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.doubleServosPos.getPos());
-//                                    this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.middleServoPos.getPos());
-//                                    this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.clawRotatorPos.getPos());
-//
-//                                }),
-//
-//                                new InstantAction(() -> {
-//                                    this.telemetry.log().add("3.2 Left MainBoom: " + this.bigArm.mainBoom.getSecondaryMotor().getCurrentPosition());
-//                                    this.telemetry.log().add("3.2 Right MainBoom: " + this.bigArm.mainBoom.getMotor().getCurrentPosition());
-//                                    this.telemetry.update();
-//                                })
-//                        )
-//                ))
-//
-//
-//
-//
-//                //Hang Specimen
-//                .setTangent(Math.toRadians(140))
-//                .splineToConstantHeading(new Vector2d(15,-60), Math.toRadians(180),
-//                        new TranslationalVelConstraint(20))
-//                .splineToConstantHeading(new Vector2d(3,-38), Math.toRadians(90),
-//                        new TranslationalVelConstraint(17))
-//
-//
-//
-//
-//
-//                .afterTime(0, () -> this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS))
-//
-//                .afterTime(0.18, () -> this.littleArm.middleServo.setPosition((Constants.MIDDLE_SERVO_SPECIMEN_PLACED)))
-//
-//
-//
-//                .afterTime(0.5, new SequentialAction(
-//
-//                        new ViperSlideToZero(this.bigArm.viperSlide),
-//
-//                        new ParallelAction(
-//                                new MainBoomToZero(this.bigArm.mainBoom),
-//
-//                                new InstantAction(() -> {
-//
-//                                    this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_INIT_POS);
-//                                    this.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_INIT_POS);
-//                                    this.littleArm.clawRotator.setPosition(Constants.CLAW_ROTATOR_INIT_POS);
-//                                    this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS);
-//
-//                                })
-//                        )
-//                ))
-//
-//
-//                //TODO:See if this changes anything
-//                .waitSeconds(0.2)
-//
-//
-////                //Retreat back to next Specimen
-////                .setTangent(Math.toRadians(270))
-////                .splineToConstantHeading(new Vector2d(24, -51), Math.toRadians(0))
-////                .splineToConstantHeading(new Vector2d(40, -57.5), Math.toRadians(270),
-////                        new TranslationalVelConstraint(18),
-////                        new ProfileAccelConstraint(-60, 45)
-////                )
-//
-//                //Retreat back to observation zone
-//                .setTangent(Math.toRadians(270))
-//                .splineToConstantHeading(new Vector2d(24, -51), Math.toRadians(0),
-//                        new TranslationalVelConstraint(25))
-//                .splineToConstantHeading(new Vector2d(44, -52), Math.toRadians(270),
-//                        new TranslationalVelConstraint(20))
-//
-//                .waitSeconds(80)
-//
-
-
-
-
-
-
-
-
-
-//              //TODO: Cycle Specimen (4th total)
-//              -----------------------------------------------------------------------------------------
-
-
-
-
-
-//              //TODO: Cycle Specimen (5th total)
-//              -----------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        new ProfileAccelConstraint(-40,60))
 
 
 
