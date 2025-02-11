@@ -57,7 +57,7 @@ public class RightObsBot extends AutoBot {
         this.autoActionFactory = new AutoActionFactory(this);
 
         // initialize roadrunner from last op pose
-        this.setInitialPose(new Pose2d(8, -61, Math.toRadians(90)));
+        this.setInitialPose(new Pose2d(11, -61, Math.toRadians(90)));
     }
 
     /**
@@ -137,12 +137,18 @@ public class RightObsBot extends AutoBot {
                         )
                 ))
 
+                .afterTime(0.8, new InstantAction(() -> this.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_INIT_POS)))
+
+                // -------------------------------------------------------------
+                .waitSeconds(0.65)
+                // -------------------------------------------------------------
+
 
 
 
 
                 //extend sweeper
-                .afterTime(0.78, autoActionFactory.sweeperOpen())
+                .afterTime(0.79, autoActionFactory.sweeperOpen())
 
 
                 //Retreat From Bar
@@ -151,6 +157,8 @@ public class RightObsBot extends AutoBot {
 
 
                 .waitSeconds(0.25)
+
+                .afterTime(0.8, new InstantAction(() -> this.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos())))
 
 
                 .turnTo(Math.toRadians(158),
@@ -285,6 +293,7 @@ public class RightObsBot extends AutoBot {
                         new ParallelAction(
                                 new MainBoomToPosition(this.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS),
                                 new InstantAction(() -> {
+                                    this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS);
                                     this.littleArm.clawRotator.setPosition(Constants.CLAW_ROTATOR_INIT_POS);
                                     this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_INIT_POS);
                                     this.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_INIT_POS);
@@ -295,9 +304,9 @@ public class RightObsBot extends AutoBot {
 
 
                 .setTangent(Math.toRadians(250))
-                .splineToLinearHeading(new Pose2d(49.4, -55, Math.toRadians(90)), Math.toRadians(-90),
+                .splineToLinearHeading(new Pose2d(49.4, -58, Math.toRadians(90)), Math.toRadians(-90),
                         null,
-                        new ProfileAccelConstraint(-40,60))
+                        new ProfileAccelConstraint(-80,60))
 
 
 
