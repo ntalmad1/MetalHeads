@@ -57,7 +57,7 @@ public class RightObsBot extends AutoBot {
         this.autoActionFactory = new AutoActionFactory(this);
 
         // initialize roadrunner from last op pose
-        this.setInitialPose(new Pose2d(11, -61, Math.toRadians(90)));
+        this.setInitialPose(new Pose2d(8, -61, Math.toRadians(90)));
     }
 
     /**
@@ -132,6 +132,7 @@ public class RightObsBot extends AutoBot {
                                     this.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
                                     this.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
                                     this.littleArm.clawPincher.setPosition(Constants.SAMPLE_PICK_READY.clawPincherPos.getPos());
+                                    this.sweeperArm.specimenBrace.setPosition(1);
 
                                 })
                         )

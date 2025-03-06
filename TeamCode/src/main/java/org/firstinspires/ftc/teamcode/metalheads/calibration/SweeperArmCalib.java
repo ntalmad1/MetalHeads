@@ -21,11 +21,13 @@ public class SweeperArmCalib extends IsaacBot {
     private ServoComponent sweeperBase;
     private ServoComponent sweeperMiddle;
     private ServoComponent sweeperEnd;
+    private ServoComponent specimenBrace;
     private ServoComponent servo;
 
     private ServoComponentConfig config1;
     private ServoComponentConfig config2;
     private ServoComponentConfig config3;
+    private ServoComponentConfig config4;
     private ServoComponentConfig config;
 
     private int toggle = 0;
@@ -59,6 +61,13 @@ public class SweeperArmCalib extends IsaacBot {
         config3.homePosition = Constants.SWEEPER_END_SERVO_OPEN_POS;
         config3.zeroDegreePosition = 0.5;
 
+        config4 = new ServoComponentConfig(this);
+        config4.servoName = "specimenBrace";
+        config4.maxIncrement = 0.006;
+        config4.minPosition = 0;
+        config4.maxPosition = 1;
+        config4.homePosition = 0.5;
+        config4.zeroDegreePosition = 0.5;
 
     }
 
@@ -74,6 +83,9 @@ public class SweeperArmCalib extends IsaacBot {
 
         this.sweeperEnd = new ServoComponent(config3);
         this.sweeperEnd.init();
+
+        this.specimenBrace = new ServoComponent(config4);
+        this.specimenBrace.init();
 
         servo = sweeperBase;
         config = config1;
@@ -91,11 +103,16 @@ public class SweeperArmCalib extends IsaacBot {
                 currentServo = "Middle Servo";
                 servo = sweeperMiddle;
                 config = config2;
-            } else {
-                toggle = 0;
+            } else if (toggle == 2){
+                toggle = 3;
                 currentServo = "End Servo";
                 servo = sweeperEnd;
                 config = config3;
+            } else {
+                toggle = 0;
+                currentServo = "SpecimenBrace Servo";
+                servo = specimenBrace;
+                config = config4;
             }
         });
 
@@ -167,6 +184,7 @@ public class SweeperArmCalib extends IsaacBot {
         telemetry.addData("Base Servo Pos: ", sweeperBase.getPosition());
         telemetry.addData("Middle Servo Pos: ", sweeperMiddle.getPosition());
         telemetry.addData("End Servo Pos: ", sweeperEnd.getPosition());
+        telemetry.addData("Specimen Brace Pos: ", specimenBrace.getPosition());
         telemetry.update();
     }
 }

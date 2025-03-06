@@ -43,9 +43,9 @@ public class ClawPincherServoCalib extends IsaacBot {
         yStickIncrement = 0.0012;
         gamePadIncrement = 0.006;
         servoName = "claw";
-        servoInitPos = 0.52;
-        servoMinPos = 0.294;
-        servoMaxPos = 0.6;
+        servoInitPos = 0.75;
+        servoMinPos = 0;
+        servoMaxPos = 1;
 
 
         servo = this.hardwareMap.get(Servo.class, servoName);

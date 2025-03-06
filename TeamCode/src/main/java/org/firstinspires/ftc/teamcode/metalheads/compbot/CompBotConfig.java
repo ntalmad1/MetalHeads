@@ -205,7 +205,15 @@ public class CompBotConfig {
         this.sweeperArmConfig.endServoConfig.zeroDegreePosition = 0.5;
         this.sweeperArmConfig.endServoConfig.minPosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
         this.sweeperArmConfig.endServoConfig.maxPosition = Constants.SWEEPER_END_SERVO_OPEN_POS;
-        this.sweeperArmConfig.endServoConfig.maxIncrement = 1;
+
+        // Brace Servo
+        this.sweeperArmConfig.specimenBrace = new ServoComponentConfig(robot);
+        this.sweeperArmConfig.specimenBrace.servoName = "specimenBrace";
+        this.sweeperArmConfig.specimenBrace.homePosition = 1;
+        this.sweeperArmConfig.specimenBrace.zeroDegreePosition = 0.5;
+        this.sweeperArmConfig.specimenBrace.maxPosition = 1;
+        this.sweeperArmConfig.specimenBrace.minPosition = 0;
+        this.sweeperArmConfig.specimenBrace.lazyInit = true;
     }
 
     /**

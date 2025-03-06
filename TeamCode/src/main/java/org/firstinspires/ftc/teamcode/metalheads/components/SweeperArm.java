@@ -29,6 +29,10 @@ public class SweeperArm extends Component {
     public ServoComponent endServo;
 
     /**
+     */
+    public ServoComponent specimenBrace;
+
+    /**
      * Constructor
      *
      * @param sweeperArmConfig
@@ -43,6 +47,8 @@ public class SweeperArm extends Component {
         this.middleServo = new ServoComponent(this.config.middleServoConfig);
 
         this.endServo = new ServoComponent(this.config.endServoConfig);
+
+        this.specimenBrace = new ServoComponent(this.config.specimenBrace);
     }
 
     /**
@@ -55,6 +61,7 @@ public class SweeperArm extends Component {
         this.baseServo.init();
         this.middleServo.init();
         this.endServo.init();
+        this.specimenBrace.init();
     }
 
     /**
@@ -67,11 +74,13 @@ public class SweeperArm extends Component {
         this.baseServo.run();
         this.middleServo.run();
         this.endServo.run();
+        this.specimenBrace.run();
 
         if (this.isDebug()) {
-            telemetry.addData("Sweeper Base Servo:", this.baseServo.getPosition());
-            telemetry.addData("Sweeper Middle Servo:", this.middleServo.getPosition());
-            telemetry.addData("Sweeper End Servo:", this.endServo.getPosition());
+            telemetry.addData("Sweeper Base Servo: ", this.baseServo.getPosition());
+            telemetry.addData("Sweeper Middle Servo: ", this.middleServo.getPosition());
+            telemetry.addData("Sweeper End Servo: ", this.endServo.getPosition());
+            telemetry.addData("Specimen Brace: ", this.specimenBrace.getPosition());
         }
     }
 

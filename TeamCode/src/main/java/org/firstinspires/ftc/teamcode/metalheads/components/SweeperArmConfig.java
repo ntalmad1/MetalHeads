@@ -24,6 +24,10 @@ public class SweeperArmConfig {
     public ServoComponentConfig endServoConfig;
 
     /**
+     */
+    public ServoComponentConfig specimenBrace;
+
+    /**
      * Constructor
      *
      * @param robot
@@ -34,5 +38,6 @@ public class SweeperArmConfig {
         this.baseServoConfig = new ServoComponentConfig(robot);
         this.middleServoConfig = new ServoComponentConfig(robot);
         this.endServoConfig = new ServoComponentConfig(robot);
+        this.specimenBrace = new ServoComponentConfig(robot);
     }
 }
