@@ -43,6 +43,13 @@ import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger_up.Gp1_Left
 import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger_up.Gp1_Left_Trigger_UpHandler;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_bumper_down.Gp1_Right_Bumper_DownEvent;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_bumper_down.Gp1_Right_Bumper_DownHandler;
+
+import org.firstinspires.ftc.teamcode.library.event.gp1_right_trigger.Gp1_Right_Trigger_Event;
+import org.firstinspires.ftc.teamcode.library.event.gp1_right_trigger.Gp1_Right_Trigger_Handler;
+import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger.Gp1_Left_Trigger_Event;
+import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger.Gp1_Left_Trigger_Handler;
+
+
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_bumper_up.Gp1_Right_Bumper_UpEvent;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_bumper_up.Gp1_Right_Bumper_UpHandler;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_stick_x.Gp1_RightStick_X_Event;
@@ -224,6 +231,19 @@ public abstract class Component implements IComponent {
 
     public HandlerRegistration addGp1_Right_Trigger_UpHandler (Gp1_Right_Trigger_UpHandler handler) {
         return EventBus.getInstance().addHandler(Gp1_Right_Trigger_UpEvent.TYPE, handler);
+    }
+
+    /**
+     *
+     * @param handler
+     * @return
+     */
+    public HandlerRegistration addGp1_Right_Trigger_Handler (Gp1_Right_Trigger_Handler handler) {
+        return EventBus.getInstance().addHandler(Gp1_Right_Trigger_Event.TYPE, handler);
+    }
+
+    public HandlerRegistration addGp1_Left_Trigger_Handler (Gp1_Left_Trigger_Handler handler) {
+        return EventBus.getInstance().addHandler(Gp1_Left_Trigger_Event.TYPE, handler);
     }
 
     /**

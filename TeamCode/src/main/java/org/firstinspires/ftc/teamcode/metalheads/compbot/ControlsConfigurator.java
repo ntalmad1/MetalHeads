@@ -1,15 +1,5 @@
 package org.firstinspires.ftc.teamcode.metalheads.compbot;
 
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.InstantAction;
-import com.acmerobotics.roadrunner.SequentialAction;
-
-import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
-import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
-import org.firstinspires.ftc.teamcode.library.action.SequentialActionImpl;
-import org.firstinspires.ftc.teamcode.library.action.WaitAction;
-import org.firstinspires.ftc.teamcode.library.utility.Control;
-
 /**
  *
  */
@@ -45,9 +35,8 @@ public class ControlsConfigurator {
             this.compBot.runAction(this.compBot.getActionFactory().initPos());
         });
 
-
         // X button
-        this.gp1_X_Button();
+        //this.gp1_X_Button();
     }
 
     /**
@@ -97,9 +86,15 @@ public class ControlsConfigurator {
         //this.gp2_Right_Bumper();
         this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
 
+            double servoPos;
+
             double x = event.getPosition() * -1;
 
-            double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
+            //double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
+
+            if (x <= 0.94) {
+                servoPos = 0.0318052 * Math.pow(x, 2) + 0.331805 * x + 0.3;
+            } else servoPos = 0;
 
             this.compBot.littleArm.clawRotator.setPosition(servoPos);
         });
@@ -123,7 +118,28 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
+     */
+    public void gp1_Left_Trigger()
+    {
+        this.compBot.addGp1_Left_Trigger_Handler(event -> {
+            double trigger = event.getPosition();
+            this.compBot.bigArm.viperSlide.setPower(trigger);
+            this.compBot.bigArm.viperSlide.setTargetPosition(Constants.VIPER_SLIDES_MIN_TICS);
+        });
+    }
+
+    /**
+     */
+    public void gp1_Right_Trigger()
+    {
+        this.compBot.addGp1_Right_Trigger_Handler(event -> {
+            double trigger = event.getPosition();
+            this.compBot.bigArm.viperSlide.setPower(trigger);
+            this.compBot.bigArm.viperSlide.setTargetPosition(Constants.VIPER_SLIDES_MAX_TICS);
+        });
+    }
+
+    /**
      */
     public void gp1_X_Button()
     {
@@ -137,6 +153,8 @@ public class ControlsConfigurator {
         });
     }
 
+    /**
+     */
     public void gp1_Left_Bumper_Button()
     {
         this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
@@ -145,6 +163,8 @@ public class ControlsConfigurator {
 
     }
 
+    /**
+     */
     public void gp1_Right_Bumper_Button()
     {
         this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
@@ -153,7 +173,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp1_B_Button()
     {
@@ -163,7 +182,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_Dpad() {
         // dpad up
@@ -188,7 +206,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_Left_Bumper() {
         this.compBot.addGp2_Left_Bumper_PressHandler(event -> {
@@ -197,7 +214,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_Right_Bumper() {
         this.compBot.addGp2_Right_Bumper_PressHandler(event -> {
@@ -206,7 +222,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_A_Button() {
         this.compBot.addGp2_A_PressHandler(event -> {
@@ -230,7 +245,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_B_Button() {
         this.compBot.addGp2_B_PressHandler(event -> {
@@ -253,7 +267,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_X_Button() {
         this.compBot.addGp2_X_PressHandler(event -> {
@@ -276,7 +289,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_Y_Button() {
         this.compBot.addGp2_Y_PressHandler(event -> {
@@ -294,7 +306,6 @@ public class ControlsConfigurator {
     }
 
     /**
-     *
      */
     public void gp2_Triggers() {
         // claw

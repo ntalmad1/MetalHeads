@@ -18,6 +18,8 @@ import org.firstinspires.ftc.teamcode.library.event.gp1_left_stick_x.Gp1_LeftSti
 import org.firstinspires.ftc.teamcode.library.event.gp1_left_stick_y.Gp1_LeftStick_Y_Event;
 import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger_down.Gp1_Left_Trigger_DownEvent;
 import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger_up.Gp1_Left_Trigger_UpEvent;
+import org.firstinspires.ftc.teamcode.library.event.gp1_right_trigger.Gp1_Right_Trigger_Event;
+import org.firstinspires.ftc.teamcode.library.event.gp1_left_trigger.Gp1_Left_Trigger_Event;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_bumper_down.Gp1_Right_Bumper_DownEvent;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_bumper_up.Gp1_Right_Bumper_UpEvent;
 import org.firstinspires.ftc.teamcode.library.event.gp1_right_stick_x.Gp1_RightStick_X_Event;
@@ -95,6 +97,9 @@ public class EventBus extends HandlerManager {
      */
     private boolean gp1_left_trigger_down;
     private boolean gp1_right_trigger_down;
+
+    private float gp1_left_trigger;
+    private float gp1_right_trigger;
 
     private float gp2_left_trigger;
     private float gp2_right_trigger;
@@ -218,6 +223,7 @@ public class EventBus extends HandlerManager {
 
         //------------------------------------------------------------------------------------------
 
+
         boolean current_gp1_left_trigger_down = this.robot.gamepad1.left_trigger >= 0.5 ;
         if (this.gp1_left_trigger_down && !current_gp1_left_trigger_down) {
             this.gp1_left_trigger_down = false;
@@ -290,6 +296,26 @@ public class EventBus extends HandlerManager {
         this.gp2_right_trigger = current_gp2_right_trigger;
 
         //--------------------------------------------------------
+
+        float current_gp1_rightTrigger = this.robot.gamepad1.right_trigger;
+        if (current_gp1_rightTrigger > 0
+                || current_gp1_rightTrigger < 0
+                || (current_gp1_rightTrigger == 0 && gp1_right_trigger != 0)) {
+
+            Gp1_Right_Trigger_Event event = new Gp1_Right_Trigger_Event(current_gp1_rightTrigger);
+            this.fireEvent(event);
+            gp1_right_trigger = current_gp1_rightTrigger;
+        }
+
+        float current_gp1_leftTrigger = this.robot.gamepad1.left_trigger;
+        if (current_gp1_leftTrigger > 0
+        || current_gp1_leftTrigger < 0
+        || (current_gp1_leftTrigger == 0 && gp1_left_trigger != 0)) {
+
+            Gp1_Left_Trigger_Event event = new Gp1_Left_Trigger_Event(current_gp1_leftTrigger);
+            this.fireEvent(event);
+            gp1_left_trigger = current_gp1_leftTrigger;
+        }
 
         double current_gp1_leftStickX = this.robot.gamepad1.left_stick_x;
         if (current_gp1_leftStickX > 0
