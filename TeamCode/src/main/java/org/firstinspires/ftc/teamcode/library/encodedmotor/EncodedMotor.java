@@ -169,19 +169,15 @@ public class EncodedMotor extends DcMotorComponent {
             this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.setPower(-power);
         } else {
-//            if (this.isBrakeOn()) {
-//                //                this.setTargetPosition(this.getCurrentPosition());
-//                //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                //                this.setPower(1);
-//            } else {
-//                this.setTargetPosition(this.getCurrentPosition());
-//                this.setPower(0);
-//                this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            }
-
-            this.setPower(1);
-            this.setTargetPosition(this.getCurrentPosition());
-            this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (this.isBrakeOn()) {
+                //                this.setTargetPosition(this.getCurrentPosition());
+                //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                //                this.setPower(1);
+            } else {
+                this.setTargetPosition(this.getCurrentPosition());
+                this.setPower(0);
+                this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
 
         }
     }
