@@ -98,8 +98,14 @@ public class ControlsConfigurator {
         this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
 
             double x = event.getPosition() * -1;
+//
+//            double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
 
-            double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
+//            double servoPos = this.compBot.littleArm.clawRotator.getPosition() + Constants.CLAW_ROTATOR_INCREMENT * x;
+
+            double servoPos = 0.5 * Math.pow(x,3) + 0.2 * Math.pow(x, 2) + 0.3;
+
+
 
             this.compBot.littleArm.clawRotator.setPosition(servoPos);
         });

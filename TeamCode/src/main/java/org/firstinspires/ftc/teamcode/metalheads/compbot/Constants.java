@@ -51,14 +51,14 @@ public class Constants {
     public static final double CLAW_ROTATOR_90_DEG = 0.3;
     public static final double CLAW_ROTATOR_180_DEG = 0.64;
     public static final double CLAW_ROTATOR_MAX_POS = 1;
-    public static final double CLAW_ROTATOR_INIT_POS = 0.64;
-    public static final double CLAW_ROTATOR_INCREMENT = 0.006;
+    public static final double CLAW_ROTATOR_INIT_POS = 0.3;
+    public static final double CLAW_ROTATOR_INCREMENT = 0.015;
 
     /**
      */
-    public static final double CLAW_PINCHER_OPEN_POS = 0.294;
-    public static final double CLAW_PINCHER_CLOSE_POS = 0.556;
-    public static final double CLAW_PINCHER_INIT_POS = 0.556;
+    public static final double CLAW_PINCHER_OPEN_POS = 0.5;
+    public static final double CLAW_PINCHER_CLOSE_POS = 0.8;
+    public static final double CLAW_PINCHER_INIT_POS = 0.8;
 
     /**
      */
@@ -81,9 +81,9 @@ public class Constants {
         public void setValues() {
             mainBoomPos = new MotorPos(Constants.MAIN_BOOM_MIN_TICS);
             vSlidePos = new MotorPos(165);
-            doubleServosPos = new ServoPos(0.637);
-            middleServoPos = new ServoPos(0.783);
-            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_180_DEG);
+            doubleServosPos = new ServoPos(0.548);
+            middleServoPos = new ServoPos(0.719);
+            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_90_DEG);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_OPEN_POS);
         }
     };
@@ -94,8 +94,8 @@ public class Constants {
         @Override
         public void setValues() {
             mainBoomPos = new MotorPos(Constants.MAIN_BOOM_MIN_TICS);
-            doubleServosPos = new ServoPos(0.553);
-            middleServoPos = new ServoPos(0.753);
+            doubleServosPos = new ServoPos(0.51);
+            middleServoPos = new ServoPos(0.691);
         }
     };
 
