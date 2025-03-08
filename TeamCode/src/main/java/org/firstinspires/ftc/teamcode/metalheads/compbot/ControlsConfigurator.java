@@ -89,6 +89,8 @@ public class ControlsConfigurator {
             double servoPos;
 
             double x = event.getPosition() * -1;
+//
+//            double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
 
             //double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
 
