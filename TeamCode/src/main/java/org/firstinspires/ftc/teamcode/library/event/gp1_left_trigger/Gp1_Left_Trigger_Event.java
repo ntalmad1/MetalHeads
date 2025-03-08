@@ -13,13 +13,13 @@ public class Gp1_Left_Trigger_Event extends Event<Gp1_Left_Trigger_Handler> {
     /**
      *
      */
-    private double position;
+    private float position;
 
     /**
      *
      * @param pos
      */
-    public Gp1_Left_Trigger_Event(double pos) {
+    public Gp1_Left_Trigger_Event(float pos) {
         this.position = pos;
     }
 

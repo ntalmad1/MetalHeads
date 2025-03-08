@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 
 public class MotorToPosition extends AbstractAction {
     // checks if the lift motor has been powered on
@@ -20,11 +21,15 @@ public class MotorToPosition extends AbstractAction {
      * @param motor
      */
     public MotorToPosition(EncodedMotor motor, int targetPosition) {
-        this(motor, targetPosition, false);
+        this(motor, targetPosition, true);
     }
 
     public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff) {
-        this(motor, targetPosition, powerOff, 250);
+
+        this(motor, targetPosition, powerOff,
+                powerOff
+                    ? Constants.MAIN_BOOM_TIMEOUT_DEFAULT
+                    : Constants.VIPER_SLIDES_TIMEOUT_DEFAULT);
     }
 
     public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff, Integer timeout) {

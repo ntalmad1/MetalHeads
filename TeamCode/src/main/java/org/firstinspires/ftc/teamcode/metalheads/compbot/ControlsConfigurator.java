@@ -80,23 +80,17 @@ public class ControlsConfigurator {
         // double servos and middle servo
         this.gp2_Dpad();
 
-        // claw rotator
-        //this.compBot.littleArm.clawRotator.addControl(Control.Gp2_LeftStickX);
-        //this.gp2_Left_Bumper();
-        //this.gp2_Right_Bumper();
         this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
 
             double servoPos;
 
             double x = event.getPosition() * -1;
-//
-//            double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
 
-            //double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
+            //y=0.02x^{2}+0.32x+0.3
 
             if (x <= 0.94) {
-                servoPos = 0.0318052 * Math.pow(x, 2) + 0.331805 * x + 0.3;
-            } else servoPos = 0;
+                servoPos = 0.02 * Math.pow(x, 2) + 0.32 * x + 0.3;
+            } else servoPos = 1;
 
             this.compBot.littleArm.clawRotator.setPosition(servoPos);
         });
@@ -124,7 +118,7 @@ public class ControlsConfigurator {
     public void gp1_Left_Trigger()
     {
         this.compBot.addGp1_Left_Trigger_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(-event.getPosition());
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
         });
     }
 
