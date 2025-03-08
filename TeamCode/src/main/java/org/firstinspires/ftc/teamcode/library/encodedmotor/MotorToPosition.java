@@ -5,24 +5,36 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
 
-public class ViperSlideToPosition extends AbstractAction {
+public class MotorToPosition extends AbstractAction {
     // checks if the lift motor has been powered on
     private boolean initialized = false;
     private int targetPosition;
-    private EncodedMotor viperSlide;
+    private EncodedMotor motor;
     private ElapsedTime runtime = new ElapsedTime();
     private boolean flag = false;
     private Integer timeout;
+    private boolean powerOff;
 
     /**
      * Constructor
-     * @param viperSlide
+     * @param motor
      */
-    public ViperSlideToPosition(EncodedMotor viperSlide, int targetPosition, Integer timeout) {
-        this.viperSlide = viperSlide;
+    public MotorToPosition(EncodedMotor motor, int targetPosition) {
+        this(motor, targetPosition, false);
+    }
+
+    public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff) {
+        this(motor, targetPosition, powerOff, 250);
+    }
+
+    public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff, Integer timeout) {
+        this.motor = motor;
         this.targetPosition = targetPosition;
         this.timeout = timeout;
+        this.powerOff = powerOff;
     }
+
+
 
     // actions are formatted via telemetry packets as below
     @Override
@@ -30,13 +42,13 @@ public class ViperSlideToPosition extends AbstractAction {
 
         // powers on motor, if it is not on
         if (!initialized) {
-            viperSlide.setTargetPosition(targetPosition);
-            viperSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            viperSlide.setPower(1);
+            motor.setTargetPosition(targetPosition);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setPower(1);
             initialized = true;
         }
 
-        double pos = viperSlide.getCurrentPosition();
+        double pos = motor.getCurrentPosition();
 
         if (!flag) {
             if ((pos > targetPosition -20) && (pos < targetPosition + 20)) {
@@ -48,9 +60,11 @@ public class ViperSlideToPosition extends AbstractAction {
         if (flag) {
             if (timeout != null) {
                 if (runtime.milliseconds() >= timeout) {
+                    if (powerOff) motor.setPower(0);
                     return STOP;
                 }
             } else {
+                if (powerOff) motor.setPower(0);
                 return STOP;
             }
         }

@@ -3,13 +3,8 @@ package org.firstinspires.ftc.teamcode.metalheads.tests;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.library.IsaacBot;
-import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
-import org.firstinspires.ftc.teamcode.library.action.ParallelActionImpl;
-import org.firstinspires.ftc.teamcode.library.action.SequentialActionImpl;
-import org.firstinspires.ftc.teamcode.library.action.WaitAction;
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotor;
-import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
-import org.firstinspires.ftc.teamcode.library.utility.Control;
+import org.firstinspires.ftc.teamcode.library.encodedmotor.MotorToPosition;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.CompBotConfig;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 
@@ -45,7 +40,7 @@ public class TestBot extends IsaacBot {
         this.mainBoom.init();
 
         this.mainBoom.addGp1_Left_Bumper_UpHandler(event -> {
-            this.runAction(this.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MAX_TICS));
+            this.runAction(new MotorToPosition(this.mainBoom, Constants.MAIN_BOOM_MAX_TICS));
         });
 
         this.mainBoom.addGp1_Right_Bumper_UpHandler(event -> {
