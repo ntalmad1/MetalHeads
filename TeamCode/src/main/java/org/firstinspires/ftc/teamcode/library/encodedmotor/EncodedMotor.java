@@ -44,26 +44,6 @@ public class EncodedMotor extends DcMotorComponent {
 
     /**
      *
-     * @param position
-     */
-    public AbstractAction gotoPositionAction (int position) {
-        return this.gotoPositionAction(position, 1);
-    }
-
-
-
-    /**
-     *
-     * @param position
-     * @param power
-     * @return
-     */
-    public AbstractAction gotoPositionAction (int position, double power) {
-        return new EncodedMotorGoToPositionAction(this, position, power, null);
-    }
-
-    /**
-     *
      */
     public void init () {
         super.init();
@@ -170,15 +150,14 @@ public class EncodedMotor extends DcMotorComponent {
             this.setPower(-power);
         } else {
             if (this.isBrakeOn()) {
-                //                this.setTargetPosition(this.getCurrentPosition());
-                //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                //                this.setPower(1);
+                this.setTargetPosition(this.getCurrentPosition());
+                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                this.setPower(1);
             } else {
                 this.setTargetPosition(this.getCurrentPosition());
                 this.setPower(0);
                 this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
-
         }
     }
 

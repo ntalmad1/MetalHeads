@@ -73,7 +73,7 @@ public class ControlsConfigurator {
 
         // viper slides
         this.compBot.addGp2_RightStick_X_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(-event.getPosition());
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
         });
         //this.compBot.bigArm.viperSlide.addControl(Control.Gp2_RightStickX);
 
@@ -123,9 +123,6 @@ public class ControlsConfigurator {
     {
         this.compBot.addGp1_Left_Trigger_Handler(event -> {
             this.compBot.bigArm.viperSlide.move(-event.getPosition());
-            double trigger = event.getPosition();
-            this.compBot.bigArm.viperSlide.setPower(trigger);
-            this.compBot.bigArm.viperSlide.setTargetPosition(Constants.VIPER_SLIDES_MIN_TICS);
         });
     }
 
@@ -134,9 +131,7 @@ public class ControlsConfigurator {
     public void gp1_Right_Trigger()
     {
         this.compBot.addGp1_Right_Trigger_Handler(event -> {
-            double trigger = event.getPosition();
-            this.compBot.bigArm.viperSlide.setPower(trigger);
-            this.compBot.bigArm.viperSlide.setTargetPosition(Constants.VIPER_SLIDES_MAX_TICS);
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
         });
     }
 
@@ -210,7 +205,8 @@ public class ControlsConfigurator {
      */
     public void gp2_Left_Bumper() {
         this.compBot.addGp2_Left_Bumper_PressHandler(event -> {
-            this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MAX_TICS));
+            //TODO:FIX
+            //this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MAX_TICS));
         });
     }
 
@@ -218,7 +214,8 @@ public class ControlsConfigurator {
      */
     public void gp2_Right_Bumper() {
         this.compBot.addGp2_Right_Bumper_PressHandler(event -> {
-            this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MIN_TICS));
+            //TODO:FIX
+            //this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MIN_TICS));
         });
     }
 
