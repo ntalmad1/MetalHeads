@@ -44,7 +44,7 @@ public class TestBot extends IsaacBot {
         });
 
         this.mainBoom.addGp1_Right_Bumper_UpHandler(event -> {
-            this.runAction(this.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MIN_TICS));
+            this.runAction(new MotorToPosition(this.mainBoom, Constants.MAIN_BOOM_MIN_TICS));
         });
     }
 

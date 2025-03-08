@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
 import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
 import org.firstinspires.ftc.teamcode.library.action.SequentialActionImpl;
 import org.firstinspires.ftc.teamcode.library.action.WaitAction;
+import org.firstinspires.ftc.teamcode.library.encodedmotor.MotorToPosition;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 
@@ -56,7 +57,7 @@ public class RightLocalization extends AutoBot {
         AbstractAction action = new SequentialActionImpl(
                 this.littleArm.clawPincher.gotoPositionAction(Constants.CLAW_PINCHER_CLOSE_POS, 1),
                 new WaitAction(300),
-                this.bigArm.mainBoom.gotoPositionAction(525),
+                new MotorToPosition(this.bigArm.mainBoom, 525),
                 new InstantActionImpl(() -> { this.setArmPos(ArmPos.INIT); })
         );
 

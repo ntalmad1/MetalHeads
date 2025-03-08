@@ -44,87 +44,6 @@ public class EncodedMotor extends DcMotorComponent {
 
     /**
      *
-     * @param position
-     */
-    public AbstractAction gotoPositionAction (int position) {
-        return this.gotoPositionAction(position, 1);
-    }
-
-    /**
-     *
-     * @param position
-     * @return
-     */
-    public AbstractAction viperSlidesGotoPositionAction (int position) {
-        return this.viperSlidesGotoPositionAction(position, 1);
-    }
-
-    /**
-     *
-     * @param motorPos
-     * @return
-     */
-    public AbstractAction gotoPositionAction(MotorPos motorPos) {
-        if (motorPos == null) {
-            return this.gotoPositionAction(this.getCurrentPosition(), 1);
-        }
-
-        if (motorPos.getPos() == null) {
-            return this.gotoPositionAction(this.getCurrentPosition(), motorPos.getPower());
-        }
-
-        return this.gotoPositionAction(motorPos.getPos(), motorPos.getPower());
-    }
-
-    /**
-     *
-     * @param motorPos
-     * @return
-     */
-    public AbstractAction viperSlidesGotoPositionAction(MotorPos motorPos) {
-        if (motorPos == null) {
-            return this.viperSlidesGotoPositionAction(this.getCurrentPosition(), 1);
-        }
-
-        if (motorPos.getPos() == null) {
-            return this.viperSlidesGotoPositionAction(this.getCurrentPosition(), motorPos.getPower());
-        }
-
-        return this.viperSlidesGotoPositionAction(motorPos.getPos(), motorPos.getPower());
-    }
-
-    /**
-     *
-     * @param position
-     * @param power
-     * @return
-     */
-    public AbstractAction gotoPositionAction (int position, double power) {
-        return new EncodedMotorGoToPositionAction(this, position, power, null);
-    }
-
-    /**
-     *
-     * @param position
-     * @param power
-     * @return
-     */
-    public AbstractAction viperSlidesGotoPositionAction (int position, double power) {
-        return new ViperSlidsGoToPositionAction(this, position, power);
-    }
-
-    /**
-     *
-     * @param position
-     * @param power
-     * @return
-     */
-    public AbstractAction gotoPositionAction (int position, double power, Integer timeout) {
-        return new EncodedMotorGoToPositionAction(this, position, power, timeout);
-    }
-
-    /**
-     *
      */
     public void init () {
         super.init();
@@ -138,82 +57,106 @@ public class EncodedMotor extends DcMotorComponent {
      * Called from event handler e.g. "left stick y"
      * @param power
      */
+//    public void move (double power) {
+//        if (this.getDirection().equals(DcMotorSimple.Direction.FORWARD)) {
+//            if (power > 0) {
+//                int newPosition = (int) (this.getCurrentPosition() + this.getConfig().scale * power);
+//
+//                if (newPosition >= this.getConfig().maxTics) {
+//                    newPosition = this.getConfig().maxTics;
+//                }
+//
+//                power = 1;
+//
+//                this.setTargetPosition(newPosition);
+//                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                this.setPower(power);
+//
+//            } else if (power < 0) {
+//                int newPosition = (int) (this.getCurrentPosition() - Math.abs(this.getConfig().scale * power));
+//
+//                if (newPosition <= this.getConfig().minTics) {
+//                    newPosition = this.getConfig().minTics;
+//                }
+//
+//                power = -1;
+//
+//                this.setTargetPosition(newPosition);
+//                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                this.setPower(power);
+//            } else {
+//                if (this.isBrakeOn()) {
+//                    //                this.setTargetPosition(this.getCurrentPosition());
+//                    //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    //                this.setPower(1);
+//                } else {
+//                    this.setPower(0);
+//                    this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                }
+//            }
+//        }
+//        else {
+//            // viper slides
+//            if (power < 0) {
+//                int newPosition = (int) (this.getCurrentPosition() + Math.abs(this.getConfig().scale * power));
+//
+//
+//                if (newPosition >= this.getConfig().maxTics) {
+//                    newPosition = this.getConfig().maxTics;
+//                }
+//
+//                power = 1;
+//
+//                this.setTargetPosition(newPosition);
+//                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                this.setPower(power);
+//
+//            } else if (power > 0) {
+//                int newPosition = (int) (this.getCurrentPosition() - this.getConfig().scale * power);
+//
+//                if (newPosition <= this.getConfig().minTics) {
+//                    newPosition = this.getConfig().minTics;
+//                }
+//
+//                power = -1;
+//
+//                this.setTargetPosition(newPosition);
+//                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                this.setPower(power);
+//
+//            } else {
+//                if (this.isBrakeOn()) {
+//                    //                this.setTargetPosition(this.getCurrentPosition());
+//                    //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    //                this.setPower(1);
+//                } else {
+//                    this.setPower(0);
+//                    this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                }
+//            }
+//        }
+//    }
+
     public void move (double power) {
-        if (this.getDirection().equals(DcMotorSimple.Direction.FORWARD)) {
-            if (power > 0) {
-                int newPosition = (int) (this.getCurrentPosition() + this.getConfig().scale * power);
+        if (power > 0) {
 
-                if (newPosition >= this.getConfig().maxTics) {
-                    newPosition = this.getConfig().maxTics;
-                }
+            this.setTargetPosition(this.getConfig().maxTics);
+            this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.setPower(power);
 
-                power = 1;
-
-                this.setTargetPosition(newPosition);
+        } else if (power < 0) {
+            this.setTargetPosition(this.getConfig().minTics);
+            this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.setPower(-power);
+        } else {
+            if (this.isBrakeOn()) {
+                this.setTargetPosition(this.getCurrentPosition());
                 this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                this.setPower(power);
-
-            } else if (power < 0) {
-                int newPosition = (int) (this.getCurrentPosition() - Math.abs(this.getConfig().scale * power));
-
-                if (newPosition <= this.getConfig().minTics) {
-                    newPosition = this.getConfig().minTics;
-                }
-
-                power = -1;
-
-                this.setTargetPosition(newPosition);
-                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                this.setPower(power);
+                this.setPower(1);
             } else {
-                if (this.isBrakeOn()) {
-                    //                this.setTargetPosition(this.getCurrentPosition());
-                    //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //                this.setPower(1);
-                } else {
-                    this.setPower(0);
-                    this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                }
-            }
-        }
-        else {
-            // viper slides
-            if (power < 0) {
-                int newPosition = (int) (this.getCurrentPosition() + Math.abs(this.getConfig().scale * power));
-
-
-                if (newPosition >= this.getConfig().maxTics) {
-                    newPosition = this.getConfig().maxTics;
-                }
-
-                power = 1;
-
-                this.setTargetPosition(newPosition);
-                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                this.setPower(power);
-
-            } else if (power > 0) {
-                int newPosition = (int) (this.getCurrentPosition() - this.getConfig().scale * power);
-
-                if (newPosition <= this.getConfig().minTics) {
-                    newPosition = this.getConfig().minTics;
-                }
-
-                power = -1;
-
-                this.setTargetPosition(newPosition);
-                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                this.setPower(power);
-
-            } else {
-                if (this.isBrakeOn()) {
-                    //                this.setTargetPosition(this.getCurrentPosition());
-                    //                this.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //                this.setPower(1);
-                } else {
-                    this.setPower(0);
-                    this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                }
+                this.setTargetPosition(this.getCurrentPosition());
+                this.setPower(0);
+                this.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
         }
     }

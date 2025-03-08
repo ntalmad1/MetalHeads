@@ -72,31 +72,25 @@ public class ControlsConfigurator {
 
 
         // viper slides
-        this.compBot.bigArm.viperSlide.addGp2_RightStick_X_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(-event.getPosition());
+        this.compBot.addGp2_RightStick_X_Handler(event -> {
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
         });
         //this.compBot.bigArm.viperSlide.addControl(Control.Gp2_RightStickX);
 
         // double servos and middle servo
         this.gp2_Dpad();
 
-        // claw rotator
-        //this.compBot.littleArm.clawRotator.addControl(Control.Gp2_LeftStickX);
-        //this.gp2_Left_Bumper();
-        //this.gp2_Right_Bumper();
         this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
 
             double servoPos;
 
             double x = event.getPosition() * -1;
-//
-//            double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
 
-            //double servoPos = 0.01 * Math.pow(x, 2) + 0.35 * x + 0.64;
+            //y=0.02x^{2}+0.32x+0.3
 
             if (x <= 0.94) {
-                servoPos = 0.0318052 * Math.pow(x, 2) + 0.331805 * x + 0.3;
-            } else servoPos = 0;
+                servoPos = 0.02 * Math.pow(x, 2) + 0.32 * x + 0.3;
+            } else servoPos = 1;
 
             this.compBot.littleArm.clawRotator.setPosition(servoPos);
         });
@@ -124,9 +118,7 @@ public class ControlsConfigurator {
     public void gp1_Left_Trigger()
     {
         this.compBot.addGp1_Left_Trigger_Handler(event -> {
-            double trigger = event.getPosition();
-            this.compBot.bigArm.viperSlide.setPower(trigger);
-            this.compBot.bigArm.viperSlide.setTargetPosition(Constants.VIPER_SLIDES_MIN_TICS);
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
         });
     }
 
@@ -135,9 +127,7 @@ public class ControlsConfigurator {
     public void gp1_Right_Trigger()
     {
         this.compBot.addGp1_Right_Trigger_Handler(event -> {
-            double trigger = event.getPosition();
-            this.compBot.bigArm.viperSlide.setPower(trigger);
-            this.compBot.bigArm.viperSlide.setTargetPosition(Constants.VIPER_SLIDES_MAX_TICS);
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
         });
     }
 
@@ -211,7 +201,8 @@ public class ControlsConfigurator {
      */
     public void gp2_Left_Bumper() {
         this.compBot.addGp2_Left_Bumper_PressHandler(event -> {
-            this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MAX_TICS));
+            //TODO:FIX
+            //this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MAX_TICS));
         });
     }
 
@@ -219,7 +210,8 @@ public class ControlsConfigurator {
      */
     public void gp2_Right_Bumper() {
         this.compBot.addGp2_Right_Bumper_PressHandler(event -> {
-            this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MIN_TICS));
+            //TODO:FIX
+            //this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MIN_TICS));
         });
     }
 

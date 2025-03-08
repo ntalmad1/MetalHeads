@@ -297,25 +297,19 @@ public class EventBus extends HandlerManager {
 
         //--------------------------------------------------------
 
-        float current_gp1_rightTrigger = this.robot.gamepad1.right_trigger;
-        if (current_gp1_rightTrigger > 0
-                || current_gp1_rightTrigger < 0
-                || (current_gp1_rightTrigger == 0 && gp1_right_trigger != 0)) {
-
-            Gp1_Right_Trigger_Event event = new Gp1_Right_Trigger_Event(current_gp1_rightTrigger);
-            this.fireEvent(event);
-            gp1_right_trigger = current_gp1_rightTrigger;
+        float current_gp1_right_trigger = this.robot.gamepad1.right_trigger;
+        float current_gp1_left_trigger  = this.robot.gamepad1.left_trigger;
+        if ((current_gp1_left_trigger == 0 && this.gp1_left_trigger > 0) || (current_gp1_left_trigger > 0)) {
+            this.fireEvent(new Gp1_Left_Trigger_Event(current_gp1_left_trigger));
         }
 
-        float current_gp1_leftTrigger = this.robot.gamepad1.left_trigger;
-        if (current_gp1_leftTrigger > 0
-        || current_gp1_leftTrigger < 0
-        || (current_gp1_leftTrigger == 0 && gp1_left_trigger != 0)) {
-
-            Gp1_Left_Trigger_Event event = new Gp1_Left_Trigger_Event(current_gp1_leftTrigger);
-            this.fireEvent(event);
-            gp1_left_trigger = current_gp1_leftTrigger;
+        if ((current_gp1_right_trigger == 0 && this.gp1_right_trigger > 0) || (current_gp1_right_trigger > 0)) {
+            this.fireEvent(new Gp1_Right_Trigger_Event(current_gp1_right_trigger));
         }
+
+        this.gp1_left_trigger = current_gp1_left_trigger;
+        this.gp1_right_trigger = current_gp1_right_trigger;
+
 
         double current_gp1_leftStickX = this.robot.gamepad1.left_stick_x;
         if (current_gp1_leftStickX > 0
