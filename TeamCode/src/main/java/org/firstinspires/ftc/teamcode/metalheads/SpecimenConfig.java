@@ -6,14 +6,14 @@ import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBotConfig;
 /**
  *
  */
-public class RightObsBotConfig extends AutoBotConfig {
+public class SpecimenConfig extends AutoBotConfig {
 
     /**
      * Constructor
      *
      * @param robot
      */
-    public RightObsBotConfig(IsaacBot robot) {
+    public SpecimenConfig(IsaacBot robot) {
         super(robot);
     }
 }

@@ -83,7 +83,7 @@ public class ActionFactory {
     public AbstractAction initPos() {
         return new SequentialActionImpl(
             new InstantActionImpl(() -> { ActionFactory.this.compBot.setArmPos(CompBot.ArmPos.INIT_READY); }),
-            new MotorToPosition(this.compBot.bigArm.viperSlide,Constants.VIPER_SLIDES_MIN_TICS, false),
+            new MotorToPosition(this.compBot.bigArm.viperSlide,Constants.VIPER_SLIDES_MIN_TICS),
             new InstantActionImpl(() -> {
                 this.compBot.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_INIT_POS);
                 this.compBot.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_INIT_POS);
@@ -213,7 +213,7 @@ public class ActionFactory {
      */
     public AbstractAction sampleExtendReady() {
         return new SequentialActionImpl(
-                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, false),
+                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
                 new ParallelActionImpl(
                         new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS),
                         new SequentialActionImpl(
@@ -238,7 +238,7 @@ public class ActionFactory {
             new WaitAction(130),
             new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(0.5)),
             new WaitAction(250),
-            new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, false),
+            new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
             new InstantActionImpl(() -> { this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_PICK_READY); }),
             new InstantActionImpl(() -> {
                     this.compBot.littleArm.doubleServos.setPosition(Constants.SAMPLE_PICK_READY.doubleServosPos.getPos());
@@ -269,7 +269,7 @@ public class ActionFactory {
     public AbstractAction retractSample() {
         return new SequentialActionImpl(
                 new InstantActionImpl(() -> { this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_RETRACTED); }),
-                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, false)
+                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS)
         );
     }
 

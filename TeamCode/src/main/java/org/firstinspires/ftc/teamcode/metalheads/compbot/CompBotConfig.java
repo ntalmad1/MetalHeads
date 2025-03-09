@@ -161,7 +161,7 @@ public class CompBotConfig {
         // claw rotator
         this.littleArmConfig.clawRotatorConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.clawRotatorConfig.servoName = "clawRotator";
-        this.littleArmConfig.clawRotatorConfig.homePosition = Constants.CLAW_ROTATOR_180_DEG;
+        this.littleArmConfig.clawRotatorConfig.homePosition = Constants.CLAW_ROTATOR_90_DEG;
         this.littleArmConfig.clawRotatorConfig.zeroDegreePosition = Constants.CLAW_ROTATOR_0_DEG;
         this.littleArmConfig.clawRotatorConfig.minPosition = Constants.MIDDLE_SERVO_MIN_POS;
         this.littleArmConfig.clawRotatorConfig.maxPosition = Constants.CLAW_ROTATOR_MAX_POS;
@@ -189,6 +189,7 @@ public class CompBotConfig {
         this.sweeperArmConfig.baseServoConfig.maxPosition = Constants.SWEEPER_BASE_SERVO_OPEN_POS;
         this.sweeperArmConfig.baseServoConfig.homePosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
         this.sweeperArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
+        this.sweeperArmConfig.baseServoConfig.lazyInit = true;
 
         // Middle Servo
         this.sweeperArmConfig.middleServoConfig = new ServoComponentConfig(robot);
@@ -197,6 +198,7 @@ public class CompBotConfig {
         this.sweeperArmConfig.middleServoConfig.zeroDegreePosition = 0.5;
         this.sweeperArmConfig.middleServoConfig.minPosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
         this.sweeperArmConfig.middleServoConfig.maxPosition = Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS;
+        this.sweeperArmConfig.middleServoConfig.lazyInit = true;
 
         // End Servo
         this.sweeperArmConfig.endServoConfig = new ServoComponentConfig(robot);
@@ -205,6 +207,7 @@ public class CompBotConfig {
         this.sweeperArmConfig.endServoConfig.zeroDegreePosition = 0.5;
         this.sweeperArmConfig.endServoConfig.minPosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
         this.sweeperArmConfig.endServoConfig.maxPosition = Constants.SWEEPER_END_SERVO_OPEN_POS;
+        this.sweeperArmConfig.endServoConfig.lazyInit = true;
 
         // Brace Servo
         this.sweeperArmConfig.specimenBrace = new ServoComponentConfig(robot);

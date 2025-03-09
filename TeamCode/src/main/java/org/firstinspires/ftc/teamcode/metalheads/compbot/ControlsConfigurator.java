@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.metalheads.compbot;
 
+import org.firstinspires.ftc.teamcode.library.encodedmotor.MotorToPosition;
+
 /**
  *
  */
@@ -37,6 +39,10 @@ public class ControlsConfigurator {
 
         // X button
         //this.gp1_X_Button();
+
+        // triggers
+        this.gp1_Left_Trigger();
+        this.gp1_Right_Trigger();
     }
 
     /**
@@ -87,10 +93,9 @@ public class ControlsConfigurator {
             double x = event.getPosition() * -1;
 
             //y=0.02x^{2}+0.32x+0.3
-
-            if (x <= 0.94) {
-                servoPos = 0.02 * Math.pow(x, 2) + 0.32 * x + 0.3;
-            } else servoPos = 1;
+            servoPos = 0.02 * Math.pow(x, 2) + 0.32 * x + 0.3;
+            //y=0.5x+0.5
+            //servoPos = 0.5 * x + 0.5;
 
             this.compBot.littleArm.clawRotator.setPosition(servoPos);
         });
@@ -118,7 +123,7 @@ public class ControlsConfigurator {
     public void gp1_Left_Trigger()
     {
         this.compBot.addGp1_Left_Trigger_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(event.getPosition());
+            this.compBot.bigArm.viperSlide.move(-event.getPosition());
         });
     }
 
@@ -201,8 +206,7 @@ public class ControlsConfigurator {
      */
     public void gp2_Left_Bumper() {
         this.compBot.addGp2_Left_Bumper_PressHandler(event -> {
-            //TODO:FIX
-            //this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MAX_TICS));
+            this.compBot.runAction(new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS));
         });
     }
 
@@ -210,8 +214,7 @@ public class ControlsConfigurator {
      */
     public void gp2_Right_Bumper() {
         this.compBot.addGp2_Right_Bumper_PressHandler(event -> {
-            //TODO:FIX
-            //this.compBot.runAction(this.compBot.bigArm.mainBoom.gotoPositionAction(Constants.MAIN_BOOM_MIN_TICS));
+            this.compBot.runAction(new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS));
         });
     }
 

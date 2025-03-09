@@ -41,6 +41,7 @@ public class TeleBot extends CompBot {
         super.configureBot();
 
         // initialize roadrunner from last op pose
-        this.initialPose = DriveTrainPositionStruct.pose == null ? new Pose2d(8, -61, Math.toRadians(90)) : DriveTrainPositionStruct.pose;
+        //this.initialPose = DriveTrainPositionStruct.pose == null ? new Pose2d(8, -61, Math.toRadians(90)) : DriveTrainPositionStruct.pose;
+        this.initialPose = DriveTrainPositionStruct.pose == null ? new Pose2d(-39, -61, Math.toRadians(90)) : DriveTrainPositionStruct.pose;
     }
 }

@@ -1,26 +1,20 @@
 package org.firstinspires.ftc.teamcode.metalheads;
 
-import com.acmerobotics.roadrunner.HeadingPath;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.PositionPath;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
-import com.acmerobotics.roadrunner.QuinticSpline1d;
-import com.acmerobotics.roadrunner.QuinticSpline2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.TurnConstraints;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.library.action.WaitAction;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.AutoActionFactory;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToPosition;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToPosition;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.WaitMilliseconds;
@@ -28,22 +22,22 @@ import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.WaitMillise
 /**
  *
  */
-@Autonomous(name = "RightObsBot", group = "Auto")
+@Autonomous(name = "Specimens", group = "Auto")
 //@Disabled
-public class RightObsBot extends AutoBot {
+public class SpecimensAuto extends AutoBot {
 
-    private AutoActionFactory autoActionFactory;
+    private org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory autoActionFactory;
 
     /**
      * Constructor
      *
      */
-    public RightObsBot() {
+    public SpecimensAuto() {
         super();
 
-        this.setTrajectoryFactory(new RightObsTrajectoryFactory(this));
+        this.setTrajectoryFactory(new AutoActionFactory(this));
 
-        this.setConfig(new RightObsBotConfig(this));
+        this.setConfig(new SpecimenConfig(this));
         this.configureBot();
     }
 
@@ -54,7 +48,7 @@ public class RightObsBot extends AutoBot {
     protected void configureBot() {
         super.configureBot();
 
-        this.autoActionFactory = new AutoActionFactory(this);
+        this.autoActionFactory = new org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory(this);
 
         // initialize roadrunner from last op pose
         this.setInitialPose(new Pose2d(8, -61, Math.toRadians(90)));
@@ -324,8 +318,8 @@ public class RightObsBot extends AutoBot {
      *
      * @return
      */
-    protected RightObsTrajectoryFactory getTrajectoryFactory () {
-        return (RightObsTrajectoryFactory)super.getTrajectoryFactory();
+    protected AutoActionFactory getTrajectoryFactory () {
+        return (AutoActionFactory)super.getTrajectoryFactory();
     }
 
 

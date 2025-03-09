@@ -14,7 +14,7 @@ public class Constants {
     public static final int MAIN_BOOM_MAX_TICS = 1148;
     public static final int MAIN_BOOM_INIT_TICS = 525;
     public static final int MAIN_BOOM_SCALE = 200;
-    public static final int MAIN_BOOM_TIMEOUT_DEFAULT = 300;
+    public static final int MAIN_BOOM_TIMEOUT_DEFAULT = 180;
 
     /**
      */
@@ -114,7 +114,7 @@ public class Constants {
             vSlidePos = new MotorPos(Constants.VIPER_SLIDES_MAX_TICS);
             doubleServosPos = new ServoPos(0.44);
             middleServoPos = new ServoPos(0.023);
-            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_180_DEG);
+            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_90_DEG);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_CLOSE_POS);
         }
     };

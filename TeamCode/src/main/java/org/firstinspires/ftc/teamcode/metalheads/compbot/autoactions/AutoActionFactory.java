@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.metalheads;
+package org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -10,12 +10,12 @@ import org.firstinspires.ftc.teamcode.metalheads.compbot.TrajectoryFactory;
 
 /**
  */
-public class RightObsTrajectoryFactory extends TrajectoryFactory {
+public class AutoActionFactory extends TrajectoryFactory {
 
     /**
      * @param autoBot
      */
-    public RightObsTrajectoryFactory(AutoBot autoBot) {
+    public AutoActionFactory(AutoBot autoBot) {
         super(autoBot);
     }
 

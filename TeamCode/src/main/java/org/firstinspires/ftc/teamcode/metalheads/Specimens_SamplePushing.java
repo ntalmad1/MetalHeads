@@ -14,28 +14,29 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.library.action.WaitAction;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.AutoActionFactory;
+
 /**
  *
  */
 @Autonomous(name = "RightObsBot_OG", group = "Auto")
 @Disabled
-public class RightObsBot_OG extends AutoBot {
+public class Specimens_SamplePushing extends AutoBot {
 
-    private AutoActionFactory autoActionFactory;
+    private org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory autoActionFactory;
 
     /**
      * Constructor
      *
      */
-    public RightObsBot_OG() {
+    public Specimens_SamplePushing() {
         super();
 
-        this.setTrajectoryFactory(new RightObsTrajectoryFactory(this));
+        this.setTrajectoryFactory(new AutoActionFactory(this));
 
-        this.setConfig(new RightObsBotConfig(this));
+        this.setConfig(new SpecimenConfig(this));
         this.configureBot();
     }
 
@@ -46,7 +47,7 @@ public class RightObsBot_OG extends AutoBot {
     protected void configureBot() {
         super.configureBot();
 
-        this.autoActionFactory = new AutoActionFactory(this);
+        this.autoActionFactory = new org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory(this);
 
         // initialize roadrunner from last op pose
         this.setInitialPose(new Pose2d(8, -61, Math.toRadians(90)));
@@ -528,8 +529,8 @@ public class RightObsBot_OG extends AutoBot {
      *
      * @return
      */
-    protected RightObsTrajectoryFactory getTrajectoryFactory () {
-        return (RightObsTrajectoryFactory)super.getTrajectoryFactory();
+    protected AutoActionFactory getTrajectoryFactory () {
+        return (AutoActionFactory)super.getTrajectoryFactory();
     }
 
 

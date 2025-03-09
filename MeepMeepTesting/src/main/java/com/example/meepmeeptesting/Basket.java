@@ -3,14 +3,12 @@ package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
-import com.acmerobotics.roadrunner.TurnConstraints;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 
-public class Samples {
+public class Basket {
 
     /**
      */
@@ -34,13 +32,26 @@ public class Samples {
         isaacBot.runAction(isaacBot.getDrive().actionBuilder(initialPose)
 
                         .setTangent(Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(-60.4, -60.4, Math.toRadians(45)), Math.toRadians(225),
+                        .splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(45)), Math.toRadians(225),
                                 null,
                                 new ProfileAccelConstraint(-15, 35))
 
 
-                        .setTangent(70)
+                        //sample 1
+                        .setTangent(Math.toRadians(45))
                         .splineToLinearHeading(new Pose2d(-49.36, -37.82, Math.toRadians(90)), Math.toRadians(90))
+
+                        .setTangent(Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(45)), Math.toRadians(-135))
+
+                        //sample 2
+                        .setTangent(Math.toRadians(100))
+                        .splineToLinearHeading(new Pose2d(-59.6, -38.2, Math.toRadians(90)), Math.toRadians(90))
+
+                        .setTangent(Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(45)), Math.toRadians(-80))
+
+
 
                 .build());
 

@@ -299,6 +299,7 @@ public class EventBus extends HandlerManager {
 
         float current_gp1_right_trigger = this.robot.gamepad1.right_trigger;
         float current_gp1_left_trigger  = this.robot.gamepad1.left_trigger;
+
         if ((current_gp1_left_trigger == 0 && this.gp1_left_trigger > 0) || (current_gp1_left_trigger > 0)) {
             this.fireEvent(new Gp1_Left_Trigger_Event(current_gp1_left_trigger));
         }

@@ -6,14 +6,14 @@ import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBotConfig;
 /**
  *
  */
-public class LeftNetBotConfig extends AutoBotConfig {
+public class BasketConfig extends AutoBotConfig {
 
     /**
      * Constructor
      *
      * @param robot
      */
-    public LeftNetBotConfig(IsaacBot robot) {
+    public BasketConfig(IsaacBot robot) {
         super(robot);
     }
 }
