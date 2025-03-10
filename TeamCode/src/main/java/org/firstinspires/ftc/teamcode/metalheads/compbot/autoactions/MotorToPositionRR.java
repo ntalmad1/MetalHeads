@@ -29,15 +29,7 @@ public class MotorToPositionRR implements Action {
 
     /**
      */
-    private ElapsedTime runtime = new ElapsedTime();
-
-    /**
-     */
-    private boolean flag = false;
-
-    /**
-     */
-    private Integer timeout;
+    private Integer Buffer;
 
     /**
      */
@@ -60,10 +52,10 @@ public class MotorToPositionRR implements Action {
                     : Constants.VIPER_SLIDES_TIMEOUT_DEFAULT);
     }
 
-    public MotorToPositionRR(EncodedMotor motor, int targetPosition, boolean powerOff, Integer timeout) {
+    public MotorToPositionRR(EncodedMotor motor, int targetPosition, boolean powerOff, Integer buffer) {
         this.motor = motor;
         this.targetPosition = targetPosition;
-        this.timeout = timeout;
+        this.Buffer = buffer;
         this.powerOff = powerOff;
     }
 
@@ -75,34 +67,17 @@ public class MotorToPositionRR implements Action {
 
         // powers on motor, if it is not on
         if (!initialized) {
-            motor.setTargetPosition(targetPosition);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setTargetPosition(targetPosition);
             motor.setPower(1);
             initialized = true;
         }
 
         double pos = motor.getCurrentPosition();
 
-        if (!flag) {
-            if ((pos > targetPosition -20) && (pos < targetPosition + 20)) {
-                flag = true;
-                runtime.reset();
-            }
-        }
-
-        if (flag) {
-            if (timeout != null) {
-                if (runtime.milliseconds() >= timeout) {
-                    if (powerOff) motor.setPower(0);
-                    return STOP;
-                }
-            } else {
-                if (powerOff) motor.setPower(0);
-                return STOP;
-            }
-        }
-
-        return CONTINUE;
-
+        if ((pos > targetPosition - Buffer) && (pos < targetPosition + Buffer)) {
+            if (powerOff) motor.setPower(0);
+            return STOP;
+        } else return CONTINUE;
     }
 }

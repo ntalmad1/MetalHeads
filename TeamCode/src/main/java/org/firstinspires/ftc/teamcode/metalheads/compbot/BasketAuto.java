@@ -78,7 +78,7 @@ public class BasketAuto extends AutoBot {
 
         TrajectoryActionBuilder mainTrajectory = this.getDrive().actionBuilder(this.initialPose)
 
-                //region Preloaded Sample
+                //region
                 .afterTime(0.3, new ParallelAction(
                         new MotorToPositionRR(this.bigArm.viperSlide, Constants.VIPER_SLIDES_MAX_TICS, false),
                         new InstantAction(() -> {
@@ -110,8 +110,6 @@ public class BasketAuto extends AutoBot {
 
                 .afterTime(0, new MotorToPositionRR(this.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS))
                 //endregion
-
-
 
                 //region First Sample
                 .setTangent(Math.toRadians(45))
@@ -168,10 +166,11 @@ public class BasketAuto extends AutoBot {
                 //endregion
 
                 //region Second Sample
+                //Go to Sample
                 .setTangent(Math.toRadians(100))
-                .splineToLinearHeading(new Pose2d(-59.6, -38.2, Math.toRadians(92)), Math.toRadians(90),
+                .splineToLinearHeading(new Pose2d(-58.6, -38.2, Math.toRadians(92)), Math.toRadians(90),
                         new TranslationalVelConstraint(50),
-                        new ProfileAccelConstraint(-25, 45))
+                        new ProfileAccelConstraint(-20, 45))
 
 
                 .afterTime(0, new SequentialAction(
@@ -219,8 +218,6 @@ public class BasketAuto extends AutoBot {
 
                 .afterTime(0, new MotorToPositionRR(this.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS))
                 //endregion
-
-                //resion
 
         ;
         Actions.runBlocking(mainTrajectory.build());

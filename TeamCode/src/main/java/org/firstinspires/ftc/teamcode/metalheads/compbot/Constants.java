@@ -45,6 +45,7 @@ public class Constants {
     public static final double CLAW_ROTATOR_0_DEG = 0;
     public static final double CLAW_ROTATOR_90_DEG = 0.3;
     public static final double CLAW_ROTATOR_180_DEG = 0.64;
+    public static final double CLAW_ROTATOR_270_DEG = 1;
     public static final double CLAW_ROTATOR_MAX_POS = 1;
     public static final double CLAW_ROTATOR_INIT_POS = 0.3;
     public static final double CLAW_ROTATOR_INCREMENT = 0.015;
@@ -131,7 +132,7 @@ public class Constants {
             vSlidePos = new MotorPos(Constants.VIPER_SLIDES_MIN_TICS);
             doubleServosPos = new ServoPos(0.963);
             middleServoPos = new ServoPos(0.408);
-            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_180_DEG);
+            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_90_DEG);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_OPEN_POS);
         }
     };
@@ -146,7 +147,7 @@ public class Constants {
             vSlidePos = new MotorPos(1080);
             doubleServosPos = new ServoPos(0.260);
             middleServoPos = new ServoPos(0.0);
-            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_0_DEG);
+            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_MAX_POS);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_CLOSE_POS);
         }
     };
