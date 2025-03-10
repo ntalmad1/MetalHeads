@@ -27,7 +27,6 @@ public class ControlsConfigurator {
 
         // panic button / kill switch
         this.compBot.addGp1_Back_PressHandler(event -> {
-            // this.compBot.terminateOpModeNow();
             this.compBot.killAllActions();
         });
 
@@ -37,16 +36,17 @@ public class ControlsConfigurator {
             this.compBot.runAction(this.compBot.getActionFactory().initPos());
         });
 
-        // X button
-        //this.gp1_X_Button();
+        //DoHang
+        this.gp1_X_Button();
 
-        // triggers
-        this.gp1_Left_Trigger();
-        this.gp1_Right_Trigger();
+        //ViperSlides
+        this.gp1_Triggers();
+
+        //Sweeper Open/Close
+        this.gp1_Bumpers();
     }
 
     /**
-     *
      */
     public void configureGamePad2() {
 
@@ -56,8 +56,91 @@ public class ControlsConfigurator {
             this.compBot.killAllActions();
         });
 
+        // clear and re-init
+        this.compBot.addGp2_Start_PressHandler(event -> {
+            this.compBot.setArmPos(CompBot.ArmPos.INIT);
+            this.compBot.runAction(this.compBot.getActionFactory().initPos());
+        });
+
+        //Sample Grabing
+        this.gp2_A_Button();
+        //Sample Placing
+        this.gp2_X_Button();
+        //Specimen Grabbing
+        this.gp2_B_Button();
+        //Specimen Placing
+        this.gp2_Y_Button();
+
+        // double servos and middle servo
+        this.gp2_Dpad();
+
+        //MainBoom Left/Min Right/Max
+        this.gp2_Bumpers();
+
+        // claw pincher
+        this.gp2_Triggers();
+
+        //X -> Claw Rotator
+        this.gp2_LeftStick();
+
+        //Y -> MainBoom
+        //X -> ViperSlide
+        this.gp2_RightStick();
+    }
+
+    /**
+     */
+    public void gp1_Triggers() {
+        this.compBot.addGp1_Left_Trigger_Handler(event -> {
+            this.compBot.bigArm.viperSlide.move(-event.getPosition());
+        });
+
+        this.compBot.addGp1_Right_Trigger_Handler(event -> {
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
+        });
+    }
+
+    /**
+     */
+    public void gp1_X_Button() {
+        this.compBot.addGp1_X_PressHandler(event -> {
+            if (!CompBot.ArmPos.HANG_READY.equals(this.compBot.getArmPos())) {
+                this.compBot.runAction(this.compBot.getActionFactory().hangReady());
+            }
+            else if (CompBot.ArmPos.HANG_READY.equals(this.compBot.getArmPos())) {
+                this.compBot.runAction(this.compBot.getActionFactory().doHang());
+            }
+        });
+    }
+
+    /**
+     */
+    public void gp1_Bumpers() {
+        this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperOpen());
+        });
+        this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
+        });
+    }
+
+    /**
+     */
+    public void gp1_B_Button() {
+        this.compBot.addGp1_B_PressHandler(event -> {
+            this.compBot.bigArm.viperSlide.resetEncoder();
+        });
+    }
+
+    /**
+     */
+    private void gp2_RightStick() {
+        //ViperSlide
+        this.compBot.addGp2_RightStick_X_Handler(event -> {
+            this.compBot.bigArm.viperSlide.move(event.getPosition());
+        });
+
         // main boom
-        //this.compBot.bigArm.mainBoom.addControl(Control.Gp2_RightStickY);
         this.compBot.bigArm.mainBoom.addGp2_RightStick_Y_Handler(event -> {
             double deadZone = 0.2;
 
@@ -75,17 +158,11 @@ public class ControlsConfigurator {
 
             this.compBot.bigArm.mainBoom.move(-power);
         });
+    }
 
-
-        // viper slides
-        this.compBot.addGp2_RightStick_X_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(event.getPosition());
-        });
-        //this.compBot.bigArm.viperSlide.addControl(Control.Gp2_RightStickX);
-
-        // double servos and middle servo
-        this.gp2_Dpad();
-
+    /**
+     */
+    public void gp2_LeftStick() {
         this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
 
             double servoPos;
@@ -98,123 +175,6 @@ public class ControlsConfigurator {
             //servoPos = 0.5 * x + 0.5;
 
             this.compBot.littleArm.clawRotator.setPosition(servoPos);
-        });
-
-        // claw pincher
-        this.gp2_Triggers();
-
-        // clear and re-init
-        this.compBot.addGp2_Start_PressHandler(event -> {
-            this.compBot.setArmPos(CompBot.ArmPos.INIT);
-            this.compBot.runAction(this.compBot.getActionFactory().initPos());
-        });
-
-        // presets
-        this.gp2_A_Button();
-        this.gp2_B_Button();
-        this.gp2_X_Button();
-        this.gp2_Y_Button();
-        this.gp1_Left_Bumper_Button();
-        this.gp1_Right_Bumper_Button();
-    }
-
-    /**
-     */
-    public void gp1_Left_Trigger()
-    {
-        this.compBot.addGp1_Left_Trigger_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(-event.getPosition());
-        });
-    }
-
-    /**
-     */
-    public void gp1_Right_Trigger()
-    {
-        this.compBot.addGp1_Right_Trigger_Handler(event -> {
-            this.compBot.bigArm.viperSlide.move(event.getPosition());
-        });
-    }
-
-    /**
-     */
-    public void gp1_X_Button()
-    {
-        this.compBot.addGp1_X_PressHandler(event -> {
-            if (!CompBot.ArmPos.HANG_READY.equals(this.compBot.getArmPos())) {
-                this.compBot.runAction(this.compBot.getActionFactory().hangReady());
-            }
-            else if (CompBot.ArmPos.HANG_READY.equals(this.compBot.getArmPos())) {
-                this.compBot.runAction(this.compBot.getActionFactory().doHang());
-            }
-        });
-    }
-
-    /**
-     */
-    public void gp1_Left_Bumper_Button()
-    {
-        this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
-            this.compBot.runAction(this.compBot.getActionFactory().sweeperOpen());
-        });
-
-    }
-
-    /**
-     */
-    public void gp1_Right_Bumper_Button()
-    {
-        this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
-            this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
-        });
-    }
-
-    /**
-     */
-    public void gp1_B_Button()
-    {
-        this.compBot.addGp1_B_PressHandler(event -> {
-            this.compBot.bigArm.viperSlide.resetEncoder();
-        });
-    }
-
-    /**
-     */
-    public void gp2_Dpad() {
-        // dpad up
-        this.compBot.addGp2_Dpad_Up_DownHandler(event -> {
-            this.compBot.littleArm.doubleServos.move(1);
-        });
-
-        // dpad down
-        this.compBot.addGp2_Dpad_Down_DownHandler(event -> {
-            this.compBot.littleArm.doubleServos.move(-1);
-        });
-
-        // dpad left
-        this.compBot.addGp2_Dpad_Left_DownHandler(event -> {
-            this.compBot.littleArm.middleServo.move(-1);
-        });
-
-        //dpad right
-        this.compBot.addGp2_Dpad_Right_DownHandler(event -> {
-            this.compBot.littleArm.middleServo.move(1);
-        });
-    }
-
-    /**
-     */
-    public void gp2_Left_Bumper() {
-        this.compBot.addGp2_Left_Bumper_PressHandler(event -> {
-            this.compBot.runAction(new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS));
-        });
-    }
-
-    /**
-     */
-    public void gp2_Right_Bumper() {
-        this.compBot.addGp2_Right_Bumper_PressHandler(event -> {
-            this.compBot.runAction(new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS));
         });
     }
 
@@ -299,6 +259,41 @@ public class ControlsConfigurator {
                 this.compBot.runAction(this.compBot.getActionFactory().specimenPlaceHigh());
 
             }
+        });
+    }
+
+    /**
+     */
+    public void gp2_Dpad() {
+        // dpad up
+        this.compBot.addGp2_Dpad_Up_DownHandler(event -> {
+            this.compBot.littleArm.doubleServos.move(1);
+        });
+
+        // dpad down
+        this.compBot.addGp2_Dpad_Down_DownHandler(event -> {
+            this.compBot.littleArm.doubleServos.move(-1);
+        });
+
+        // dpad left
+        this.compBot.addGp2_Dpad_Left_DownHandler(event -> {
+            this.compBot.littleArm.middleServo.move(-1);
+        });
+
+        //dpad right
+        this.compBot.addGp2_Dpad_Right_DownHandler(event -> {
+            this.compBot.littleArm.middleServo.move(1);
+        });
+    }
+
+    /**
+     */
+    public void gp2_Bumpers() {
+        this.compBot.addGp2_Left_Bumper_PressHandler(event -> {
+            this.compBot.runAction(new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS));
+        });
+        this.compBot.addGp2_Right_Bumper_PressHandler(event -> {
+            this.compBot.runAction(new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS));
         });
     }
 
