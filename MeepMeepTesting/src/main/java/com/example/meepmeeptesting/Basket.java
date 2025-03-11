@@ -53,14 +53,14 @@ public class Basket {
 
                         //sample 3
                         .setTangent(Math.toRadians(100))
-                        .splineToLinearHeading(new Pose2d(-59.6, -38.2, Math.toRadians(120)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(-58.25, -45.5, Math.toRadians(120)), Math.toRadians(90))
 
                         .setTangent(Math.toRadians(-90))
                         .splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(45)), Math.toRadians(-80))
 
                         //Level 1 Hang
                         .setTangent(Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(-24, -10, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(-24, -8, Math.toRadians(180)), Math.toRadians(0))
 
 
                 .build());

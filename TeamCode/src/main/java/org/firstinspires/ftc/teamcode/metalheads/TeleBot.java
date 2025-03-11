@@ -23,14 +23,6 @@ public class TeleBot extends CompBot {
     @Override
     public void initBot() {
         super.initBot();
-
-//        AbstractAction action = new SequentialActionImpl(
-//                this.bigArm.mainBoom.gotoPositionAction(525),
-//                new InstantActionImpl(() -> { this.setArmPos(ArmPos.INIT); })
-//        );
-//
-//        TelemetryPacket tp = new TelemetryPacket();
-//        while (action.run(tp) == AbstractAction.CONTIUE){}
     }
 
     /**

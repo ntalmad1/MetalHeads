@@ -117,10 +117,10 @@ public class ControlsConfigurator {
      */
     public void gp1_Bumpers() {
         this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
-            this.compBot.runAction(this.compBot.getActionFactory().sweeperOpen());
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
         });
         this.compBot.addGp1_Right_Bumper_DownHandler(event -> {
-            this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
+            this.compBot.runAction(this.compBot.getActionFactory().sweeperOpen());
         });
     }
 

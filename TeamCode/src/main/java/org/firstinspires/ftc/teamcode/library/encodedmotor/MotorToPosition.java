@@ -1,17 +1,44 @@
 package org.firstinspires.ftc.teamcode.library.encodedmotor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.library.action.AbstractAction;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
 
 public class MotorToPosition extends AbstractAction {
-    // checks if the lift motor has been powered on
+
+    /**
+     */
     private boolean initialized = false;
+
+    /**
+     */
     private int targetPosition;
+
+    /**
+     */
     private EncodedMotor motor;
+
+    /**
+     */
     private Integer buffer;
+
+    /**
+     */
     private boolean powerOff;
+
+    /**
+     */
+    private ElapsedTime runtime = new ElapsedTime();
+
+    /**
+     */
+    private boolean flag = false;
+
+    /**
+     */
+    private Integer timeout;
 
     /**
      * Constructor
@@ -34,27 +61,34 @@ public class MotorToPosition extends AbstractAction {
         this.targetPosition = targetPosition;
         this.buffer = buffer;
         this.powerOff = powerOff;
+        this.timeout = 120;
     }
 
 
 
-    // actions are formatted via telemetry packets as below
     @Override
     public boolean run() {
 
         // powers on motor, if it is not on
         if (!initialized) {
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setTargetPosition(targetPosition);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setPower(1);
             initialized = true;
         }
 
-        double pos = motor.getCurrentPosition();
-
-        if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
-            if (!powerOff) motor.setPower(0);
-            return STOP;
-        } else return CONTIUE;
+        if (!flag) {
+            double pos = motor.getCurrentPosition();
+            if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
+                flag = true;
+                runtime.reset();
+            }
+        } else {
+            if (runtime.milliseconds() > timeout) {
+                if (!powerOff) motor.setPower(0);
+                return STOP;
+            }
+        }
+        return CONTIUE;
     }
 }

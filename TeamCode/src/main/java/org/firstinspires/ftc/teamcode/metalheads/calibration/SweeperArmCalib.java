@@ -160,6 +160,13 @@ public class SweeperArmCalib extends IsaacBot {
 
         });
 
+        this.addGp1_LeftStick_X_Handler(event -> {
+
+            if (servo.getPosition() < 1 && servo.getPosition() > 0) {
+                servo.setPosition(servo.getPosition() + (config.maxIncrement * event.getPosition()));
+            }
+        });
+
 
 
     }

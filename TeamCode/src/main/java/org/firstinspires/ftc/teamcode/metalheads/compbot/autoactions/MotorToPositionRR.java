@@ -29,11 +29,24 @@ public class MotorToPositionRR implements Action {
 
     /**
      */
-    private Integer Buffer;
+    private Integer buffer;
 
     /**
      */
     private boolean powerOff;
+
+    /**
+     */
+    private boolean flag = false;
+
+    /**
+     */
+    private ElapsedTime runtime = new ElapsedTime();
+
+    /**
+     */
+    private Integer timeout;
+
 
 
     /**
@@ -55,8 +68,9 @@ public class MotorToPositionRR implements Action {
     public MotorToPositionRR(EncodedMotor motor, int targetPosition, boolean powerOff, Integer buffer) {
         this.motor = motor;
         this.targetPosition = targetPosition;
-        this.Buffer = buffer;
+        this.buffer = buffer;
         this.powerOff = powerOff;
+        this.timeout = 120;
     }
 
 
@@ -65,19 +79,27 @@ public class MotorToPositionRR implements Action {
     @Override
     public boolean run(@NonNull TelemetryPacket packet) {
 
+
         // powers on motor, if it is not on
         if (!initialized) {
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setTargetPosition(targetPosition);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setPower(1);
             initialized = true;
         }
 
-        double pos = motor.getCurrentPosition();
-
-        if ((pos > targetPosition - Buffer) && (pos < targetPosition + Buffer)) {
-            if (powerOff) motor.setPower(0);
-            return STOP;
-        } else return CONTINUE;
+        if (!flag) {
+            double pos = motor.getCurrentPosition();
+            if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
+                flag = true;
+                runtime.reset();
+            }
+        } else {
+            if (runtime.milliseconds() > timeout) {
+                if (!powerOff) motor.setPower(0);
+                return STOP;
+            }
+        }
+        return CONTINUE;
     }
 }
