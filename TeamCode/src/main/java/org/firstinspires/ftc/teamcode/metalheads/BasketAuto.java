@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoActionFactory;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.AutoBot;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.Constants;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.AutonomousData;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MotorToPositionRR;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.WaitForMotor;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.WaitMilliseconds;
@@ -60,10 +61,14 @@ public class BasketAuto extends AutoBot {
     public void initBot() {
         super.initBot();
 
+        AutonomousData.yawOffset = 90;
+
         this.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS);
         this.bigArm.mainBoom.setTargetPosition(Constants.MAIN_BOOM_MAX_TICS);
         this.bigArm.mainBoom.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.bigArm.mainBoom.setPower(1);
+        this.sleep(3000);
+        this.bigArm.mainBoom.setPower(0);
         this.telemetry.log().add("INIT DONE");
 
     }

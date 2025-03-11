@@ -225,7 +225,9 @@ public class CompBotConfig {
      */
     private void configureDriveTrain(IsaacBot robot) {
         this.driveTrainConfig = new RoadrunnerDriveTrainConfig(robot);
-        this.driveTrainConfig.yawOffset = 0;
+        if (AutonomousData.yawOffset == null) AutonomousData.yawOffset = 0;
+        this.driveTrainConfig.yawOffset = AutonomousData.yawOffset;
+        AutonomousData.yawOffset = 0;
         this.driveTrainConfig.imuName = "imuExternal";
     }
 
