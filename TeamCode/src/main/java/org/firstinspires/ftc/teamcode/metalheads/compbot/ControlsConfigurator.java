@@ -167,10 +167,11 @@ public class ControlsConfigurator {
 
             double servoPos;
 
-            double x = event.getPosition() * -1;
+            double x = event.getPosition();
 
-            //y=0.02x^{2}+0.32x+0.3
-            servoPos = 0.02 * Math.pow(x, 2) + 0.32 * x + 0.3;
+            //y=0.04x^{2}-0.36x+0.32
+            servoPos = 0.04 * Math.pow(x, 2) - 0.36 * x + 0.32;
+
             //y=0.5x+0.5
             //servoPos = 0.5 * x + 0.5;
 
@@ -227,20 +228,21 @@ public class ControlsConfigurator {
      */
     public void gp2_X_Button() {
         this.compBot.addGp2_X_PressHandler(event -> {
+            //Retract Sample
             if (this.compBot.getArmPos().equals(CompBot.ArmPos.SAMPLE_PICK_UP)) {
                 this.compBot.runAction(this.compBot.getActionFactory().retractSample());
             }
+            //Sample Extend Ready
             else if (this.compBot.getArmPos().equals(CompBot.ArmPos.SAMPLE_RETRACTED)) {
                 this.compBot.runAction(this.compBot.getActionFactory().sampleExtendReady());
             }
+            //Extend To Sample Drop High
             else if (this.compBot.getArmPos().equals(CompBot.ArmPos.SAMPLE_EXTEND_READY)) {
-
                 this.compBot.runAction(this.compBot.getActionFactory().extendToSampleDropHigh());
             }
+            //Sample Drop High
             else if (this.compBot.getArmPos().equals(CompBot.ArmPos.SAMPLE_DROP_HIGH_READY)) {
-
                 this.compBot.runAction(this.compBot.getActionFactory().sampleDropHigh());
-
             }
         });
     }

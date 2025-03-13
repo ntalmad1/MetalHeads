@@ -52,9 +52,9 @@ public class Constants {
 
     /**
      */
-    public static final double CLAW_PINCHER_OPEN_POS = 0.5;
-    public static final double CLAW_PINCHER_CLOSE_POS = 0.8;
-    public static final double CLAW_PINCHER_INIT_POS = 0.8;
+    public static final double CLAW_PINCHER_OPEN_POS = 0.0;
+    public static final double CLAW_PINCHER_CLOSE_POS = 0.23;
+    public static final double CLAW_PINCHER_INIT_POS = 0.23;
 
     /**
      */
@@ -77,8 +77,8 @@ public class Constants {
         public void setValues() {
             mainBoomPos = new MotorPos(Constants.MAIN_BOOM_MIN_TICS);
             vSlidePos = new MotorPos(165);
-            doubleServosPos = new ServoPos(0.548);
-            middleServoPos = new ServoPos(0.719);
+            doubleServosPos = new ServoPos(0.568);
+            middleServoPos = new ServoPos(0.724);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_90_DEG);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_OPEN_POS);
         }

@@ -171,7 +171,7 @@ public class BasketAuto extends AutoBot {
                 //region Second Sample
                 //----------------------------------------------------------------------------------------------------
                 .setTangent(Math.toRadians(100))
-                .splineToLinearHeading(new Pose2d(-59, -37.5, Math.toRadians(92)), Math.toRadians(90),
+                .splineToLinearHeading(new Pose2d(-58.3, -37.5, Math.toRadians(92)), Math.toRadians(90),
                         new TranslationalVelConstraint(50),
                         new ProfileAccelConstraint(-20, 45))
 
@@ -225,7 +225,7 @@ public class BasketAuto extends AutoBot {
                 //region Third Sample
                 //----------------------------------------------------------------------------------------------------
                 .afterTime(0, new InstantAction(() -> this.littleArm.clawRotator.setPosition(.23)))
-                .afterTime(0.7, new MotorToPositionRR(this.bigArm.viperSlide, 782, false))
+                .afterTime(0.7, new MotorToPositionRR(this.bigArm.viperSlide, 788, false))
 
                 .setTangent(Math.toRadians(100))
                 .splineToLinearHeading(new Pose2d(-58.2, -45.5, Math.toRadians(120)), Math.toRadians(90),
@@ -292,9 +292,9 @@ public class BasketAuto extends AutoBot {
                     this.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_INIT_POS);
                     this.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_INIT_POS);
                     this.sweeperArm.baseServo.setPosition(0.59);
-                    this.sweeperArm.middleServo.setPosition(0.44);
                     this.sweeperArm.endServo.setPosition(0.3);
                 }))
+                .afterTime(0.15, new InstantAction(() -> this.sweeperArm.middleServo.setPosition(0.44)))
                 //endregion
 
         ;

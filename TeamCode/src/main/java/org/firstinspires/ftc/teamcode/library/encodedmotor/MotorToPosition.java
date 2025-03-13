@@ -34,7 +34,7 @@ public class MotorToPosition extends AbstractAction {
 
     /**
      */
-    private boolean flag = false;
+    private boolean flag;
 
     /**
      */
@@ -50,10 +50,7 @@ public class MotorToPosition extends AbstractAction {
 
     public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff) {
 
-        this(motor, targetPosition, powerOff,
-                powerOff
-                    ? Constants.MAIN_BOOM_TIMEOUT_DEFAULT
-                    : Constants.VIPER_SLIDES_TIMEOUT_DEFAULT);
+        this(motor, targetPosition, powerOff, 25);
     }
 
     public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff, Integer buffer) {
@@ -61,7 +58,7 @@ public class MotorToPosition extends AbstractAction {
         this.targetPosition = targetPosition;
         this.buffer = buffer;
         this.powerOff = powerOff;
-        this.timeout = 120;
+        this.timeout = 110;
     }
 
 
@@ -74,6 +71,11 @@ public class MotorToPosition extends AbstractAction {
             motor.setTargetPosition(targetPosition);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setPower(1);
+
+            if (powerOff) {
+                flag = false;
+            } else flag = true;
+
             initialized = true;
         }
 
@@ -84,9 +86,16 @@ public class MotorToPosition extends AbstractAction {
                 runtime.reset();
             }
         } else {
-            if (runtime.milliseconds() > timeout) {
-                if (!powerOff) motor.setPower(0);
-                return STOP;
+            if (powerOff) {
+                if (runtime.milliseconds() > timeout) {
+                    motor.setPower(0);
+                    return STOP;
+                }
+            } else {
+                double pos = motor.getCurrentPosition();
+                if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
+                    return STOP;
+                }
             }
         }
         return CONTIUE;

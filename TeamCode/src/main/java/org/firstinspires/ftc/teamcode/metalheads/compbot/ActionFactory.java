@@ -53,7 +53,7 @@ public class ActionFactory {
                 new InstantActionImpl(() -> this.compBot.setArmPos(CompBot.ArmPos.HANG_READY)),
             new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.HANG_READY.mainBoomPos.getPos()),
             new ParallelActionImpl(
-                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.HANG_READY.vSlidePos.getPos()),
+                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.HANG_READY.vSlidePos.getPos(), false),
                 new InstantActionImpl(() -> {
                     this.compBot.littleArm.doubleServos.setPosition(Constants.HANG_READY.doubleServosPos.getPos());
                     this.compBot.littleArm.middleServo.setPosition(Constants.HANG_READY.middleServoPos.getPos());
