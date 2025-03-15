@@ -91,8 +91,8 @@ public class AutoActionFactory {
                     this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.clawRotatorPos.getPos());
                     this.compBot.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.clawPincherPos.getPos());
                 }),
-                new MotorToPositionRR(compBot.bigArm.mainBoom, (Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos() + 25), false),
-                new MotorToPositionRR(compBot.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos() + 20, false)
+                new MotorToPositionRR(compBot.bigArm.mainBoom, (Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos()), false),
+                new MotorToPositionRR(compBot.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos(), false)
         );
     }
 

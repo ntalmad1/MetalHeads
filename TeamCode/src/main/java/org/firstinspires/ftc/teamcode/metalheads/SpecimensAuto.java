@@ -81,7 +81,7 @@ public class SpecimensAuto extends AutoBot {
 //              ----------------------------------------------------------------------------------------------
                 .afterTime(0, new SequentialAction(
                         new MotorToPositionRR(this.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false),
-                        new MotorToPositionRR(this.bigArm.viperSlide, (Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos() + 10), false)
+                        new MotorToPositionRR(this.bigArm.viperSlide, (Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos()), false)
                 ))
 
                 //SPECIMEN PLACE HIGH READY (Servos)
