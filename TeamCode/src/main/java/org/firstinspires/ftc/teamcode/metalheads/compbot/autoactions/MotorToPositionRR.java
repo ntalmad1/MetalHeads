@@ -48,7 +48,6 @@ public class MotorToPositionRR implements Action {
     private Integer timeout;
 
 
-
     /**
      * Constructor
      * @param motor
@@ -59,10 +58,7 @@ public class MotorToPositionRR implements Action {
 
     public MotorToPositionRR(EncodedMotor motor, int targetPosition, boolean powerOff) {
 
-        this(motor, targetPosition, powerOff,
-                powerOff
-                    ? Constants.MAIN_BOOM_TIMEOUT_DEFAULT
-                    : Constants.VIPER_SLIDES_TIMEOUT_DEFAULT);
+        this(motor, targetPosition, powerOff, 20);
     }
 
     public MotorToPositionRR(EncodedMotor motor, int targetPosition, boolean powerOff, Integer buffer) {
@@ -70,21 +66,23 @@ public class MotorToPositionRR implements Action {
         this.targetPosition = targetPosition;
         this.buffer = buffer;
         this.powerOff = powerOff;
-        this.timeout = 120;
+        this.timeout = 125;
     }
-
 
 
     // actions are formatted via telemetry packets as below
     @Override
     public boolean run(@NonNull TelemetryPacket packet) {
 
-
-        // powers on motor, if it is not on
         if (!initialized) {
             motor.setTargetPosition(targetPosition);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setPower(1);
+
+            if (powerOff) {
+                flag = false;
+            } else flag = true;
+
             initialized = true;
         }
 
@@ -95,9 +93,16 @@ public class MotorToPositionRR implements Action {
                 runtime.reset();
             }
         } else {
-            if (runtime.milliseconds() > timeout) {
-                if (!powerOff) motor.setPower(0);
-                return STOP;
+            if (powerOff) {
+                if (runtime.milliseconds() > timeout) {
+                    motor.setPower(0);
+                    return STOP;
+                }
+            } else {
+                double pos = motor.getCurrentPosition();
+                if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
+                    return STOP;
+                }
             }
         }
         return CONTINUE;

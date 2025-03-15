@@ -50,15 +50,15 @@ public class MotorToPosition extends AbstractAction {
 
     public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff) {
 
-        this(motor, targetPosition, powerOff, 25);
+        this(motor, targetPosition, powerOff, 25, 220);
     }
 
-    public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff, Integer buffer) {
+    public MotorToPosition(EncodedMotor motor, int targetPosition, boolean powerOff, Integer buffer, Integer timeout) {
         this.motor = motor;
         this.targetPosition = targetPosition;
         this.buffer = buffer;
         this.powerOff = powerOff;
-        this.timeout = 110;
+        this.timeout = timeout;
     }
 
 
@@ -66,7 +66,6 @@ public class MotorToPosition extends AbstractAction {
     @Override
     public boolean run() {
 
-        // powers on motor, if it is not on
         if (!initialized) {
             motor.setTargetPosition(targetPosition);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

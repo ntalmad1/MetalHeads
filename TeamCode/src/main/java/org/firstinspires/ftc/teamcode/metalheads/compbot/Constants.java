@@ -37,7 +37,7 @@ public class Constants {
     public static final double MIDDLE_SERVO_MAX_POS = 0.783;
     public static final double MIDDLE_SERVO_INIT_POS = 0.783;
     public static final double MIDDLE_SERVO_INCREMENT = 0.006;
-    public static final double MIDDLE_SERVO_SPECIMEN_PLACED = 0.173;
+    public static final double MIDDLE_SERVO_SPECIMEN_PLACED = 0.19;
 
     /**
      */
@@ -131,7 +131,7 @@ public class Constants {
             mainBoomPos = new MotorPos(Constants.MAIN_BOOM_MAX_TICS);
             vSlidePos = new MotorPos(Constants.VIPER_SLIDES_MIN_TICS);
             doubleServosPos = new ServoPos(0.963);
-            middleServoPos = new ServoPos(0.408);
+            middleServoPos = new ServoPos(0.453);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_90_DEG);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_OPEN_POS);
         }
@@ -143,31 +143,14 @@ public class Constants {
         @Override
         public void setValues() {
             // was 526
-            mainBoomPos = new MotorPos(536);
-            vSlidePos = new MotorPos(1080);
+            mainBoomPos = new MotorPos(545);
+            vSlidePos = new MotorPos(1160);
             doubleServosPos = new ServoPos(0.260);
             middleServoPos = new ServoPos(0.0);
             clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_MAX_POS);
             clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_CLOSE_POS);
         }
     };
-
-
-    /**
-     */
-    public static final PositionsStruct SPECIMEN_PLACE_HIGH_READY_TELEOP = new PositionsStruct() {
-        @Override
-        public void setValues() {
-            // was 526
-            mainBoomPos = new MotorPos(536);
-            vSlidePos = new MotorPos(1081);
-            doubleServosPos = new ServoPos(0.260);
-            middleServoPos = new ServoPos(0.0);
-            clawRotatorPos = new ServoPos(Constants.CLAW_ROTATOR_0_DEG);
-            clawPincherPos = new ServoPos(Constants.CLAW_PINCHER_CLOSE_POS);
-        }
-    };
-
 
     /**
      */

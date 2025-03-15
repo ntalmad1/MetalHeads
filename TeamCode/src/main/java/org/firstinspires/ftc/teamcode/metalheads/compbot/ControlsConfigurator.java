@@ -1,11 +1,20 @@
 package org.firstinspires.ftc.teamcode.metalheads.compbot;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
+import org.firstinspires.ftc.teamcode.library.action.SequentialActionImpl;
+import org.firstinspires.ftc.teamcode.library.action.WaitAction;
 import org.firstinspires.ftc.teamcode.library.encodedmotor.MotorToPosition;
 
 /**
  *
  */
 public class ControlsConfigurator {
+
+    private boolean Bflag = true;
+
+    private boolean Yflag = true;
 
     /**
      */
@@ -38,6 +47,12 @@ public class ControlsConfigurator {
 
         //DoHang
         this.gp1_X_Button();
+
+        //Brute Force MainBoom
+        this.gp1_B_Button();
+
+        //Reset MainBoom Encoder
+        this.gp1_Y_Button();
 
         //ViperSlides
         this.gp1_Triggers();
@@ -115,6 +130,36 @@ public class ControlsConfigurator {
 
     /**
      */
+    public void gp1_B_Button() {
+        this.compBot.addGp1_B_PressHandler(event -> {
+            if (Bflag) {
+                this.compBot.bigArm.mainBoom.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                this.compBot.bigArm.mainBoom.setPower(-1);
+                Bflag = false;
+            } else {
+                this.compBot.bigArm.mainBoom.resetEncoder();
+                this.compBot.bigArm.mainBoom.setTargetPosition(8);
+                this.compBot.bigArm.mainBoom.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Bflag = true;
+            }
+        });
+    }
+
+    public void gp1_Y_Button() {
+        if (Yflag) {
+            this.compBot.bigArm.mainBoom.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            this.compBot.bigArm.mainBoom.setPower(-0.5);
+            this.compBot.bigArm.mainBoom.getSecondaryMotor().setPower(0.5);
+            Yflag = false;
+        } else {
+            this.compBot.bigArm.mainBoom.setPower(0);
+            Yflag = true;
+        }
+
+    }
+
+    /**
+     */
     public void gp1_Bumpers() {
         this.compBot.addGp1_Left_Bumper_DownHandler(event -> {
             this.compBot.runAction(this.compBot.getActionFactory().sweeperClose());
@@ -126,10 +171,46 @@ public class ControlsConfigurator {
 
     /**
      */
-    public void gp1_B_Button() {
-        this.compBot.addGp1_B_PressHandler(event -> {
-            this.compBot.bigArm.viperSlide.resetEncoder();
-        });
+    public void  gp1_Dpad() {
+//        this.compBot.addGp1_Dpad_Left_PressHandler(event -> {
+//            this.compBot.runAction(
+//                new SequentialActionImpl(
+//                        new MotorToPosition(this.compBot.bigArm.viperSlide, (Constants.VIPER_SLIDES_MIN_TICS - 10), true),
+//                        new WaitAction(100)
+//                )
+//            );
+//        });
+//
+//        this.compBot.addGp1_Dpad_Right_PressHandler(event -> {
+//            this.compBot.runAction(
+//                    new SequentialActionImpl(
+//                            new MotorToPosition(this.compBot.bigArm.viperSlide, (Constants.VIPER_SLIDES_MIN_TICS + 10), false),
+//                            new WaitAction(100),
+//                            new InstantActionImpl(() -> this.compBot.bigArm.viperSlide.resetEncoder())
+//                    )
+//            );
+//        });
+//
+//        this.compBot.addGp1_Dpad_Down_PressHandler(event -> {
+//            this.compBot.runAction(
+//                    new SequentialActionImpl(
+//
+//                            new MotorToPosition(this.compBot.bigArm.mainBoom, (Constants.MAIN_BOOM_MIN_TICS - 10), false),
+//                            new WaitAction(200),
+//                            new InstantActionImpl(() -> this.compBot.bigArm.mainBoom.resetEncoder())
+//                    )
+//            );
+//        });
+//
+//        this.compBot.addGp1_Dpad_Up_PressHandler(event -> {
+//            this.compBot.runAction(
+//                    new SequentialActionImpl(
+//                            new MotorToPosition(this.compBot.bigArm.mainBoom, (Constants.MAIN_BOOM_MIN_TICS + 10), false),
+//                            new WaitAction(200),
+//                            new InstantActionImpl(() -> this.compBot.bigArm.mainBoom.resetEncoder())
+//                    )
+//            );
+//        });
     }
 
     /**

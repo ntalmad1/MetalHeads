@@ -6,8 +6,7 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 
 import org.firstinspires.ftc.teamcode.library.action.InstantActionImpl;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MainBoomToPosition;
-import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.ViperSlideToPosition;
+import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.MotorToPositionRR;
 import org.firstinspires.ftc.teamcode.metalheads.compbot.autoactions.WaitMilliseconds;
 
 /**
@@ -38,7 +37,7 @@ public class AutoActionFactory {
                 this.compBot.littleArm.clawRotator.setPosition(Constants.CLAW_ROTATOR_INIT_POS);
                 this.compBot.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_INIT_POS);
             }),
-            new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
+            new MotorToPositionRR(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
 
             new ParallelAction(
                 AutoActionFactory.this.compBot.littleArm.doubleServos.gotoPositionAction(
@@ -50,7 +49,7 @@ public class AutoActionFactory {
                 AutoActionFactory.this.compBot.littleArm.clawPincher.gotoPositionAction(
                         AutoActionFactory.this.compBot.getConfig().littleArmConfig.clawPincherConfig.homePosition, 1)
             ),
-            new MainBoomToPosition(this.compBot.bigArm.mainBoom, 0),
+            new MotorToPositionRR(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MIN_TICS),
             new InstantAction(() -> { AutoActionFactory.this.compBot.setArmPos(CompBot.ArmPos.INIT_READY); })
         );
     }
@@ -60,46 +59,22 @@ public class AutoActionFactory {
      * @return
      */
     public Action specimenPickReady() {
-        if (this.compBot.getArmPos().equals(CompBot.ArmPos.SPECIMEN_PLACE_HIGH_READY)) {
-            return new SequentialAction(
-                    new InstantAction(() -> {
-
-                        this.compBot.littleArm.doubleServos.setPosition(Constants.DOUBLE_SERVOS_MIN_POS);
-                        this.compBot.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED);
-
-                        this.compBot.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PICK_READY.clawPincherPos.getPos());
-                        this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
-
-                    }),
-                    new WaitMilliseconds(300),
-                    new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.SPECIMEN_PICK_READY.vSlidePos.getPos(), false, 20),
-                    new ParallelAction(
-                            new SequentialAction(
-                                new WaitMilliseconds(400),
-                                new InstantAction(() -> {
-                                    this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
-                                    this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
-                                })
-                            ),
-                            new MainBoomToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos())
-                    )
-
-            );
-
-
-        } else {
         return new SequentialAction(
                 new InstantAction(() -> {
-                    this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
-                    this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
-                    this.compBot.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PICK_READY.clawPincherPos.getPos());
-                    this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                    this.compBot.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS);
+                    this.compBot.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED);
                 }),
-                new ViperSlideToPosition(this.compBot.bigArm.viperSlide, Constants.SPECIMEN_PICK_READY.vSlidePos.getPos(), false, 20),
-                new MainBoomToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos())
-
+                new WaitMilliseconds(400),
+                new MotorToPositionRR(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS),
+                new ParallelAction(
+                        new MotorToPositionRR(this.compBot.bigArm.mainBoom, Constants.MAIN_BOOM_MAX_TICS),
+                        new InstantAction(() -> {
+                            this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                            this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos());
+                            this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
+                        })
+                )
         );
-            }
     }
 
 
@@ -116,10 +91,12 @@ public class AutoActionFactory {
                     this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.clawRotatorPos.getPos());
                     this.compBot.littleArm.clawPincher.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.clawPincherPos.getPos());
                 }),
-                new MainBoomToPosition(compBot.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false, 50),
-                new ViperSlideToPosition(compBot.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos())
+                new MotorToPositionRR(compBot.bigArm.mainBoom, (Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos() + 25), false),
+                new MotorToPositionRR(compBot.bigArm.viperSlide, Constants.SPECIMEN_PLACE_HIGH_READY.vSlidePos.getPos() + 20, false)
         );
     }
+
+
 
     /**
      * @return

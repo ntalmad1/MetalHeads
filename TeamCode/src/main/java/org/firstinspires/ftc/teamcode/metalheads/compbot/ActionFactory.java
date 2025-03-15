@@ -126,7 +126,7 @@ public class ActionFactory {
                                 this.compBot.littleArm.clawPincher.setPosition(Constants.SAMPLE_PICK_READY.clawPincherPos.getPos());
                             })
                     ),
-                    new MotorToPosition(this.compBot.bigArm.mainBoom,Constants.MAIN_BOOM_MIN_TICS)
+                    new MotorToPosition(this.compBot.bigArm.mainBoom,Constants.MAIN_BOOM_MIN_TICS, true, 15, 300)
             );
         }
     }
@@ -139,7 +139,7 @@ public class ActionFactory {
         return new SequentialActionImpl(
                 new InstantActionImpl(() -> this.compBot.setArmPos(CompBot.ArmPos.SAMPLE_PICK_DOWN)),
                 new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SAMPLE_PICK_DOWN.middleServoPos.getPos())),
-                new WaitAction(75),
+                new WaitAction(50),
                 new InstantActionImpl(() -> this.compBot.littleArm.doubleServos.setPosition(Constants.SAMPLE_PICK_DOWN.doubleServosPos.getPos()))
         );
     }
@@ -166,7 +166,7 @@ public class ActionFactory {
                 this.compBot.getActionFactory().samplePickDown(),
                 new WaitAction(250),
                 new InstantActionImpl(() -> this.compBot.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS)),
-                new WaitAction(350),
+                new WaitAction(250),
                 this.compBot.getActionFactory().samplePickUp()
         );
     }
@@ -332,7 +332,7 @@ public class ActionFactory {
         return new SequentialActionImpl(
                 new InstantActionImpl(() ->  this.compBot.setArmPos(CompBot.ArmPos.SPECIMEN_PLACE_HIGH_READY)),
                 new ParallelActionImpl(
-                        new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos()),
+                        new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false),
                         new InstantActionImpl(() -> {
                             this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.doubleServosPos.getPos());
                             this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.middleServoPos.getPos());
@@ -357,7 +357,7 @@ public class ActionFactory {
                 new WaitAction(80),
                 new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED)),
                 new WaitAction(200),
-                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, false, 5),
+                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, false, 5, 50),
                 new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos())),
                 new WaitAction(250),
                 new ParallelActionImpl(
