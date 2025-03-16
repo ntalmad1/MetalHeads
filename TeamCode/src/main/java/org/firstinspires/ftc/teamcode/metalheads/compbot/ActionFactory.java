@@ -357,7 +357,7 @@ public class ActionFactory {
                 new WaitAction(80),
                 new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.MIDDLE_SERVO_SPECIMEN_PLACED)),
                 new WaitAction(200),
-                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, false, 5, 50),
+                new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, true, 16, 150),
                 new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos())),
                 new WaitAction(250),
                 new ParallelActionImpl(
