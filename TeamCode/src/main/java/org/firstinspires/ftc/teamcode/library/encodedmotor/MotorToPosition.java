@@ -69,18 +69,20 @@ public class MotorToPosition extends AbstractAction {
         if (!initialized) {
             motor.setTargetPosition(targetPosition);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.getSecondaryMotor().setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setPower(1);
 
-            if (powerOff) {
-                flag = false;
-            } else flag = true;
+            flag = !powerOff;
 
             initialized = true;
         }
 
+        double pos = motor.getCurrentPosition();
+        double secondaryPos = motor.getSecondaryMotor().getCurrentPosition();
+
         if (!flag) {
-            double pos = motor.getCurrentPosition();
-            if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
+            if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)
+            && (secondaryPos > targetPosition - buffer) && (secondaryPos < targetPosition + buffer)) {
                 flag = true;
                 runtime.reset();
             }
@@ -91,8 +93,8 @@ public class MotorToPosition extends AbstractAction {
                     return STOP;
                 }
             } else {
-                double pos = motor.getCurrentPosition();
-                if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)) {
+                if ((pos > targetPosition - buffer) && (pos < targetPosition + buffer)
+                && (secondaryPos > targetPosition - buffer) && (secondaryPos < targetPosition + buffer)) {
                     return STOP;
                 }
             }

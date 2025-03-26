@@ -332,10 +332,10 @@ public class ActionFactory {
         return new SequentialActionImpl(
                 new InstantActionImpl(() ->  this.compBot.setArmPos(CompBot.ArmPos.SPECIMEN_PLACE_HIGH_READY)),
                 new ParallelActionImpl(
-                        new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos(), false),
+                        new MotorToPosition(this.compBot.bigArm.mainBoom, (Constants.SPECIMEN_PLACE_HIGH_READY.mainBoomPos.getPos() + 10), false, 20, 150),
                         new InstantActionImpl(() -> {
                             this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.doubleServosPos.getPos());
-                            this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PLACE_HIGH_READY.middleServoPos.getPos());
+                            this.compBot.littleArm.middleServo.setPosition(0.064);
                         })
                 ),
                 new ParallelActionImpl(
@@ -360,13 +360,11 @@ public class ActionFactory {
                 new MotorToPosition(this.compBot.bigArm.viperSlide, Constants.VIPER_SLIDES_MIN_TICS, true, 16, 150),
                 new InstantActionImpl(() -> this.compBot.littleArm.middleServo.setPosition(Constants.SPECIMEN_PICK_READY.middleServoPos.getPos())),
                 new WaitAction(250),
-                new ParallelActionImpl(
-                        new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos()),
-                        new InstantActionImpl(() -> {
-                            this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
-                            this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
-                        })
-                )
+                new InstantActionImpl(() -> {
+                    this.compBot.littleArm.doubleServos.setPosition(Constants.SPECIMEN_PICK_READY.doubleServosPos.getPos());
+                    this.compBot.littleArm.clawRotator.setPosition(Constants.SPECIMEN_PICK_READY.clawRotatorPos.getPos());
+                }),
+                new MotorToPosition(this.compBot.bigArm.mainBoom, Constants.SPECIMEN_PICK_READY.mainBoomPos.getPos())
         );
     }
 }

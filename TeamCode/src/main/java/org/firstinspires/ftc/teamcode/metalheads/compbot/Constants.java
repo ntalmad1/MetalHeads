@@ -52,9 +52,9 @@ public class Constants {
 
     /**
      */
-    public static final double CLAW_PINCHER_OPEN_POS = 0.0;
-    public static final double CLAW_PINCHER_CLOSE_POS = 0.23;
-    public static final double CLAW_PINCHER_INIT_POS = 0.23;
+    public static final double CLAW_PINCHER_OPEN_POS = 0.04;
+    public static final double CLAW_PINCHER_CLOSE_POS = 0.275;
+    public static final double CLAW_PINCHER_INIT_POS = 0.28;
 
     /**
      */
