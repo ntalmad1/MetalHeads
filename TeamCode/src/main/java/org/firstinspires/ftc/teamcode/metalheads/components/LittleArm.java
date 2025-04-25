@@ -18,7 +18,7 @@ public class LittleArm extends Component {
 
     /**
      */
-    public ServoComponent doubleServos;
+    public ServoComponent baseServo;
 
     /**
      */
@@ -43,7 +43,7 @@ public class LittleArm extends Component {
 
         this.config = littleArmConfig;
 
-        this.doubleServos = new ServoComponent(this.config.doubleServosConfig);
+        this.baseServo = new ServoComponent(this.config.baseServoConfig);
 
         this.middleServo = new ServoComponent(this.config.middleServoConfig);
 
@@ -59,7 +59,7 @@ public class LittleArm extends Component {
     public void init() {
         super.init();
 
-        this.doubleServos.init();
+        this.baseServo.init();
         this.middleServo.init();
         this.clawRotator.init();
         this.clawPincher.init();
@@ -72,13 +72,13 @@ public class LittleArm extends Component {
     public void run() {
         super.run();
 
-        this.doubleServos.run();
+        this.baseServo.run();
         this.middleServo.run();
         this.clawRotator.run();
         this.clawPincher.run();
 
         if (this.isDebug()) {
-            telemetry.addData("Double Servos:", this.doubleServos.getPosition());
+            telemetry.addData("Double Servos:", this.baseServo.getPosition());
             telemetry.addData("Middle Servo:", this.middleServo.getPosition());
             telemetry.addData("Claw Rotator:", this.clawRotator.getPosition());
             telemetry.addData("Claw Pincher:", this.clawPincher.getPosition());

@@ -13,7 +13,7 @@ public class LittleArmConfig {
 
     /**
      */
-    public ServoComponentConfig doubleServosConfig;
+    public ServoComponentConfig baseServoConfig;
 
     /**
      */
@@ -36,7 +36,7 @@ public class LittleArmConfig {
     public LittleArmConfig(IsaacBot robot) {
         this.robot = robot;
 
-        this.doubleServosConfig = new ServoComponentConfig(robot);
+        this.baseServoConfig = new ServoComponentConfig(robot);
         this.middleServoConfig = new ServoComponentConfig(robot);
         this.clawRotatorConfig = new ServoComponentConfig(robot);
         this.clawPincherConfig = new ServoComponentConfig(robot);

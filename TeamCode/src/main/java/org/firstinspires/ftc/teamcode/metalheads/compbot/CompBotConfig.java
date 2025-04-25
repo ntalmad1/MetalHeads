@@ -8,10 +8,7 @@ import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrainCon
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
 import org.firstinspires.ftc.teamcode.library.potentiometermotor.PotentiometerMotorConfig;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponentConfig;
-import org.firstinspires.ftc.teamcode.library.utility.Control;
-import org.firstinspires.ftc.teamcode.metalheads.components.BigArmConfig;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArmConfig;
-import org.firstinspires.ftc.teamcode.metalheads.components.SweeperArmConfig;
 
 /**
  *
@@ -24,15 +21,7 @@ public class CompBotConfig {
 
     /**
      */
-    public BigArmConfig bigArmConfig;
-
-    /**
-     */
     public LittleArmConfig littleArmConfig;
-
-    /**
-     */
-    public SweeperArmConfig sweeperArmConfig;
 
     /**
      */
@@ -44,15 +33,7 @@ public class CompBotConfig {
 
     /**
      */
-    public boolean useBigArm = true;
-
-    /**
-     */
     public boolean useLittleArm = true;
-
-    /**
-     */
-    public boolean useSweeperArm = true;
 
     /**
      */
@@ -64,13 +45,7 @@ public class CompBotConfig {
 
     /**
      */
-    public boolean debugBigArm = false;
-
-    /**
-     */
     public boolean debugLittleArm = false;
-
-    public boolean debugSweeperArm = false;
 
     /**
      * Constructor
@@ -83,51 +58,8 @@ public class CompBotConfig {
         // driveTrain
         this.configureDriveTrain(robot);
 
-        // big arm
-        this.configureBigArm(robot);
-
         // little arm
         this.configureLittleArm(robot);
-
-        // sweeper arm
-        this.configureSweeperArm(robot);
-    }
-
-    /**
-     *
-     * @param robot
-     */
-    private void configureBigArm(IsaacBot robot) {
-        this.bigArmConfig = new BigArmConfig(robot);
-
-        this.bigArmConfig.viperSlidesTouchSensorName = "viperSlideStopper";
-
-        // main boom
-        this.bigArmConfig.mainBoomConfig = new EncodedMotorConfig(robot);
-        this.bigArmConfig.mainBoomConfig.motorName = "rightWorm";
-        this.bigArmConfig.mainBoomConfig.brakeOn = false;
-        this.bigArmConfig.mainBoomConfig.isDualMotor = true;
-        this.bigArmConfig.mainBoomConfig.minTics = Constants.MAIN_BOOM_MIN_TICS;
-        this.bigArmConfig.mainBoomConfig.maxTics = Constants.MAIN_BOOM_MAX_TICS;
-        this.bigArmConfig.mainBoomConfig.scale = Constants.MAIN_BOOM_SCALE;
-        this.bigArmConfig.mainBoomConfig.secondaryMotorName = "leftWorm";
-
-        // viper slides
-        this.bigArmConfig.viperSlideConfig = new PotentiometerMotorConfig(robot);
-        this.bigArmConfig.viperSlideConfig.minTics = Constants.VIPER_SLIDES_MIN_TICS;
-        this.bigArmConfig.viperSlideConfig.maxTics = Constants.VIPER_SLIDES_MAX_TICS;
-        //this.bigArmConfig.viperSlideConfig.minVolts = Constants.VIPER_SLIDES_VOLTS_MIN;
-        //this.bigArmConfig.viperSlideConfig.maxVolts = Constants.VIPER_SLIDES_VOLTS_MAX;
-        this.bigArmConfig.viperSlideConfig.motorName = "rightSlide";
-        this.bigArmConfig.viperSlideConfig.brakeOn = true;
-        this.bigArmConfig.viperSlideConfig.initialMotorDirection = DcMotorSimple.Direction.REVERSE;
-        this.bigArmConfig.viperSlideConfig.scale = Constants.VIPER_SLIDES_SCALE;
-        this.bigArmConfig.viperSlideConfig.isDualMotor = true;
-        this.bigArmConfig.viperSlideConfig.secondaryMotorName = "leftSlide";
-        this.bigArmConfig.viperSlideConfig.secondaryInitialMotorDirection = DcMotorSimple.Direction.FORWARD;
-
-       // this.bigArmConfig.viperSlideConfig.potentiometerConfig = new PotentiometerConfig(robot);
-       // this.bigArmConfig.viperSlideConfig.potentiometerConfig.potentiometerName = "pot";
     }
 
     /**
@@ -138,16 +70,13 @@ public class CompBotConfig {
         this.littleArmConfig = new LittleArmConfig(robot);
 
         // double servos
-        this.littleArmConfig.doubleServosConfig = new ServoComponentConfig(robot);
-        this.littleArmConfig.doubleServosConfig.servoName = "leftBoom";
-        this.littleArmConfig.doubleServosConfig.maxIncrement = Constants.DOUBLE_SERVOS_INCREMENT;
-        this.littleArmConfig.doubleServosConfig.minPosition = Constants.DOUBLE_SERVOS_MIN_POS;
-        this.littleArmConfig.doubleServosConfig.maxPosition = Constants.DOUBLE_SERVOS_MAX_POS;
-        this.littleArmConfig.doubleServosConfig.homePosition = Constants.DOUBLE_SERVOS_INIT_POS;
-        this.littleArmConfig.doubleServosConfig.direction = Servo.Direction.REVERSE;
-        this.littleArmConfig.doubleServosConfig.zeroDegreePosition = 0.5;
-        this.littleArmConfig.doubleServosConfig.isDualServo = true;
-        this.littleArmConfig.doubleServosConfig.secondaryServoName = "rightBoom";
+        this.littleArmConfig.baseServoConfig = new ServoComponentConfig(robot);
+        this.littleArmConfig.baseServoConfig.servoName = "base";
+        this.littleArmConfig.baseServoConfig.maxIncrement = Constants.BASE_SERVO_INCREMENT;
+        this.littleArmConfig.baseServoConfig.minPosition = Constants.BASE_SERVO_MIN_POS;
+        this.littleArmConfig.baseServoConfig.maxPosition = Constants.BASE_SERVO_MAX_POS;
+        this.littleArmConfig.baseServoConfig.homePosition = Constants.BASE_SERVO_INIT_POS;
+        this.littleArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
 
         // middle servos
         this.littleArmConfig.middleServoConfig = new ServoComponentConfig(robot);
@@ -177,57 +106,13 @@ public class CompBotConfig {
         this.littleArmConfig.clawPincherConfig.lazyInit = false;
     }
 
-
-    private void configureSweeperArm(IsaacBot robot) {
-        this.sweeperArmConfig = new SweeperArmConfig(robot);
-
-        // Base servo
-        this.sweeperArmConfig.baseServoConfig = new ServoComponentConfig(robot);
-        this.sweeperArmConfig.baseServoConfig.servoName = "sweeperBase";
-        this.sweeperArmConfig.baseServoConfig.maxIncrement = 1;
-        this.sweeperArmConfig.baseServoConfig.minPosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
-        this.sweeperArmConfig.baseServoConfig.maxPosition = Constants.SWEEPER_BASE_SERVO_OPEN_POS;
-        this.sweeperArmConfig.baseServoConfig.homePosition = Constants.SWEEPER_BASE_SERVO_CLOSED_POS;
-        this.sweeperArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
-        this.sweeperArmConfig.baseServoConfig.lazyInit = true;
-
-        // Middle Servo
-        this.sweeperArmConfig.middleServoConfig = new ServoComponentConfig(robot);
-        this.sweeperArmConfig.middleServoConfig.servoName = "sweeperMiddle";
-        this.sweeperArmConfig.middleServoConfig.homePosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
-        this.sweeperArmConfig.middleServoConfig.zeroDegreePosition = 0.5;
-        this.sweeperArmConfig.middleServoConfig.minPosition = Constants.SWEEPER_MIDDLE_SERVO_CLOSED_POS;
-        this.sweeperArmConfig.middleServoConfig.maxPosition = Constants.SWEEPER_MIDDLE_SERVO_OPEN_POS;
-        this.sweeperArmConfig.middleServoConfig.lazyInit = true;
-
-        // End Servo
-        this.sweeperArmConfig.endServoConfig = new ServoComponentConfig(robot);
-        this.sweeperArmConfig.endServoConfig.servoName = "sweeperEnd";
-        this.sweeperArmConfig.endServoConfig.homePosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
-        this.sweeperArmConfig.endServoConfig.zeroDegreePosition = 0.5;
-        this.sweeperArmConfig.endServoConfig.minPosition = Constants.SWEEPER_END_SERVO_CLOSED_POS;
-        this.sweeperArmConfig.endServoConfig.maxPosition = Constants.SWEEPER_END_SERVO_OPEN_POS;
-        this.sweeperArmConfig.endServoConfig.lazyInit = true;
-
-        // Brace Servo
-        this.sweeperArmConfig.specimenBrace = new ServoComponentConfig(robot);
-        this.sweeperArmConfig.specimenBrace.servoName = "specimenBrace";
-        this.sweeperArmConfig.specimenBrace.homePosition = 1;
-        this.sweeperArmConfig.specimenBrace.zeroDegreePosition = 0.5;
-        this.sweeperArmConfig.specimenBrace.maxPosition = 1;
-        this.sweeperArmConfig.specimenBrace.minPosition = 0;
-        this.sweeperArmConfig.specimenBrace.lazyInit = true;
-    }
-
     /**
      *
      * @param robot
      */
     private void configureDriveTrain(IsaacBot robot) {
         this.driveTrainConfig = new RoadrunnerDriveTrainConfig(robot);
-        if (AutonomousData.yawOffset == null) AutonomousData.yawOffset = 0;
-        this.driveTrainConfig.yawOffset = AutonomousData.yawOffset;
-        AutonomousData.yawOffset = 0;
+        this.driveTrainConfig.yawOffset = 0;
         this.driveTrainConfig.imuName = "imuExternal";
     }
 
