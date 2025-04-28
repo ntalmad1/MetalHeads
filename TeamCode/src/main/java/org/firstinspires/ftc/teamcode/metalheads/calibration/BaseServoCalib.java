@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_up_p
 
 /**
  */
-@TeleOp(name="MiddleServoCalib", group="Calibration")
+@TeleOp(name="BaseServoCalib", group="Calibration")
 //@Disabled
 public class BaseServoCalib extends IsaacBot {
 
@@ -111,6 +111,6 @@ public class BaseServoCalib extends IsaacBot {
         }
 
         telemetry.addData("Base Pos: ", "%.3f", servo.getPosition());
-        telemetry.update();e
+        telemetry.update();
     }
 }

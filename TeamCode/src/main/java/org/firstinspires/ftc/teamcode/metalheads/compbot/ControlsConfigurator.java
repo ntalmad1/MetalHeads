@@ -43,19 +43,16 @@ public class ControlsConfigurator {
         this.compBot.addGp1_Start_PressHandler(event -> {
         });
 
-        //DoHang
         this.gp1_X_Button();
 
-        //Brute Force MainBoom
         this.gp1_B_Button();
 
-        //Reset MainBoom Encoder
         this.gp1_Y_Button();
 
-        //ViperSlides
+        this.gp1_A_Button();
+
         this.gp1_Triggers();
 
-        //Sweeper Open/Close
         this.gp1_Bumpers();
     }
 
@@ -73,29 +70,28 @@ public class ControlsConfigurator {
         this.compBot.addGp2_Start_PressHandler(event -> {
         });
 
-        //Sample Grabing
+
         this.gp2_A_Button();
-        //Sample Placing
+
         this.gp2_X_Button();
-        //Specimen Grabbing
+
         this.gp2_B_Button();
-        //Specimen Placing
+
         this.gp2_Y_Button();
 
-        // double servos and middle servo
+
         this.gp2_Dpad();
 
-        //MainBoom Left/Min Right/Max
+
         this.gp2_Bumpers();
 
-        // claw pincher
+
         this.gp2_Triggers();
 
-        //X -> Claw Rotator
+
         this.gp2_LeftStick();
 
-        //Y -> MainBoom
-        //X -> ViperSlide
+
         this.gp2_RightStick();
     }
 
@@ -137,6 +133,14 @@ public class ControlsConfigurator {
 
         });
 
+    }
+
+    public void gp1_A_Button() {
+        this.compBot.addGp1_A_PressHandler(event -> {
+
+            
+
+        });
     }
 
     /**

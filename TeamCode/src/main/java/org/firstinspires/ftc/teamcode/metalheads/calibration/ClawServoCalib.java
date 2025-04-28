@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.metalheads.calibration;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -11,10 +10,11 @@ import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_up_p
 import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_up_press.Gp1_Dpad_Up_PressHandler;
 
 /**
+ *
  */
-@TeleOp(name="MiddleServoCalib", group="Calibration")
+@TeleOp(name="ClawPincherServoCalibration", group="Calibration")
 //@Disabled
-public class MiddleServoCalib extends IsaacBot {
+public class ClawServoCalib extends IsaacBot {
 
     /**
      */
@@ -40,12 +40,13 @@ public class MiddleServoCalib extends IsaacBot {
 
     @Override
     public void initBot() {
-        yStickIncrement = 0.0006;
-        gamePadIncrement = 0.002;
-        servoName = "middle";
-        servoInitPos = 0.5;
-        servoMinPos = 0.0;
-        servoMaxPos = 0.783;
+        yStickIncrement = 0.0012;
+        gamePadIncrement = 0.006;
+        servoName = "claw";
+        servoInitPos = 0.75;
+        servoMinPos = 0;
+        servoMaxPos = 1;
+
 
         servo = this.hardwareMap.get(Servo.class, servoName);
         servo.resetDeviceConfigurationForOpMode();
@@ -111,7 +112,7 @@ public class MiddleServoCalib extends IsaacBot {
             servo.setPosition(newPos);
         }
 
-        telemetry.addData("Middle Pos: ", "%.3f", servo.getPosition());
+        telemetry.addData("Servo position: ", "%.3f", servo.getPosition());
         telemetry.update();
     }
 }
