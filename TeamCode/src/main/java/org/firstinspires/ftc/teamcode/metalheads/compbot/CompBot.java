@@ -153,14 +153,6 @@ public abstract class CompBot extends IsaacBot {
 
     /**
      *
-     * @param pos
-     */
-    public void setInitialPose(Pose2d pos) {
-        this.initialPose = pos;
-    }
-
-    /**
-     *
      * @param config
      */
     public void setConfig(CompBotConfig config) {

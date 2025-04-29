@@ -22,10 +22,6 @@ public class LittleArm extends Component {
 
     /**
      */
-    public ServoComponent middleServo;
-
-    /**
-     */
     public ServoComponent clawRotator;
 
     /**
@@ -45,8 +41,6 @@ public class LittleArm extends Component {
 
         this.baseServo = new ServoComponent(this.config.baseServoConfig);
 
-        this.middleServo = new ServoComponent(this.config.middleServoConfig);
-
         this.clawRotator = new ServoComponent(this.config.clawRotatorConfig);
 
         this.clawPincher = new ServoComponent(this.config.clawPincherConfig);
@@ -60,7 +54,6 @@ public class LittleArm extends Component {
         super.init();
 
         this.baseServo.init();
-        this.middleServo.init();
         this.clawRotator.init();
         this.clawPincher.init();
     }
@@ -73,32 +66,14 @@ public class LittleArm extends Component {
         super.run();
 
         this.baseServo.run();
-        this.middleServo.run();
         this.clawRotator.run();
         this.clawPincher.run();
 
         if (this.isDebug()) {
-            telemetry.addData("Double Servos:", this.baseServo.getPosition());
-            telemetry.addData("Middle Servo:", this.middleServo.getPosition());
+            telemetry.addData("Base Servo:", this.baseServo.getPosition());
             telemetry.addData("Claw Rotator:", this.clawRotator.getPosition());
             telemetry.addData("Claw Pincher:", this.clawPincher.getPosition());
 
         }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Action closeClawAction() {
-        return this.clawPincher.gotoPositionAction(Constants.CLAW_PINCHER_CLOSE_POS, 1);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Action openClawAction() {
-        return this.clawPincher.gotoPositionAction(Constants.CLAW_PINCHER_OPEN_POS, 1);
     }
 }

@@ -20,7 +20,7 @@ public class RoadrunnerDriveTrainConfig
 
     /**
      */
-    public boolean alwaysForwards = true;
+    public boolean alwaysForwards = false;
 
     /**
      */

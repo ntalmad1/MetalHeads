@@ -72,7 +72,7 @@ public class CompBotConfig {
         // double servo
         this.littleArmConfig.baseServoConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.baseServoConfig.servoName = "base";
-        this.littleArmConfig.baseServoConfig.maxIncrement = Constants.BASE_SERVO_INCREMENT;
+        this.littleArmConfig.baseServoConfig.maxIncrement = 0.01;
         this.littleArmConfig.baseServoConfig.minPosition = 0;
         this.littleArmConfig.baseServoConfig.maxPosition = 0.74;
         this.littleArmConfig.baseServoConfig.homePosition = 0;
@@ -101,7 +101,7 @@ public class CompBotConfig {
     private void configureDriveTrain(IsaacBot robot) {
         this.driveTrainConfig = new RoadrunnerDriveTrainConfig(robot);
         this.driveTrainConfig.yawOffset = 0;
-        this.driveTrainConfig.imuName = "imuExternal";
+        this.driveTrainConfig.imuName = "imu";
     }
 
 }

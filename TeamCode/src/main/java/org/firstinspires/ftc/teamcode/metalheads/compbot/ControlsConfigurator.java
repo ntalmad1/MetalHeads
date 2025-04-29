@@ -193,19 +193,27 @@ public class ControlsConfigurator {
     /**
      */
     public void gp2_LeftStick() {
-        this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
+//        this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
+//
+//            double servoPos;
+//
+//            double x = event.getPosition();
+//
+//            //y=0.04x^{2}-0.36x+0.32
+//            servoPos = 0.04 * Math.pow(x, 2) - 0.36 * x + 0.32;
+//
+//            //y=0.5x+0.5
+//            //servoPos = 0.5 * x + 0.5;
+//
+//            this.compBot.littleArm.clawRotator.setPosition(servoPos);
+//        });
 
-            double servoPos;
+        this.compBot.addGp2_LeftStick_Y_Handler(event -> {
+            this.compBot.littleArm.baseServo.move(event.getPosition());
 
-            double x = event.getPosition();
-
-            //y=0.04x^{2}-0.36x+0.32
-            servoPos = 0.04 * Math.pow(x, 2) - 0.36 * x + 0.32;
-
-            //y=0.5x+0.5
-            //servoPos = 0.5 * x + 0.5;
-
-            this.compBot.littleArm.clawRotator.setPosition(servoPos);
+            this.compBot.littleArm.clawRotator.setPosition(
+                    -0.632462 * (this.compBot.littleArm.baseServo.getPosition()) + 0.692
+            );
         });
     }
 
@@ -251,24 +259,28 @@ public class ControlsConfigurator {
         // dpad up
         this.compBot.addGp2_Dpad_Up_DownHandler(event -> {
 
+            this.compBot.littleArm.baseServo.move(1);
 
         });
 
         // dpad down
         this.compBot.addGp2_Dpad_Down_DownHandler(event -> {
 
+            this.compBot.littleArm.baseServo.move(-1);
 
         });
 
         // dpad left
         this.compBot.addGp2_Dpad_Left_DownHandler(event -> {
 
+            this.compBot.littleArm.clawRotator.move(-1);
 
         });
 
         //dpad right
         this.compBot.addGp2_Dpad_Right_DownHandler(event -> {
 
+            this.compBot.littleArm.clawRotator.move(1);
 
         });
     }
@@ -291,11 +303,11 @@ public class ControlsConfigurator {
     public void gp2_Triggers() {
         // claw
         this.compBot.littleArm.clawPincher.addGp2_Right_Trigger_Handler(event -> {
-            this.compBot.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_CLOSE_POS);
+            this.compBot.littleArm.clawPincher.setPosition(0.15);
         });
 
         this.compBot.littleArm.clawPincher.addGp2_Left_Trigger_Handler(event -> {
-            this.compBot.littleArm.clawPincher.setPosition(Constants.CLAW_PINCHER_OPEN_POS);
+            this.compBot.littleArm.clawPincher.setPosition(0.4);
         });
     }
 }
