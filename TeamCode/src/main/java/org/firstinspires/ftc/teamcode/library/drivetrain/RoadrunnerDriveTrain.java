@@ -24,7 +24,7 @@ public class RoadrunnerDriveTrain extends Component
 
     /**
      */
-    private TankDrive drive;
+    private RoadrunnerDrive drive;
 
     /**
      * Constructor
@@ -74,8 +74,8 @@ public class RoadrunnerDriveTrain extends Component
         double x = newPoint.getX();
         double y = newPoint.getY();
 
-        double drive = y; // Forward/backward
-        double turn = rx;  // Turning
+        double drive = rx; // Forward/backward
+        double turn = y;  // Turning
 
         // Arcade drive calculations
         double leftPower = drive + turn;

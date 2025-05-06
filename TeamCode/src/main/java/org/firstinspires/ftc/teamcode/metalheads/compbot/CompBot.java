@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.library.IsaacBot;
 import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrain;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArm;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.TankDrive;
 
 /**
  *
@@ -163,7 +164,7 @@ public abstract class CompBot extends IsaacBot {
      *
      * @return
      */
-    public MecanumDrive getDrive() {
+    public TankDrive getDrive() {
         return this.driveTrain.getDrive();
     }
 }
