@@ -3,12 +3,15 @@ package org.firstinspires.ftc.teamcode.library.drivetrain;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.library.component.Component;
 import org.firstinspires.ftc.teamcode.library.utility.GridUtils;
 import org.firstinspires.ftc.teamcode.library.utility.Point;
 import org.firstinspires.ftc.teamcode.roadrunner.Drawing;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.TankDrive;
 
 /**
  *
@@ -21,7 +24,7 @@ public class RoadrunnerDriveTrain extends Component
 
     /**
      */
-    private RoadrunnerDrive drive;
+    private TankDrive drive;
 
     /**
      * Constructor
@@ -71,17 +74,18 @@ public class RoadrunnerDriveTrain extends Component
         double x = newPoint.getX();
         double y = newPoint.getY();
 
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower   = (y - x + rx) / denominator;
-        double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower  = (y + x - rx) / denominator;
+        double drive = y; // Forward/backward
+        double turn = rx;  // Turning
+
+        // Arcade drive calculations
+        double leftPower = drive + turn;
+        double rightPower = drive - turn;
+
+
 
         Powers powers = new Powers();
-        powers.leftFront = frontLeftPower;
-        powers.leftBack = backLeftPower;
-        powers.rightFront = frontRightPower;
-        powers.rightBack = backRightPower;
+        powers.leftPower = leftPower;
+        powers.rightPower = rightPower;
 
         this.drive.setDrivePowers(powers);
         this.drive.updatePoseEstimate();
@@ -115,7 +119,7 @@ public class RoadrunnerDriveTrain extends Component
      *
      * @return
      */
-    public MecanumDrive getDrive() {
+    public TankDrive getDrive() {
         return this.drive;
     }
 }

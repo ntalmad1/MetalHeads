@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.library.drivetrain;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
@@ -25,9 +26,12 @@ public class RoadrunnerDrive extends TankDrive {
      * @param powers
      */
     public void setDrivePowers(Powers powers) {
-        leftMotors.setPower(powers.leftFront);
-        rightMotors.setPower(powers.leftBack);
-        rightBack.setPower(powers.rightBack);
-        rightFront.setPower(powers.rightFront);
+
+        for (DcMotorEx m : leftMotors) {
+            m.setPower(powers.leftPower);
+        }
+        for (DcMotorEx m : rightMotors) {
+            m.setPower(powers.rightPower);
+        }
     }
 }
