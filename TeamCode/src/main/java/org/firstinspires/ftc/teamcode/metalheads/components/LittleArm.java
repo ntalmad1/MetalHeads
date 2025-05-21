@@ -28,6 +28,10 @@ public class LittleArm extends Component {
      */
     public ServoComponent clawPincher;
 
+    /**
+     */
+    public ServoComponent trailerHook;
+
 
     /**
      * Constructor
@@ -44,6 +48,8 @@ public class LittleArm extends Component {
         this.clawRotator = new ServoComponent(this.config.clawRotatorConfig);
 
         this.clawPincher = new ServoComponent(this.config.clawPincherConfig);
+
+        this.trailerHook = new ServoComponent(this.config.trailerHookConfig);
     }
 
     /**
@@ -56,6 +62,7 @@ public class LittleArm extends Component {
         this.baseServo.init();
         this.clawRotator.init();
         this.clawPincher.init();
+        this.trailerHook.init();
     }
 
     /**
@@ -68,11 +75,13 @@ public class LittleArm extends Component {
         this.baseServo.run();
         this.clawRotator.run();
         this.clawPincher.run();
+        this.trailerHook.run();
 
         if (this.isDebug()) {
             telemetry.addData("Base Servo:", this.baseServo.getPosition());
             telemetry.addData("Claw Rotator:", this.clawRotator.getPosition());
             telemetry.addData("Claw Pincher:", this.clawPincher.getPosition());
+            telemetry.addData("Trailer Hook", this.trailerHook.getPosition());
 
         }
     }

@@ -138,7 +138,10 @@ public class ControlsConfigurator {
     public void gp1_A_Button() {
         this.compBot.addGp1_A_PressHandler(event -> {
 
-            
+
+            if (compBot.littleArm.trailerHook.getPosition() > 0.5) {
+                compBot.littleArm.trailerHook.setPosition(0);
+            } else compBot.littleArm.trailerHook.setPosition(0.6);
 
         });
     }
@@ -193,20 +196,6 @@ public class ControlsConfigurator {
     /**
      */
     public void gp2_LeftStick() {
-//        this.compBot.littleArm.clawRotator.addGp2_LeftStick_X_Handler(event -> {
-//
-//            double servoPos;
-//
-//            double x = event.getPosition();
-//
-//            //y=0.04x^{2}-0.36x+0.32
-//            servoPos = 0.04 * Math.pow(x, 2) - 0.36 * x + 0.32;
-//
-//            //y=0.5x+0.5
-//            //servoPos = 0.5 * x + 0.5;
-//
-//            this.compBot.littleArm.clawRotator.setPosition(servoPos);
-//        });
 
         this.compBot.addGp2_LeftStick_Y_Handler(event -> {
             this.compBot.littleArm.baseServo.move(event.getPosition());
