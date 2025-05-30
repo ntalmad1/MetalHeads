@@ -139,10 +139,6 @@ public class ControlsConfigurator {
         this.compBot.addGp1_A_PressHandler(event -> {
 
 
-            if (compBot.littleArm.trailerHook.getPosition() > 0.5) {
-                compBot.littleArm.trailerHook.setPosition(0);
-            } else compBot.littleArm.trailerHook.setPosition(0.6);
-
         });
     }
 
@@ -167,30 +163,14 @@ public class ControlsConfigurator {
     /**
      */
     private void gp2_RightStick() {
-        //ViperSlide
         this.compBot.addGp2_RightStick_X_Handler(event -> {
 
 
         });
+        this.compBot.addGp2_RightStick_Y_Handler(event -> {
 
-//        // main boom
-//        this.compBot.bigArm.mainBoom.addGp2_RightStick_Y_Handler(event -> {
-//            double deadZone = 0.2;
-//
-//            double pos = event.getPosition();
-//
-//            double power = 0;
-//
-//            if (pos > deadZone) {
-//                power = (pos - deadZone) / (1 - deadZone);
-//            }
-//            else if (pos < (deadZone * -1)) {
-//
-//                power = (pos - (deadZone * -1)) / (1 - deadZone);
-//            }
-//
-//            this.compBot.bigArm.mainBoom.move(-power);
-//        });
+
+        });
     }
 
     /**

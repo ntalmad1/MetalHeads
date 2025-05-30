@@ -92,13 +92,6 @@ public class CompBotConfig {
         this.littleArmConfig.clawPincherConfig.homePosition = 0.4;
         this.littleArmConfig.clawPincherConfig.minPosition = 0.15;
         this.littleArmConfig.clawPincherConfig.maxPosition = 0.4;
-
-        // trailer Hook
-        this.littleArmConfig.trailerHookConfig = new ServoComponentConfig(robot);
-        this.littleArmConfig.trailerHookConfig.servoName = "trailer";
-        this.littleArmConfig.trailerHookConfig.homePosition = 1;
-        this.littleArmConfig.trailerHookConfig.minPosition = 0;
-        this.littleArmConfig.trailerHookConfig.maxPosition = 1;
     }
 
     /**

@@ -27,10 +27,6 @@ public class LittleArmConfig {
      */
     public ServoComponentConfig clawPincherConfig;
 
-    /**
-     */
-
-    public ServoComponentConfig trailerHookConfig;
 
     /**
      * Constructor
@@ -44,6 +40,5 @@ public class LittleArmConfig {
         this.middleServoConfig = new ServoComponentConfig(robot);
         this.clawRotatorConfig = new ServoComponentConfig(robot);
         this.clawPincherConfig = new ServoComponentConfig(robot);
-        this.trailerHookConfig = new ServoComponentConfig(robot);
     }
 }
