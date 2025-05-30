@@ -223,8 +223,8 @@ public class TankDrive {
         // TODO: make sure your config has motors with these names (or change them)
         //   add additional motors on each side if you have them
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-        leftMotors = Arrays.asList(hardwareMap.get(DcMotorEx.class, "leftFront"), hardwareMap.get(DcMotorEx.class, "leftBack"));
-        rightMotors = Arrays.asList(hardwareMap.get(DcMotorEx.class, "rightFront"), hardwareMap.get(DcMotorEx.class, "rightBack"));
+        leftMotors = Arrays.asList(hardwareMap.get(DcMotorEx.class, "leftDrive"));
+        rightMotors = Arrays.asList(hardwareMap.get(DcMotorEx.class, "rightDrive"));
 
         for (DcMotorEx m : leftMotors) {
             m.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
