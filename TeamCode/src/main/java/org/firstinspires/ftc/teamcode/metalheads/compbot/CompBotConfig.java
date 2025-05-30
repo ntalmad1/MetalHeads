@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
 import org.firstinspires.ftc.teamcode.library.potentiometermotor.PotentiometerMotorConfig;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponentConfig;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArmConfig;
+import org.firstinspires.ftc.teamcode.metalheads.components.TurretConfig;
 
 /**
  *
@@ -25,6 +26,10 @@ public class CompBotConfig {
 
     /**
      */
+    public TurretConfig turretConfig;
+
+    /**
+     */
     public RoadrunnerDriveTrainConfig driveTrainConfig;
 
     /**
@@ -34,6 +39,10 @@ public class CompBotConfig {
     /**
      */
     public boolean useLittleArm = true;
+
+    /**
+     */
+    public boolean useTurret = true;
 
     /**
      */
@@ -48,6 +57,10 @@ public class CompBotConfig {
     public boolean debugLittleArm = false;
 
     /**
+     */
+    public boolean debugTurret = false;
+
+    /**
      * Constructor
      *
      * @param robot
@@ -60,6 +73,9 @@ public class CompBotConfig {
 
         // little arm
         this.configureLittleArm(robot);
+
+        // turret
+        this.configureTurret(robot);
     }
 
     /**
@@ -92,13 +108,16 @@ public class CompBotConfig {
         this.littleArmConfig.clawPincherConfig.homePosition = 0.4;
         this.littleArmConfig.clawPincherConfig.minPosition = 0.15;
         this.littleArmConfig.clawPincherConfig.maxPosition = 0.4;
+    }
 
-        // trailer Hook
-        this.littleArmConfig.trailerHookConfig = new ServoComponentConfig(robot);
-        this.littleArmConfig.trailerHookConfig.servoName = "trailer";
-        this.littleArmConfig.trailerHookConfig.homePosition = 1;
-        this.littleArmConfig.trailerHookConfig.minPosition = 0;
-        this.littleArmConfig.trailerHookConfig.maxPosition = 1;
+    private void configureTurret(IsaacBot robot) {
+        this.turretConfig = new TurretConfig(robot);
+
+        this.turretConfig.launcherConfig = new EncodedMotorConfig(robot);
+        this.turretConfig.launcherConfig.isDualMotor = true;
+        this.turretConfig.launcherConfig.motorName = "leftTurret";
+        this.turretConfig.launcherConfig.secondaryMotorName = "rightTurret";
+        this.turretConfig.launcherConfig.secondaryInitialMotorDirection = DcMotorSimple.Direction.REVERSE;
     }
 
     /**

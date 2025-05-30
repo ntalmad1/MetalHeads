@@ -43,6 +43,8 @@ public class ControlsConfigurator {
         this.compBot.addGp1_Start_PressHandler(event -> {
         });
 
+        this.gp1_Dpad();
+
         this.gp1_X_Button();
 
         this.gp1_B_Button();
@@ -139,9 +141,15 @@ public class ControlsConfigurator {
         this.compBot.addGp1_A_PressHandler(event -> {
 
 
-            if (compBot.littleArm.trailerHook.getPosition() > 0.5) {
-                compBot.littleArm.trailerHook.setPosition(0);
-            } else compBot.littleArm.trailerHook.setPosition(0.6);
+            this.compBot.turret.launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            if (compBot.turret.launcher.getPower() < 0.1) {
+                this.compBot.turret.launcher.setPower(1);
+            }
+
+            if (compBot.turret.launcher.getPower() > 0.1) {
+                this.compBot.turret.launcher.setPower(0);
+            }
 
         });
     }
@@ -162,6 +170,7 @@ public class ControlsConfigurator {
     /**
      */
     public void  gp1_Dpad() {
+
     }
 
     /**
@@ -170,27 +179,11 @@ public class ControlsConfigurator {
         //ViperSlide
         this.compBot.addGp2_RightStick_X_Handler(event -> {
 
-
         });
 
-//        // main boom
-//        this.compBot.bigArm.mainBoom.addGp2_RightStick_Y_Handler(event -> {
-//            double deadZone = 0.2;
-//
-//            double pos = event.getPosition();
-//
-//            double power = 0;
-//
-//            if (pos > deadZone) {
-//                power = (pos - deadZone) / (1 - deadZone);
-//            }
-//            else if (pos < (deadZone * -1)) {
-//
-//                power = (pos - (deadZone * -1)) / (1 - deadZone);
-//            }
-//
-//            this.compBot.bigArm.mainBoom.move(-power);
-//        });
+        this.compBot.addGp2_RightStick_Y_Handler(event -> {
+
+        });
     }
 
     /**

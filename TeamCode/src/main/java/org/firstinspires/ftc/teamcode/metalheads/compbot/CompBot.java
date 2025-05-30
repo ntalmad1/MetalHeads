@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import org.firstinspires.ftc.teamcode.library.IsaacBot;
 import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrain;
 import org.firstinspires.ftc.teamcode.metalheads.components.LittleArm;
+import org.firstinspires.ftc.teamcode.metalheads.components.Turret;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.TankDrive;
 
@@ -16,6 +17,10 @@ public abstract class CompBot extends IsaacBot {
     /**
      */
     protected LittleArm littleArm;
+
+    /**
+     */
+    protected Turret turret;
 
     /**
      */
@@ -64,6 +69,7 @@ public abstract class CompBot extends IsaacBot {
 
         this.config.debugDriveTrain = true;
         this.config.debugLittleArm = true;
+        this.config.debugTurret = true;
         this.config.debugAll = false;
 
         if (this.config.useDriveTrain) {
@@ -72,6 +78,10 @@ public abstract class CompBot extends IsaacBot {
 
         if (this.config.useLittleArm) {
             this.littleArm = new LittleArm(this.config.littleArmConfig);
+        }
+
+        if (this.config.useTurret) {
+            this.turret = new Turret(this.config.turretConfig);
         }
 
         this.actionFactory = new ActionFactory(this);
@@ -90,6 +100,10 @@ public abstract class CompBot extends IsaacBot {
 
         if (this.config.useLittleArm) {
             this.littleArm.init();
+        }
+
+        if (this.config.useTurret) {
+            this.turret.init();
         }
 
         ControlsConfigurator controlsConfigurator = new ControlsConfigurator(this);
@@ -120,9 +134,14 @@ public abstract class CompBot extends IsaacBot {
             this.littleArm.run(this.config.debugLittleArm || this.config.debugAll);
         }
 
+        if (this.config.useTurret) {
+            this.turret.run(this.config.debugTurret || this.config.debugAll);
+        }
+
 
         if (this.config.debugAll
             || this.config.debugDriveTrain
+            || this.config.debugTurret
             || this.config.debugLittleArm) {
             telemetry.update();
         }
