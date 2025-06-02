@@ -125,7 +125,6 @@ public class ControlsConfigurator {
     public void gp1_B_Button() {
         this.compBot.addGp1_B_PressHandler(event -> {
 
-
         });
     }
 
@@ -145,9 +144,7 @@ public class ControlsConfigurator {
 
             if (compBot.turret.launcher.getPower() < 0.1) {
                 this.compBot.turret.launcher.setPower(1);
-            }
-
-            if (compBot.turret.launcher.getPower() > 0.1) {
+            } else if (compBot.turret.launcher.getPower() > 0.1) {
                 this.compBot.turret.launcher.setPower(0);
             }
 
@@ -194,7 +191,7 @@ public class ControlsConfigurator {
             this.compBot.littleArm.baseServo.move(event.getPosition());
 
             this.compBot.littleArm.clawRotator.setPosition(
-                    -0.632462 * (this.compBot.littleArm.baseServo.getPosition()) + 0.692
+                    -0.621918 * (this.compBot.littleArm.baseServo.getPosition()) + 0.692
             );
         });
     }
@@ -213,6 +210,9 @@ public class ControlsConfigurator {
     public void gp2_B_Button() {
         this.compBot.addGp2_B_PressHandler(event -> {
 
+            if (compBot.littleArm.clawPincher.getPosition() < 0.2) {
+                compBot.littleArm.clawPincher.setPosition(0.32);
+            } else compBot.littleArm.clawPincher.setPosition(0.15);
 
         });
     }
@@ -231,6 +231,9 @@ public class ControlsConfigurator {
     public void gp2_Y_Button() {
         this.compBot.addGp2_Y_PressHandler(event -> {
 
+            if (compBot.littleArm.clawPincher.getPosition() < 0.2) {
+                compBot.littleArm.clawPincher.setPosition(0.4);
+            } else compBot.littleArm.clawPincher.setPosition(0.15);
 
         });
     }

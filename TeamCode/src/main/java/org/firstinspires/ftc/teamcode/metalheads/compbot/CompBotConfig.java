@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.library.IsaacBot;
 import org.firstinspires.ftc.teamcode.library.drivetrain.RoadrunnerDriveTrainConfig;
+import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotor;
 import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
 import org.firstinspires.ftc.teamcode.library.potentiometermotor.PotentiometerMotorConfig;
 import org.firstinspires.ftc.teamcode.library.servo.ServoComponentConfig;
@@ -90,14 +91,14 @@ public class CompBotConfig {
         this.littleArmConfig.baseServoConfig.servoName = "base";
         this.littleArmConfig.baseServoConfig.maxIncrement = 0.01;
         this.littleArmConfig.baseServoConfig.minPosition = 0;
-        this.littleArmConfig.baseServoConfig.maxPosition = 0.74;
+        this.littleArmConfig.baseServoConfig.maxPosition = 0.73;
         this.littleArmConfig.baseServoConfig.homePosition = 0;
         this.littleArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
 
         // claw rotator
         this.littleArmConfig.clawRotatorConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.clawRotatorConfig.servoName = "wrist";
-        this.littleArmConfig.clawRotatorConfig.homePosition = 0;
+        this.littleArmConfig.clawRotatorConfig.homePosition = 0.36;
         this.littleArmConfig.clawRotatorConfig.minPosition = 0;
         this.littleArmConfig.clawRotatorConfig.maxPosition = 0.797;
         this.littleArmConfig.clawRotatorConfig.maxIncrement = Constants.CLAW_ROTATOR_INCREMENT;
@@ -117,7 +118,6 @@ public class CompBotConfig {
         this.turretConfig.launcherConfig.isDualMotor = true;
         this.turretConfig.launcherConfig.motorName = "leftTurret";
         this.turretConfig.launcherConfig.secondaryMotorName = "rightTurret";
-        this.turretConfig.launcherConfig.secondaryInitialMotorDirection = DcMotorSimple.Direction.REVERSE;
     }
 
     /**

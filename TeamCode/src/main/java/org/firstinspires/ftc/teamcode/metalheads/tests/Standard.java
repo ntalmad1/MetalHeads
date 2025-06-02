@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name="StandardTest", group="Tests")
-//@Disabled
+@Disabled
 public class Standard extends LinearOpMode {
 
 

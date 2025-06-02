@@ -23,10 +23,6 @@ public class Turret extends Component {
     public EncodedMotor launcher;
 
     /**
-     */
-    public EncodedMotor rotator;
-
-    /**
      * Constructor
      *
      * @param turretConfig
@@ -37,7 +33,6 @@ public class Turret extends Component {
         this.config = turretConfig;
 
         this.launcher = new EncodedMotor(this.config.launcherConfig);
-        this.rotator = new EncodedMotor(this.config.rotatorConfig);
     }
 
     /**
@@ -48,7 +43,6 @@ public class Turret extends Component {
         super.init();
 
         this.launcher.init();
-        this.rotator.init();
     }
 
     /**
@@ -59,11 +53,9 @@ public class Turret extends Component {
         super.run();
 
         this.launcher.run();
-        this.rotator.run();
 
         if (this.isDebug()) {
             telemetry.addData("Launcher Speed:", this.launcher.getCurrentPosition());
-            telemetry.addData("Rotator Position:", this.rotator.getCurrentPosition());
         }
     }
 }

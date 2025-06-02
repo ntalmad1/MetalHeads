@@ -66,9 +66,9 @@ public class RoadrunnerDriveTrain extends Component
     {
         double yaw = -(this.getYaw() + getConfig().yawOffset);
 
-        float leftY = -this.robot.gamepad1.left_stick_y;
+        float leftY = -this.robot.gamepad1.right_stick_x;
         float leftX = this.robot.gamepad1.left_stick_x;
-        float rx = this.robot.gamepad1.right_stick_x;
+        float rx = -this.robot.gamepad1.left_stick_y;
 
         Point newPoint = GridUtils.rotatePointByDegrees(leftX,leftY,yaw);
         double x = newPoint.getX();

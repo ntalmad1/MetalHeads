@@ -18,11 +18,6 @@ public class TurretConfig {
     public EncodedMotorConfig launcherConfig;
 
     /**
-     */
-    public EncodedMotorConfig rotatorConfig;
-
-
-    /**
      * Constructor
      *
      * @param robot
@@ -31,6 +26,5 @@ public class TurretConfig {
         this.robot = robot;
 
         this.launcherConfig = new EncodedMotorConfig(robot);
-        this.rotatorConfig = new EncodedMotorConfig(robot);
     }
 }
