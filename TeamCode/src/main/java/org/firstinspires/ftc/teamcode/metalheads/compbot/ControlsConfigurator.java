@@ -201,6 +201,7 @@ public class ControlsConfigurator {
     public void gp2_A_Button() {
         this.compBot.addGp2_A_PressHandler(event -> {
 
+            this.compBot.runAction(this.compBot.getActionFactory().armToLaunch());
 
         });
     }

@@ -89,10 +89,10 @@ public class CompBotConfig {
         // double servo
         this.littleArmConfig.baseServoConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.baseServoConfig.servoName = "base";
-        this.littleArmConfig.baseServoConfig.maxIncrement = 0.01;
+        this.littleArmConfig.baseServoConfig.maxIncrement = 0.004;
         this.littleArmConfig.baseServoConfig.minPosition = 0;
         this.littleArmConfig.baseServoConfig.maxPosition = 0.73;
-        this.littleArmConfig.baseServoConfig.homePosition = 0;
+        this.littleArmConfig.baseServoConfig.homePosition = 0.15;
         this.littleArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
 
         // claw rotator
@@ -101,7 +101,7 @@ public class CompBotConfig {
         this.littleArmConfig.clawRotatorConfig.homePosition = 0.36;
         this.littleArmConfig.clawRotatorConfig.minPosition = 0;
         this.littleArmConfig.clawRotatorConfig.maxPosition = 0.797;
-        this.littleArmConfig.clawRotatorConfig.maxIncrement = Constants.CLAW_ROTATOR_INCREMENT;
+        this.littleArmConfig.clawRotatorConfig.maxIncrement = 0.004;;
 
         // claw pincher
         this.littleArmConfig.clawPincherConfig = new ServoComponentConfig(robot);
@@ -118,6 +118,8 @@ public class CompBotConfig {
         this.turretConfig.launcherConfig.isDualMotor = true;
         this.turretConfig.launcherConfig.motorName = "leftTurret";
         this.turretConfig.launcherConfig.secondaryMotorName = "rightTurret";
+        this.turretConfig.launcherConfig.initialMotorDirection = DcMotorSimple.Direction.REVERSE;
+        this.turretConfig.launcherConfig.secondaryInitialMotorDirection = DcMotorSimple.Direction.FORWARD;
     }
 
     /**

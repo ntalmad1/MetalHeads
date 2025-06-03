@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.library.action.ParallelActionImpl;
 import org.firstinspires.ftc.teamcode.library.action.SequentialActionImpl;
 import org.firstinspires.ftc.teamcode.library.action.WaitAction;
 import org.firstinspires.ftc.teamcode.library.encodedmotor.MotorToPosition;
+import org.firstinspires.ftc.teamcode.library.servo.ServoGoToPositionAction;
 
 /**
  *
@@ -41,6 +42,16 @@ public class ActionFactory {
 //
 //        );
 //    }
+
+    public AbstractAction armToLaunch() {
+        return new SequentialActionImpl(
+            new ServoGoToPositionAction(this.compBot.littleArm.baseServo, 0.6, this.compBot.littleArm.baseServo.getPosition(), 0.1),
+            new WaitAction(600),
+            new ServoGoToPositionAction(this.compBot.littleArm.clawRotator, 0.4, this.compBot.littleArm.clawRotator.getPosition(), 0.2),
+                new WaitAction(200),
+                new InstantActionImpl(() -> this.compBot.littleArm.clawPincher.setPosition(0.15))
+        );
+    }
 
 
 }
