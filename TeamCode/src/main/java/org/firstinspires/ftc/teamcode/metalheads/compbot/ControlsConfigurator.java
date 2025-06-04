@@ -218,6 +218,9 @@ public class ControlsConfigurator {
     public void gp2_Y_Button() {
         this.compBot.addGp2_Y_PressHandler(event -> {
 
+            if (compBot.littleArm.clawPincher.getPosition() > 0.1) {
+                compBot.littleArm.clawPincher.setPosition(0.0);
+            } else compBot.littleArm.clawPincher.setPosition(0.206);
 
         });
     }

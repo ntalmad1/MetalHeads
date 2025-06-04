@@ -73,7 +73,7 @@ public class CompBotConfig {
         this.littleArmConfig.baseServoConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.baseServoConfig.servoName = "base";
         this.littleArmConfig.baseServoConfig.maxIncrement = 0.004;
-        this.littleArmConfig.baseServoConfig.minPosition = 0.255;
+        this.littleArmConfig.baseServoConfig.minPosition = 0.215;
         this.littleArmConfig.baseServoConfig.maxPosition = 0.67;
         this.littleArmConfig.baseServoConfig.homePosition = 0.67;
         this.littleArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
