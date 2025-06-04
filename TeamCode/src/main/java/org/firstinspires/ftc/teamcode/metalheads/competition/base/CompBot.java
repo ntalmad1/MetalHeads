@@ -33,6 +33,8 @@ import org.firstinspires.ftc.teamcode.metalheads.competition.config.PixelCatcher
 import org.firstinspires.ftc.teamcode.metalheads.competition.config.RobotConfig;
 import org.firstinspires.ftc.teamcode.metalheads.competition.config.WinchCompConfig;
 
+//No more robotics :(, goodbye repository, to buried in the depths of the internet eventually deleted
+
 /**
  *
  */
