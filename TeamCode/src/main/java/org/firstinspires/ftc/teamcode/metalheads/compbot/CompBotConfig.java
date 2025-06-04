@@ -73,25 +73,25 @@ public class CompBotConfig {
         this.littleArmConfig.baseServoConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.baseServoConfig.servoName = "base";
         this.littleArmConfig.baseServoConfig.maxIncrement = 0.004;
-        this.littleArmConfig.baseServoConfig.minPosition = 0;
-        this.littleArmConfig.baseServoConfig.maxPosition = 0.74;
-        this.littleArmConfig.baseServoConfig.homePosition = 0;
+        this.littleArmConfig.baseServoConfig.minPosition = 0.255;
+        this.littleArmConfig.baseServoConfig.maxPosition = 0.67;
+        this.littleArmConfig.baseServoConfig.homePosition = 0.67;
         this.littleArmConfig.baseServoConfig.zeroDegreePosition = 0.5;
 
         // claw rotator
         this.littleArmConfig.clawRotatorConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.clawRotatorConfig.servoName = "wrist";
-        this.littleArmConfig.clawRotatorConfig.homePosition = 0;
-        this.littleArmConfig.clawRotatorConfig.minPosition = 0;
-        this.littleArmConfig.clawRotatorConfig.maxPosition = 0.797;
+        this.littleArmConfig.clawRotatorConfig.homePosition = 0.5;
+        this.littleArmConfig.clawRotatorConfig.minPosition = 0.14;
+        this.littleArmConfig.clawRotatorConfig.maxPosition = 0.6;
         this.littleArmConfig.clawRotatorConfig.maxIncrement = 0.004;
 
         // claw pincher
         this.littleArmConfig.clawPincherConfig = new ServoComponentConfig(robot);
         this.littleArmConfig.clawPincherConfig.servoName = "claw";
-        this.littleArmConfig.clawPincherConfig.homePosition = 0.4;
-        this.littleArmConfig.clawPincherConfig.minPosition = 0.15;
-        this.littleArmConfig.clawPincherConfig.maxPosition = 0.4;
+        this.littleArmConfig.clawPincherConfig.homePosition = 0.206;
+        this.littleArmConfig.clawPincherConfig.minPosition = 0.0;
+        this.littleArmConfig.clawPincherConfig.maxPosition = 0.206;
     }
 
     /**

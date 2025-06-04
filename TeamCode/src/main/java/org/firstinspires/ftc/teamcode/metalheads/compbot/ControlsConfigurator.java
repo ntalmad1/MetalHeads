@@ -181,7 +181,7 @@ public class ControlsConfigurator {
             this.compBot.littleArm.baseServo.move(event.getPosition());
 
             this.compBot.littleArm.clawRotator.setPosition(
-                    -0.632462 * (this.compBot.littleArm.baseServo.getPosition()) + 0.692
+                    -1.07981 * (this.compBot.littleArm.baseServo.getPosition()) + 0.863474
             );
         });
     }

@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.library.event.gp1_dpad_press.gp1_dpad_up_p
  */
 @TeleOp(name="EndServoCalib", group="Calibration")
 //@Disabled
-public class EndServoCalib extends IsaacBot {
+public class WristServoCalib extends IsaacBot {
 
     /**
      */
@@ -41,7 +41,7 @@ public class EndServoCalib extends IsaacBot {
     public void initBot() {
         yStickIncrement = 0.0006;
         gamePadIncrement = 0.002;
-        servoName = "end";
+        servoName = "wrist";
         servoInitPos = 0.5;
         servoMinPos = 0.0;
         servoMaxPos = 0.783;

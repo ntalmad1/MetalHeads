@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.library.encodedmotor.EncodedMotorConfig;
 import org.firstinspires.ftc.teamcode.library.utility.Control;
 
 @TeleOp(name="EncodedMotorTest", group="Tests")
-//@Disabled
+@Disabled
 public class EncodedMotorTest extends IsaacBot {
 
     /**
